@@ -51,7 +51,7 @@ export default async function PaymentsPage({
 						{job.title}
 					</h2>
 					<p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-						PayRail™ Portal
+						SiteDraft™ Portal
 					</p>
 				</div>
 			</header>

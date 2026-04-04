@@ -78,7 +78,7 @@ export async function createChangeOrder(
 }
 
 /**
- * 2. PAYMENTS & MILESTONES (PayRail)
+ * 2. PAYMENTS & MILESTONES (SiteDraft)
  */
 export async function createMilestone(
 	jobId: string,
@@ -203,10 +203,10 @@ export async function getPaymentLink(milestoneId: string) {
 }
 
 /**
- * 3. FIELD OPS (SitePulse)
+ * 3. FIELD OPS (CrewLens)
  */
 /**
- * 3. FIELD OPS (SitePulse)
+ * 3. FIELD OPS (CrewLens)
  */
 export async function submitDailyPulse(
 	jobId: string,

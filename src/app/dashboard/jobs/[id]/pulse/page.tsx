@@ -24,7 +24,7 @@ interface DailyLog {
 	log_photos?: LogPhoto[];
 }
 
-export default async function SitePulsePage({
+export default async function CrewLensPage({
 	params,
 }: {
 	params: Promise<{ id: string }>; // Updated to Next.js 15 Promise type
@@ -81,10 +81,10 @@ export default async function SitePulsePage({
 						href={`/dashboard/jobs/${jobId}/payments`}
 						className="bg-white text-slate-500 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
 					>
-						<CreditCard size={16} /> PayRail
+						<CreditCard size={16} /> SiteDraft
 					</Link>
 					<div className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-md">
-						<Activity size={16} /> SitePulse
+						<Activity size={16} /> CrewLens
 					</div>
 				</div>
 
