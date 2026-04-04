@@ -207,7 +207,7 @@ export default function LeadFilterPage() {
 										onChange={e =>
 											setFormData({ ...formData, name: e.target.value })
 										}
-										className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
+										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
 								<div>
@@ -221,7 +221,7 @@ export default function LeadFilterPage() {
 										onChange={e =>
 											setFormData({ ...formData, phone: e.target.value })
 										}
-										className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
+										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
 							</div>

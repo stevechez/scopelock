@@ -11,6 +11,17 @@ import {
 import Link from 'next/link';
 import { AcceptLeadButton } from './AcceptLeadButton';
 
+interface Lead {
+	id: string;
+	client_name: string;
+	client_phone: string;
+	project_type: string;
+	budget: string;
+	timeline: string;
+	status: string;
+	created_at: string;
+}
+
 export default async function LeadCRMPage() {
 	// Fetch only 'new' unhandled leads
 	const { data: leads } = await supabase

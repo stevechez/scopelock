@@ -7,6 +7,8 @@ import {
 	lemonSqueezySetup,
 	createCheckout,
 } from '@lemonsqueezy/lemonsqueezy.js';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@supabase/ssr';
 
 // Initialize external clients
 const twilioClient = twilio(
@@ -203,11 +205,15 @@ export async function getPaymentLink(milestoneId: string) {
 /**
  * 3. FIELD OPS (SitePulse)
  */
+/**
+ * 3. FIELD OPS (SitePulse)
+ */
 export async function submitDailyPulse(
 	jobId: string,
 	notes: string,
 	photoUrl: string,
 ) {
+	// 1. Create the Log
 	const { data: log, error: logError } = await supabase
 		.from('daily_logs')
 		.insert([
@@ -222,6 +228,7 @@ export async function submitDailyPulse(
 
 	if (logError) throw new Error('Failed to create log entry');
 
+	// 2. Attach the Photo
 	const { error: photoError } = await supabase.from('log_photos').insert([
 		{
 			log_id: log.id,
@@ -231,6 +238,28 @@ export async function submitDailyPulse(
 
 	if (photoError) throw new Error('Failed to attach photo');
 
+	// 3. Fetch the Job to get the Client's Phone Number
+	const { data: job } = await supabase
+		.from('jobs')
+		.select('client_phone, title')
+		.eq('id', jobId)
+		.single();
+
+	// 4. Send the SMS via Twilio (if a phone number exists)
+	if (job?.client_phone) {
+		try {
+			await twilioClient.messages.create({
+				body: `BlueprintOS update for ${job.title}: ${notes} - See photo: ${photoUrl}`,
+				from: process.env.TWILIO_PHONE_NUMBER, // Ensure this matches your .env
+				to: job.client_phone,
+			});
+			console.log('✅ Daily Pulse SMS Sent!');
+		} catch (error) {
+			console.error('⚠️ SMS failed, but log was saved:', error);
+		}
+	}
+
+	// 5. Revalidate and Return (This MUST be at the very bottom!)
 	revalidatePath(`/dashboard/jobs/${jobId}/pulse`);
 	return { success: true };
 }
@@ -311,8 +340,36 @@ export async function acceptLead(leadId: string) {
 /**
  * 0. AUTHENTICATION (The Keys)
  */
-export async function signIn(email: string, password: string) {
-	const { error } = await supabase.auth.signInWithPassword({
+export async function signIn(
+	email: string,
+	password: string,
+): Promise<{ success: boolean }> {
+	const cookieStore = await cookies();
+
+	// Create an SSR-specific client that can write cookies directly to the browser
+	const supabaseServer = createServerClient(
+		process.env.NEXT_PUBLIC_SUPABASE_URL!,
+		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+		{
+			cookies: {
+				getAll() {
+					return cookieStore.getAll();
+				},
+				setAll(cookiesToSet) {
+					try {
+						cookiesToSet.forEach(({ name, value, options }) =>
+							cookieStore.set(name, value, options),
+						);
+					} catch (error) {
+						// The `setAll` method was called from a Server Component.
+						// This can be ignored if you have middleware refreshing user sessions.
+					}
+				},
+			},
+		},
+	);
+
+	const { error } = await supabaseServer.auth.signInWithPassword({
 		email,
 		password,
 	});
@@ -322,6 +379,5 @@ export async function signIn(email: string, password: string) {
 		throw new Error(error.message);
 	}
 
-	// Redirect happens on the client side after a successful response
 	return { success: true };
 }

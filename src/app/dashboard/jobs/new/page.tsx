@@ -1,156 +1,116 @@
-'use server';
+'use client';
 
-import { revalidatePath } from 'next/cache';
-import { supabase } from '@/lib/supabase';
-import twilio from 'twilio';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createJob } from '@/app/actions';
+import { ArrowLeft, Plus, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
-// Initialize Twilio
-const twilioClient = twilio(
-	process.env.TWILIO_ACCOUNT_SID,
-	process.env.TWILIO_AUTH_TOKEN,
-);
+export default function NewJobPage() {
+	const [title, setTitle] = useState('');
+	const [phone, setPhone] = useState('');
+	const [value, setValue] = useState('');
+	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
-/**
- * 1. JOB MANAGEMENT
- */
-export async function createJob(
-	title: string,
-	clientPhone: string,
-	baseValue: number,
-) {
-	const { data, error } = await supabase
-		.from('jobs')
-		.insert([
-			{
-				title,
-				client_phone: clientPhone,
-				base_contract_value: baseValue,
-				status: 'active',
-			},
-		])
-		.select()
-		.single();
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
 
-	if (error) {
-		console.error('Error creating job:', error);
-		throw new Error('Failed to create job');
-	}
+		try {
+			const job = await createJob(title, phone, Number(value));
+			router.push(`/dashboard/jobs/${job.id}/payments`);
+		} catch (err) {
+			console.error('Creation failed:', err);
+			alert('Error creating job. Please check your connection.');
+			setLoading(false);
+		}
+	};
 
-	revalidatePath('/dashboard');
-	return data;
-}
+	return (
+		<div className="min-h-screen bg-slate-50 p-6 flex flex-col items-center selection:bg-slate-900 selection:text-white">
+			<div className="w-full max-w-lg mt-12">
+				<Link
+					href="/dashboard"
+					className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-8 hover:text-slate-900 transition-colors w-fit"
+				>
+					<ArrowLeft size={14} /> Back to Command Center
+				</Link>
 
-/**
- * 2. CHANGE ORDERS (ScopeLock)
- */
-export async function createChangeOrder(
-	jobId: string,
-	description: string,
-	price: number,
-) {
-	const { data, error } = await supabase
-		.from('change_orders')
-		.insert([{ job_id: jobId, description, price, status: 'pending' }])
-		.select()
-		.single();
+				<div className="mb-10">
+					<h1 className="text-4xl font-black text-slate-900 tracking-tight">
+						New Project
+					</h1>
+					<p className="text-slate-500 font-medium mt-2">
+						Set the foundation for a new build.
+					</p>
+				</div>
 
-	if (error) throw new Error('Failed to create change order');
+				<form
+					onSubmit={handleSubmit}
+					className="space-y-6 bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-100"
+				>
+					<div>
+						<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+							Project Name
+						</label>
+						<input
+							required
+							type="text"
+							value={title}
+							onChange={e => setTitle(e.target.value)}
+							placeholder="e.g. Cupertino Kitchen Remodel"
+							className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all text-slate-900"
+						/>
+					</div>
 
-	revalidatePath(`/dashboard/jobs/${jobId}`);
-	revalidatePath('/dashboard');
-	return data;
-}
+					<div>
+						<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+							Client Phone (SMS)
+						</label>
+						<input
+							required
+							type="tel"
+							value={phone}
+							onChange={e => setPhone(e.target.value)}
+							placeholder="+1 555 000 0000"
+							className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all text-slate-900"
+						/>
+					</div>
 
-/**
- * 3. PAYMENTS & MILESTONES (PayRail)
- */
-export async function createMilestone(
-	jobId: string,
-	title: string,
-	amount: number,
-) {
-	const { data, error } = await supabase
-		.from('milestones')
-		.insert([{ job_id: jobId, title, amount, status: 'pending' }])
-		.select()
-		.single();
+					<div>
+						<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+							Initial Contract Value
+						</label>
+						<div className="relative mt-1">
+							<span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">
+								$
+							</span>
+							<input
+								required
+								type="number"
+								value={value}
+								onChange={e => setValue(e.target.value)}
+								placeholder="0.00"
+								className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 pl-8 text-sm focus:ring-2 focus:ring-slate-900 outline-none transition-all text-slate-900"
+							/>
+						</div>
+					</div>
 
-	if (error) throw new Error('Failed to create milestone');
-
-	revalidatePath(`/dashboard/jobs/${jobId}/payments`);
-	return data;
-}
-
-export async function requestMilestonePayment(
-	milestoneId: string,
-	jobId: string,
-	proofImageUrl: string,
-) {
-	// Update Milestone
-	const { error: updateError } = await supabase
-		.from('milestones')
-		.update({
-			status: 'invoiced',
-			proof_image_url: proofImageUrl,
-			completed_at: new Date().toISOString(),
-		})
-		.eq('id', milestoneId);
-
-	if (updateError) throw new Error('Database update failed');
-
-	// Fetch details for SMS
-	const { data: job } = await supabase
-		.from('jobs')
-		.select('*')
-		.eq('id', jobId)
-		.single();
-	const { data: milestone } = await supabase
-		.from('milestones')
-		.select('*')
-		.eq('id', milestoneId)
-		.single();
-
-	const clientPhone = job?.client_phone || '+15551234567';
-	const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL}/pay/${milestoneId}`;
-
-	try {
-		const messageBody = `BlueprintOS: ${job.title} update! Milestone "${milestone.title}" is complete. Tap here to view the photo and pay $${milestone.amount}: ${paymentLink}`;
-
-		await twilioClient.messages.create({
-			body: messageBody,
-			from: process.env.TWILIO_PHONE_NUMBER,
-			to: clientPhone,
-		});
-	} catch (error) {
-		console.error('SMS failed:', error);
-	}
-
-	revalidatePath(`/dashboard/jobs/${jobId}/payments`);
-}
-
-/**
- * 4. FIELD OPS (SitePulse)
- */
-export async function submitDailyPulse(
-	jobId: string,
-	notes: string,
-	photoUrl: string,
-) {
-	const { data: log, error: logError } = await supabase
-		.from('daily_logs')
-		.insert([{ job_id: jobId, notes, crew_member_name: 'Field Crew' }])
-		.select()
-		.single();
-
-	if (logError) throw new Error('Failed to create log entry');
-
-	const { error: photoError } = await supabase
-		.from('log_photos')
-		.insert([{ log_id: log.id, photo_url: photoUrl }]);
-
-	if (photoError) throw new Error('Failed to attach photo');
-
-	revalidatePath(`/dashboard/jobs/${jobId}/pulse`);
-	revalidatePath('/dashboard');
-	return { success: true };
+					<button
+						type="submit"
+						disabled={loading || !title || !phone || !value}
+						className="w-full bg-slate-900 text-white font-black text-lg py-5 rounded-2xl shadow-xl flex items-center justify-center gap-2 mt-4 hover:bg-slate-800 active:scale-95 transition-all disabled:opacity-50"
+					>
+						{loading ? (
+							<Loader2 size={20} className="animate-spin" />
+						) : (
+							<Plus size={20} />
+						)}
+						{loading ? 'Initializing...' : 'Start Project'}
+					</button>
+				</form>
+			</div>
+		</div>
+	);
 }
