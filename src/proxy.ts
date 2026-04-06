@@ -1,10 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
-// 👇 The function name changed from 'middleware' to 'proxy'
 export async function proxy(request: NextRequest) {
-	let supabaseResponse = NextResponse.next({ request });
+	const url = request.nextUrl;
+	const hostname = request.headers.get('host') || '';
 
+	let response = NextResponse.next({ request });
+
+	// 1. SUPABASE HANDSHAKE
 	const supabase = createServerClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -14,37 +17,58 @@ export async function proxy(request: NextRequest) {
 					return request.cookies.getAll();
 				},
 				setAll(cookiesToSet) {
-					cookiesToSet.forEach(({ name, value, options }) =>
+					cookiesToSet.forEach(({ name, value }) =>
 						request.cookies.set(name, value),
 					);
-					supabaseResponse = NextResponse.next({ request });
+					response = NextResponse.next({ request });
 					cookiesToSet.forEach(({ name, value, options }) =>
-						supabaseResponse.cookies.set(name, value, options),
+						response.cookies.set(name, value, options),
 					);
 				},
 			},
 		},
 	);
 
-	// Check if the user is authenticated
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	// THE VAULT DOOR LOGIC:
-	if (request.nextUrl.pathname.startsWith('/dashboard') && !user) {
-		return NextResponse.redirect(new URL('/login', request.url));
+	// 2. THE AGGRESSIVE TRAFFIC COP
+
+	// --- APP SUBDOMAIN (app.localhost:3000) ---
+	if (hostname.startsWith('app.')) {
+		const isAuthPage = url.pathname === '/login' || url.pathname === '/signup';
+
+		// Kick to login if no user
+		if (!user && !isAuthPage) {
+			return NextResponse.redirect(new URL('/login', request.url));
+		}
+
+		// Kick to dashboard if already logged in and hitting login page
+		if (user && isAuthPage) {
+			return NextResponse.redirect(new URL('/', request.url));
+		}
+
+		// FORCE REWRITE TO /app FOLDER
+		// This ensures http://app.localhost:3000/ becomes /app/
+		const path = url.pathname === '/' ? '' : url.pathname;
+		return NextResponse.rewrite(new URL(`/app${path}`, request.url));
 	}
 
-	if (request.nextUrl.pathname === '/login' && user) {
-		return NextResponse.redirect(new URL('/dashboard', request.url));
+	// --- TENANT SUBDOMAINS (dunn.localhost:3000) ---
+	if (!hostname.startsWith('localhost') && !hostname.startsWith('app.')) {
+		const subdomain = hostname.split('.')[0];
+		return NextResponse.rewrite(
+			new URL(`/client/${subdomain}${url.pathname}`, request.url),
+		);
 	}
 
-	return supabaseResponse;
+	// --- MARKETING ROOT (localhost:3000) ---
+	return response;
 }
 
 export const config = {
 	matcher: [
-		'/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+		'/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
 	],
 };
