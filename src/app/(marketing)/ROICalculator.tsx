@@ -82,7 +82,7 @@ export default function ROICalculator() {
 				</div>
 				<div className="flex justify-between items-end">
 					<span className="text-sm font-bold text-slate-400">
-						With Blueprint OS Portal
+						With BuildRale Portal
 					</span>
 					<span className="text-xl font-bold text-emerald-400">
 						${projectedRevenue.toLocaleString()}

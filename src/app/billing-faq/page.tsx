@@ -4,11 +4,11 @@ export default function BillingFaq() {
 	const faqs = [
 		{
 			q: 'Is there a long-term contract?',
-			a: 'No. Blueprint OS is month-to-month. You can cancel at any time with a single click in your settings.',
+			a: 'No. BuildRail is month-to-month. You can cancel at any time with a single click in your settings.',
 		},
 		{
 			q: 'What is your refund policy?',
-			a: "We offer a 30-day 'No Questions Asked' money-back guarantee. If you don't feel Blueprint OS has paid for itself within the first month, just email Steve and we'll send your money back.",
+			a: "We offer a 30-day 'No Questions Asked' money-back guarantee. If you don't feel BuildRail has paid for itself within the first month, just email Steve and we'll send your money back.",
 		},
 		{
 			q: 'What happens to my site if I cancel?',

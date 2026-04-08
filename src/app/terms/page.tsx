@@ -39,7 +39,7 @@ export default function TermsPage() {
 					<section>
 						<h2 className="text-2xl mb-4">1. Scope of Service</h2>
 						<p className="leading-relaxed">
-							BlueprintOS provides a digital infrastructure for tracking project
+							BuildRail provides a digital infrastructure for tracking project
 							milestones, facilitating change orders (ScopeLock™), and
 							requesting payments. By using this service, you agree to the
 							electronic delivery of project updates and invoices.
@@ -62,7 +62,7 @@ export default function TermsPage() {
 					<section>
 						<h2 className="text-2xl mb-4">3. Platform Liability</h2>
 						<p className="leading-relaxed">
-							BlueprintOS acts strictly as the software interface between the
+							BuildRail acts strictly as the software interface between the
 							builder and the client. We are not liable for the physical quality
 							of construction, project delays, or disputes arising from the
 							real-world execution of the contracted work.

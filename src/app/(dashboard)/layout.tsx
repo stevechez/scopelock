@@ -19,7 +19,7 @@ export default function OnboardingLayout({
 			{/* Persistent Footer for Support/Trust */}
 			<footer className="fixed bottom-8 left-0 w-full px-6 pointer-events-none">
 				<div className="max-w-7xl mx-auto flex justify-between items-center opacity-40 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
-					<div>Blueprint OS // Provisioning Engine v1.0</div>
+					<div>BuildRail // Provisioning Engine v1.0</div>
 					<div>Secure Connection Established</div>
 				</div>
 			</footer>

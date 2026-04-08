@@ -3,9 +3,18 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
-const initialState = { error: '', success: false };
+export type AuthState = {
+	error: string;
+	success: boolean;
+};
 
-export async function signUpAction(prevState: any, formData: FormData) {
+// ==========================================
+// 1. LOGIN ACTION
+// ==========================================
+export async function loginAction(
+	prevState: AuthState,
+	formData: FormData,
+): Promise<AuthState> {
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 
@@ -15,23 +24,26 @@ export async function signUpAction(prevState: any, formData: FormData) {
 
 	const supabase = await createClient();
 
-	// 1. Create the user in Supabase Auth
-	const { error } = await supabase.auth.signUp({
-		email,
-		password,
+	const { error } = await supabase.auth.signInWithPassword({
+		email: email.toLowerCase().trim(),
+		password: password,
 	});
 
 	if (error) {
 		return { error: error.message, success: false };
 	}
 
-	// 2. Success! Redirect them to the Onboarding flow to create their Tenant Vault
-	redirect('/onboarding');
+	// Success! Send them to the command center
+	redirect('/dashboard');
 }
 
-// Add this below your existing signUpAction in src/app/actions/auth.ts
-
-export async function loginAction(prevState: any, formData: FormData) {
+// ==========================================
+// 2. SIGN UP ACTION
+// ==========================================
+export async function signUpAction(
+	prevState: AuthState,
+	formData: FormData,
+): Promise<AuthState> {
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 
@@ -39,19 +51,21 @@ export async function loginAction(prevState: any, formData: FormData) {
 		return { error: 'Email and password are required.', success: false };
 	}
 
+	if (password.length < 6) {
+		return { error: 'Password must be at least 6 characters.', success: false };
+	}
+
 	const supabase = await createClient();
 
-	// 1. Authenticate the user securely on the server
-	const { error } = await supabase.auth.signInWithPassword({
-		email,
-		password,
+	const { error } = await supabase.auth.signUp({
+		email: email.toLowerCase().trim(),
+		password: password,
 	});
 
 	if (error) {
-		// Supabase returns helpful errors like "Invalid login credentials"
 		return { error: error.message, success: false };
 	}
 
-	// 2. Cookie is now securely locked in. Force the redirect to the Command Center root.
-	redirect('/');
+	// Success! The dashboard will auto-route them to /onboarding
+	redirect('/dashboard');
 }

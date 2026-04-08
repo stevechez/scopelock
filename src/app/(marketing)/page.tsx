@@ -8,7 +8,7 @@ export default function MarketingPage() {
 			{/* Minimalist Nav */}
 			<nav className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
 				<div className="text-xl font-black italic tracking-tighter">
-					BLUEPRINT OS.
+					BuildRail
 				</div>
 				<div className="space-x-4">
 					{/* Note: This links directly to your app subdomain! */}

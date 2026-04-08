@@ -42,8 +42,8 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
 						</button>
 						<iframe
 							className="w-full h-full"
-							src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-							title="Blueprint OS Demo"
+							src="https://www.youtube.com/embed/nYavNHBX2mw?si=O__M2ddFxrtwVwEk"
+							title="BuildRail Demo"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 							allowFullScreen
 						/>

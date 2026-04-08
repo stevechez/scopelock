@@ -35,9 +35,8 @@ export default function SocialProof() {
 
 				{/* TESTIMONIAL (UPGRADED) */}
 				<blockquote className="text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 italic mb-6 max-w-3xl mx-auto">
-					“BlueprintOS saved me 10+ hours a week and helped me close an $18K
-					HVAC job at full price — without going back and forth with the
-					client.”
+					“BuildRail saved me 10+ hours a week and helped me close an $18K HVAC
+					job at full price — without going back and forth with the client.”
 				</blockquote>
 
 				<div className="font-bold text-slate-900 dark:text-white">

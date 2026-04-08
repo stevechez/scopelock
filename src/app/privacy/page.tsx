@@ -14,7 +14,7 @@ export default function PrivacyPage() {
 							<Zap size={16} className="text-white fill-white" />
 						</div>
 						<span className="font-black text-xl tracking-tight italic">
-							Blueprint
+							BuildRail
 							<span className="text-slate-400 font-medium not-italic">OS</span>
 						</span>
 					</Link>
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
 					<section>
 						<h2 className="text-2xl mb-4">1. Data Collection & Usage</h2>
 						<p className="leading-relaxed">
-							BlueprintOS (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or
+							BuildRail (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or
 							&ldquo;us&rdquo;) collects information necessary to facilitate
 							project management, communication, and payment processing between
 							contractors and their clients. This includes project details,

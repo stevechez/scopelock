@@ -78,7 +78,7 @@ export default async function PublicPaymentPage({
 						<ShieldCheck className="text-white" size={18} />
 					</div>
 					<span className="font-bold text-slate-900 tracking-tight">
-						BlueprintOS
+						BuildRail
 					</span>
 				</div>
 				<span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -199,7 +199,7 @@ export default async function PublicPaymentPage({
 
 					<p className="text-center text-slate-400 text-[10px] mt-8 leading-relaxed px-4">
 						Securely processed via <strong>Lemon Squeezy</strong>. <br />
-						BlueprintOS uses 256-bit encryption to protect your data.
+						BuildRail uses 256-bit encryption to protect your data.
 					</p>
 				</div>
 			</div>

@@ -18,7 +18,7 @@ export default function ContactPage() {
 								Direct Email
 							</p>
 							<p className="text-lg font-bold text-slate-900 underline decoration-amber-500 underline-offset-4">
-								Steve@BlueprintOS.com
+								Steve@BuildRail.com
 							</p>
 						</div>
 						<div className="p-6 bg-slate-100 rounded-2xl">

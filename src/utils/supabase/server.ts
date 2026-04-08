@@ -4,23 +4,42 @@ import { cookies } from 'next/headers';
 export async function createClient() {
 	const cookieStore = await cookies();
 
+	// Determine domain safely. Undefined in dev means "bind to current exact host"
+	const cookieDomain =
+		process.env.NODE_ENV === 'production' ? '.buildrail.com' : undefined;
+
 	return createServerClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 		{
 			cookies: {
-				getAll() {
-					return cookieStore.getAll();
+				get(name) {
+					return cookieStore.get(name)?.value;
 				},
-				setAll(cookiesToSet) {
+				set(name, value, options) {
 					try {
-						cookiesToSet.forEach(({ name, value, options }) =>
-							cookieStore.set(name, value, options),
-						);
-					} catch {
-						// The `setAll` method was called from a Server Component.
-						// This can be ignored if you have middleware refreshing
-						// user sessions.
+						cookieStore.set({
+							name,
+							value,
+							...options,
+							domain: cookieDomain, // <--- THE FIX
+							path: '/',
+						});
+					} catch (error) {
+						// Silent catch for Server Components
+					}
+				},
+				remove(name, options) {
+					try {
+						cookieStore.set({
+							name,
+							value: '',
+							...options,
+							domain: cookieDomain, // <--- THE FIX
+							path: '/',
+						});
+					} catch (error) {
+						// Silent catch for Server Components
 					}
 				},
 			},

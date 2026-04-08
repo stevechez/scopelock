@@ -51,7 +51,7 @@ export default function Pricing() {
 								Most Popular
 							</div>
 							<div>
-								<h3 className="text-xl font-bold mb-2">The Full Blueprint</h3>
+								<h3 className="text-xl font-bold mb-2">The Full Build</h3>
 								<div className="flex items-baseline gap-1 mb-6">
 									<span className="text-4xl font-black">$49</span>
 									<span className="text-slate-400 font-bold">/mo</span>
@@ -81,7 +81,7 @@ export default function Pricing() {
 									</span>
 								</div>
 								<h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-									Blueprint Pro +
+									BuildRail
 								</h3>
 								<ul className="space-y-4 mb-8 italic text-slate-500 dark:text-slate-400">
 									<li>✨ SiteVerdict Integration</li>

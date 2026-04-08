@@ -46,7 +46,7 @@ export default function JumpstartSuccess() {
 							2.
 						</div>
 						<p className="text-slate-700 font-bold">
-							The Blueprint Build.{' '}
+							The BuildRail Build.{' '}
 							<span className="font-medium text-slate-500 block text-sm">
 								I&apos;ll start the SEO copywriting and Site Engine deployment.
 							</span>
@@ -69,7 +69,7 @@ export default function JumpstartSuccess() {
 
 				<div className="flex flex-col gap-4">
 					<Link
-						href="mailto:Steve@BlueprintOS.com?subject=Photos%20for%20my%20Jumpstart"
+						href="mailto:Steve@BuildRail.com?subject=Photos%20for%20my%20Jumpstart"
 						className="w-full py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg"
 					>
 						Email My Project Photos Now

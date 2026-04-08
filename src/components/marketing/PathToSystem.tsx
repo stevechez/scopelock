@@ -8,7 +8,7 @@ export default function PathToSystem() {
 				</h2>
 
 				<p className="text-xl text-slate-500 dark:text-slate-400 mb-20 max-w-2xl mx-auto">
-					BlueprintOS installs the systems that eliminate free work, accelerate
+					BuildRail installs the systems that eliminate free work, accelerate
 					cash flow, and make every job predictable.
 				</p>
 

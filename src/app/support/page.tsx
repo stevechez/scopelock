@@ -16,7 +16,7 @@ export default function SupportPage() {
 							<Zap size={16} className="text-white fill-white" />
 						</div>
 						<span className="font-black text-xl tracking-tight italic">
-							Blueprint
+							BuildRail
 							<span className="text-slate-400 font-medium not-italic">OS</span>
 						</span>
 					</Link>
@@ -50,14 +50,14 @@ export default function SupportPage() {
 							Priority Inbox
 						</h2>
 						<p className="text-slate-500 mb-8 leading-relaxed">
-							For technical issues with the BlueprintOS platform or secure
-							payment links, email our support desk directly.
+							For technical issues with the BuildRail platform or secure payment
+							links, email our support desk directly.
 						</p>
 						<a
-							href="mailto:support@blueprintos.com"
+							href="mailto:support@BuildRail.com"
 							className="inline-flex bg-slate-900 text-white font-bold text-sm px-6 py-4 rounded-xl items-center gap-2 hover:bg-slate-800 transition-colors"
 						>
-							support@blueprintos.com <ArrowRight size={16} />
+							support@BuildRail.com <ArrowRight size={16} />
 						</a>
 					</div>
 

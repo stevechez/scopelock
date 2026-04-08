@@ -1,7 +1,7 @@
 import JumpstartForm from '@/components/marketing/JumpstartForm'; // Import the new client component
 
 export const metadata = {
-	title: 'Jumpstart Your Business | BlueprintOS',
+	title: 'Jumpstart Your Business | BuildRail',
 	description:
 		'Get your professional contractor business system set up in 24 hours.',
 };

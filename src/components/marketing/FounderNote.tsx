@@ -17,14 +17,14 @@ export default function FounderNote() {
 								A note from the founder
 							</p>
 							<p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest mt-1">
-								Blueprint OS
+								BuildRail
 							</p>
 						</div>
 					</div>
 
 					{/* BODY */}
 					<p className="mb-6 italic">
-						&ldquo;I built Blueprint OS because I watched too many skilled
+						&ldquo;I built BuildRail OS because I watched too many skilled
 						contractors lose money—not because of their work, but because they
 						didn’t have the systems behind them.&rdquo;
 					</p>

@@ -75,7 +75,7 @@ export default function LeadFilterPage() {
 						<Zap size={12} className="text-white fill-white" />
 					</div>
 					<span className="font-black text-sm tracking-tight italic">
-						Blueprint<span className="font-medium not-italic">OS</span>
+						Build<span className="font-medium not-italic">Rail</span>
 					</span>
 				</Link>
 				<div className="flex gap-1">

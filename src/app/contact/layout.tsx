@@ -14,7 +14,7 @@ export default function SupportLayout({
 					href="/"
 					className="text-2xl font-black tracking-tighter hover:opacity-80 transition-opacity text-slate-900 dark:text-white"
 				>
-					BLUEPRINT<span className="text-amber-500">OS</span>
+					BUILD<span className="text-amber-500">RAIL</span>
 				</Link>
 
 				<div className="flex items-center gap-6">
@@ -35,7 +35,7 @@ export default function SupportLayout({
 
 			{/* LIGHTWEIGHT FOOTER */}
 			<footer className="py-12 text-center text-slate-400 dark:text-slate-600 font-bold border-t border-slate-100 dark:border-slate-900/50 text-sm">
-				© 2026 Blueprint OS. Built for those who build the world.
+				© 2026 BuildRail. Built for those who build the world.
 			</footer>
 		</div>
 	);

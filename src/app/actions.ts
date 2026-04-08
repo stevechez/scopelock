@@ -143,7 +143,7 @@ export async function requestMilestonePayment(
 	const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL}/pay/${milestoneId}`;
 
 	try {
-		const messageBody = `BlueprintOS: ${job.title} update! Milestone "${milestone.title}" is complete. Tap here to view the photo and submit your secure payment of $${milestone.amount}: ${paymentLink}`;
+		const messageBody = `BuildRail: ${job.title} update! Milestone "${milestone.title}" is complete. Tap here to view the photo and submit your secure payment of $${milestone.amount}: ${paymentLink}`;
 
 		await twilioClient.messages.create({
 			body: messageBody,
@@ -249,7 +249,7 @@ export async function submitDailyPulse(
 	if (job?.client_phone) {
 		try {
 			await twilioClient.messages.create({
-				body: `BlueprintOS update for ${job.title}: ${notes} - See photo: ${photoUrl}`,
+				body: `BuildRail update for ${job.title}: ${notes} - See photo: ${photoUrl}`,
 				from: process.env.TWILIO_PHONE_NUMBER, // Ensure this matches your .env
 				to: job.client_phone,
 			});
