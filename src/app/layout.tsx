@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: 'Blueprint OS | The Operating System for Elite Builders',
+	title: 'BuildRail | The Operating System for Elite Builders',
 	description:
 		'Build your site, win bigger bids, eliminate payment friction, and automate project transparency.',
 };

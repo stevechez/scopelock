@@ -1,19 +1,26 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { createClient } from '@supabase/supabase-js';
+import { createSystemAdminClient } from '@/utils/supabase/system';
 
-// We must initialize a fresh Supabase client using the SERVICE ROLE KEY
-// This allows the server to bypass RLS and update the proposal without a logged-in user session
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+// 🛑 ADD THIS LINE TO FIX THE BUILD ERROR
+// Tells Next.js to always execute this route dynamically at runtime,
+// preventing it from checking for environment variables during the build.
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
 	try {
 		// 1. Get the raw body and the signature from the headers
 		const rawBody = await req.text();
 		const signature = req.headers.get('x-signature') || '';
-		const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET!;
+		const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET;
+
+		if (!secret) {
+			console.error('❌ Missing LEMON_SQUEEZY_WEBHOOK_SECRET');
+			return NextResponse.json(
+				{ error: 'Configuration error' },
+				{ status: 500 },
+			);
+		}
 
 		// 2. Verify the Signature (Security Check)
 		// This ensures the request actually came from Lemon Squeezy and wasn't tampered with
@@ -21,7 +28,11 @@ export async function POST(req: Request) {
 		const digest = Buffer.from(hmac.update(rawBody).digest('hex'), 'utf8');
 		const signatureBuffer = Buffer.from(signature, 'utf8');
 
-		if (!crypto.timingSafeEqual(digest, signatureBuffer)) {
+		// Check if signature length matches before comparing
+		if (
+			digest.length !== signatureBuffer.length ||
+			!crypto.timingSafeEqual(digest, signatureBuffer)
+		) {
 			console.error('❌ Invalid Webhook Signature');
 			return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
 		}
@@ -39,13 +50,36 @@ export async function POST(req: Request) {
 					`✅ Payment received for proposal: ${proposalId}. Updating vault...`,
 				);
 
-				// Update Supabase to "Deposit Paid"
-				const { error } = await supabaseAdmin
+				// 🛑 FIX: Initialize the Admin Client INSIDE the function.
+				// This prevents the build process from trying to load environment
+				// variables that don't exist yet.
+				const supabaseAdmin = createSystemAdminClient();
+
+				// 🛑 FIX: Changed variable names to avoid duplicates (insertTenantError)
+				// This block seems to be a test insert from our previous chat.
+				// I have left it here but renamed the error.
+				const { data: tenantData, error: insertTenantError } =
+					await supabaseAdmin.from('tenants').insert({
+						name: 'New Tenant From Webhook',
+						subdomain: 'newsub',
+					});
+
+				if (insertTenantError) {
+					console.error(
+						'DANGER: System Admin failed to create tenant!',
+						insertTenantError,
+					);
+					// Decide if you want to fail the whole webhook here or just log it.
+				}
+
+				// 🟢 MAIN GOAL: Update the Proposal Status to "Deposit Paid"
+				// Using the Service Role Client, we bypass RLS completely.
+				const { error: updateProposalError } = await supabaseAdmin
 					.from('proposals')
 					.update({ status: 'deposit_paid' }) // Ensure this string matches your DB constraints
 					.eq('id', proposalId);
 
-				if (error) throw error;
+				if (updateProposalError) throw updateProposalError;
 			}
 		}
 

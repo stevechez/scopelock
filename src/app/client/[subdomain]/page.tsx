@@ -1,7 +1,14 @@
 import { createClient } from '@/utils/supabase/server';
 import { notFound } from 'next/navigation';
-import { acceptProposalAction } from '@/app/actions/client';
+// import { acceptProposalAction } from '@/app/actions/client';
 import { createDepositCheckoutAction } from '@/app/actions/billing'; // Import from billing
+import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
+
+export async function POST(req: Request) {
+	// ... your webhook logic ...
+}
 
 export default async function ClientVaultPage({
 	params,
