@@ -4,8 +4,8 @@
 import { createClient } from '@/utils/supabase/server';
 
 export type ClientAuthState = {
-	error: string;
 	success: boolean;
+	error?: string; // or error: string
 };
 
 export async function sendMagicLinkAction(
@@ -27,7 +27,7 @@ export async function sendMagicLinkAction(
 	const baseDomain =
 		process.env.NODE_ENV === 'development'
 			? 'localhost:3000'
-			: 'getbuildrail.com';
+			: 'buildrailhq.com';
 	const redirectUrl = `${protocol}://${subdomain}.${baseDomain}/auth/callback`;
 
 	// Fire the Magic Link

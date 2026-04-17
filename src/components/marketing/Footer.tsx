@@ -6,7 +6,7 @@ export default function Footer() {
 	const currentYear = new Date().getFullYear();
 
 	return (
-		<footer className="bg-slate-950 text-white pt-24 pb-12 px-6 border-t border-white/5">
+		<footer className="bg-slate-950 text-white pt-12 pb-12 px-6 border-t border-white/5">
 			<div className="max-w-7xl mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
 					{/* BRAND SECTION */}
@@ -71,7 +71,7 @@ export default function Footer() {
 									href="#features"
 									className="hover:text-amber-500 transition-colors"
 								>
-									smCrewLens™
+									CrewLens™
 								</Link>
 							</li>
 							{/* DISABLED MODULE */}

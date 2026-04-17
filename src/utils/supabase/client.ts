@@ -1,26 +1,15 @@
-'use server';
+import { createBrowserClient } from '@supabase/ssr';
 
-import { createClient } from '@/utils/supabase/server';
-import { revalidatePath } from 'next/cache';
+export function createClient() {
+	const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+	const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export async function acceptProposalAction(
-	proposalId: string,
-	subdomain: string,
-) {
-	const supabase = await createClient();
-
-	// Update the proposal status to 'accepted'
-	const { error } = await supabase
-		.from('proposals')
-		.update({ status: 'accepted' })
-		.eq('id', proposalId);
-
-	if (error) {
-		console.error('Error accepting proposal:', error);
-		throw new Error('Failed to accept proposal');
+	// Safety check: Alert yourself if the environment variables go missing again
+	if (!url || !anonKey) {
+		console.error(
+			'❌ SUPABASE ENV VARIABLES MISSING. Check your .env.local file.',
+		);
 	}
 
-	// Refresh both the client vault and the contractor dashboard
-	revalidatePath(`/client/${subdomain}`);
-	revalidatePath('/app', 'layout');
+	return createBrowserClient(url!, anonKey!);
 }

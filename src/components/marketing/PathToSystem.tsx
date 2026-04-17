@@ -1,6 +1,6 @@
 export default function PathToSystem() {
 	return (
-		<section className="py-32 bg-white dark:bg-slate-950 px-6 border-y border-slate-100 dark:border-slate-900">
+		<section className="py-12 bg-white dark:bg-slate-950 px-6 border-y border-slate-100 dark:border-slate-900">
 			<div className="max-w-6xl mx-auto text-center">
 				{/* HEADLINE */}
 				<h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">

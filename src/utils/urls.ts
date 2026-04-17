@@ -6,7 +6,7 @@ export const getSubdomainUrl = (subdomain: string) => {
 };
 
 export const getAppUrl = (path: string = '') => {
-	const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN; // localhost:3000 or getbuildrail.com
+	const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN; // localhost:3000 or buildrailhq.com
 	const protocol = process.env.NEXT_PUBLIC_PROTOCOL; // http or https
 
 	// This specifically targets the "app" subdomain

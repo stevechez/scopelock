@@ -1,6 +1,7 @@
 'use server';
 
 import { createClient } from '@/utils/supabase/server';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export type AuthState = {
@@ -11,61 +12,51 @@ export type AuthState = {
 // ==========================================
 // 1. LOGIN ACTION
 // ==========================================
-export async function loginAction(
-	prevState: AuthState,
-	formData: FormData,
-): Promise<AuthState> {
+// src/app/actions/auth.ts
+
+export async function loginAction(prevState: any, formData: FormData) {
+	const supabase = await createClient();
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 
-	if (!email || !password) {
-		return { error: 'Email and password are required.', success: false };
-	}
+	const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-	const supabase = await createClient();
+	if (error) return { error: error.message, success: false };
 
-	const { error } = await supabase.auth.signInWithPassword({
-		email: email.toLowerCase().trim(),
-		password: password,
-	});
+	revalidatePath('/', 'layout');
 
-	if (error) {
-		return { error: error.message, success: false };
-	}
+	// 📍 FORCE the subdomain to prevent the root-domain bounce
+	const baseUrl =
+		process.env.NODE_ENV === 'production'
+			? 'https://app.buildrailhq.com'
+			: 'http://app.localhost:3000';
 
-	// Success! Send them to the command center
-	redirect('/dashboard');
+	return redirect(`${baseUrl}/dashboard`);
 }
 
 // ==========================================
 // 2. SIGN UP ACTION
 // ==========================================
-export async function signUpAction(
-	prevState: AuthState,
-	formData: FormData,
-): Promise<AuthState> {
+export async function signUpAction(prevState: any, formData: FormData) {
+	const supabase = await createClient();
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 
-	if (!email || !password) {
-		return { error: 'Email and password are required.', success: false };
-	}
-
-	if (password.length < 6) {
-		return { error: 'Password must be at least 6 characters.', success: false };
-	}
-
-	const supabase = await createClient();
-
-	const { error } = await supabase.auth.signUp({
-		email: email.toLowerCase().trim(),
-		password: password,
+	const { data, error } = await supabase.auth.signUp({
+		email,
+		password,
+		options: {
+			// This ensures that even if they click a confirmation email,
+			// they land on the onboarding flow, not the client portal.
+			emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/onboarding`,
+		},
 	});
 
 	if (error) {
 		return { error: error.message, success: false };
 	}
 
-	// Success! The dashboard will auto-route them to /onboarding
-	redirect('/dashboard');
+	// ✅ THE FIX: Force the user into the Onboarding flow immediately after signup
+	// Do not redirect to '/' or '/dashboard' yet, as they have no Tenant ID.
+	redirect('/onboarding');
 }

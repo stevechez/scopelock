@@ -1,50 +1,26 @@
 'use server';
 
+// Use the SERVER utility, not the browser one
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
-export interface ActionState {
-	error?: string;
-	success?: boolean;
-}
-
-export async function createProposalAction(
-	prevState: ActionState,
-	formData: FormData,
-): Promise<ActionState> {
-	console.log('🚀 Server Action Triggered'); // LOG 1
+export async function acceptProposalAction(
+	proposalId: string,
+	subdomain: string,
+) {
 	const supabase = await createClient();
 
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
-	if (!user) {
-		console.log('❌ User not found');
-		return { error: 'Unauthorized' };
-	}
-
-	const title = formData.get('title') as string;
-	const amountStr = formData.get('amount') as string;
-	const tenantId = formData.get('tenantId') as string;
-
-	console.log('📝 Data Received:', { title, amountStr, tenantId }); // LOG 2
-
-	const { error } = await supabase.from('proposals').insert([
-		{
-			title,
-			amount: parseFloat(amountStr),
-			tenant_id: tenantId,
-			status: 'published',
-		},
-	]);
+	const { error } = await supabase
+		.from('proposals')
+		.update({ status: 'accepted' })
+		.eq('id', proposalId);
 
 	if (error) {
-		console.error('❌ Supabase Error:', error.message);
-		return { error: error.message };
+		console.error('Error accepting proposal:', error);
+		throw new Error('Failed to accept proposal');
 	}
 
-	console.log('✅ Success! Redirecting...');
+	// This is perfect—it clears the cache so the user sees the 'Accepted' state immediately
+	revalidatePath(`/client/${subdomain}`);
 	revalidatePath('/app', 'layout');
-	redirect('/app');
 }

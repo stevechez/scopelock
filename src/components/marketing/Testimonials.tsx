@@ -1,120 +1,175 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star, ShieldCheck, Quote } from 'lucide-react';
+import Image from 'next/image';
+import { Star, CheckCircle2 } from 'lucide-react';
 
-const testimonials = [
+// (Assuming you have this interface defined in your types/lib file)
+export interface ReviewItem {
+	name: string;
+	role: string;
+	image: string;
+	quote: string;
+}
+
+interface TestimonialsProps {
+	reviews?: ReviewItem[];
+}
+
+const defaultReviews: ReviewItem[] = [
 	{
+		name: 'Julian & Claire V.',
+		role: 'Coastal Estate Build',
+		image: 'https://i.pravatar.cc/150?u=julian',
 		quote:
-			'Closed an $18k job at a higher margin just by using the 3-tier bid. Client picked the middle option without hesitation.',
-		author: 'Jason R.',
-		role: 'Remodeling Contractor',
-		impact: '+22% Margin',
+			"I've built three homes, and this was the first time I didn't have to chase my contractor for a single PDF. The Comm Vault kept everything in one place. Truly a white-glove experience.",
 	},
 	{
+		name: 'Marcus Thorne',
+		role: 'Modern Penthouse Remodel',
+		image: 'https://i.pravatar.cc/150?u=marcus',
 		quote:
-			'Got paid on-site for the first time ever. No more chasing invoices. PayRail paid for itself in the first 48 hours.',
-		author: 'Mike D.',
-		role: 'General Contractor',
-		impact: 'Paid Instantly',
+			"The 'Magic Link' system is brilliant. No passwords to remember—I just clicked my email and saw exactly where our budget stood. Total transparency from start to finish.",
 	},
 	{
+		name: 'Sofia Moretti',
+		role: 'Full Portfolio Restoration',
+		image: 'https://i.pravatar.cc/150?u=sofia',
 		quote:
-			'Clients stopped texting nonstop. They check smCrewLens updates and leave me alone to actually build. Life changer.',
-		author: 'Sarah T.',
-		role: 'Custom Home Builder',
-		impact: '90% Less Texting',
+			"Blueprint OS changed the dynamic. I never felt 'out of the loop.' Every change order was handled digitally, approved in seconds, and archived. This is how construction should work.",
 	},
 	{
+		name: 'Harrison J.',
+		role: 'Luxury Retail Build-out',
+		image: 'https://i.pravatar.cc/150?u=harrison',
 		quote:
-			"ScopeLock caught a $2,500 change order that I definitely would have 'thrown in for free' before. It's found money.",
-		author: 'David L.',
-		role: 'Electrical Sub',
-		impact: '+$2.5k Saved',
+			'The professional organization was night and day. Having a branded portal made us feel like our project was a priority. No lost texts, no missing blueprints, just pure execution.',
 	},
 	{
+		name: 'Dr. Alana Wu',
+		role: 'Historic Brownstone',
+		image: 'https://i.pravatar.cc/150?u=alana',
 		quote:
-			"The Site Engine ranked me #1 for 'Kitchen Remodel' in my zip code within 3 weeks. The leads are actually qualified now.",
-		author: 'Kevin M.',
-		role: 'Kitchen & Bath Specialist',
-		impact: 'Ranked #1 Locally',
+			'I used to dread project updates. Now, I just log into our Project OS. Seeing the progress photos categorized and chronologically ordered is incredibly satisfying.',
 	},
 	{
+		name: 'Brooks Sterling',
+		role: 'Smart Home Integration',
+		image: 'https://i.pravatar.cc/150?u=brooks',
 		quote:
-			"I was drowning in paperwork. BuildRail put my business on tracks. I'm finally home for dinner at 5 PM.",
-		author: 'Chris B.',
-		role: 'Deck & Patio Pro',
-		impact: '10hrs Saved/Wk',
+			'Security was a big deal for us. Knowing our financials and contracts were in a bank-grade vault gave us huge peace of mind. Best-in-class service.',
 	},
 ];
 
-export default function Testimonials() {
+const ReviewCard = ({ review }: { review: ReviewItem }) => (
+	// Card background flips from solid white to translucent white
+	<div className="relative w-[350px] md:w-[450px] shrink-0 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 backdrop-blur-md transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/10 shadow-sm dark:shadow-none">
+		<div className="flex items-center gap-4 mb-6">
+			{/* Avatar border flips from light gray to dark slate */}
+			<div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-slate-100 dark:border-slate-800 transition-colors duration-300">
+				<Image
+					src={review.image}
+					alt={review.name}
+					fill
+					className="object-cover"
+				/>
+			</div>
+			<div>
+				<div className="flex items-center gap-2">
+					{/* Name text flips from slate-900 to white */}
+					<h3 className="font-bold text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
+						{review.name}
+					</h3>
+					<CheckCircle2 className="w-4 h-4 text-amber-500" />
+				</div>
+				{/* Role text flips from slate-600 to slate-400 */}
+				<p className="text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
+					{review.role}
+				</p>
+			</div>
+		</div>
+		<div className="flex gap-1 mb-4">
+			{[...Array(5)].map((_, i) => (
+				<Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
+			))}
+		</div>
+		{/* Quote text flips from slate-700 to slate-300 */}
+		<p className="text-slate-700 dark:text-slate-300 leading-relaxed font-light transition-colors duration-300">
+			&quot;{review.quote}&quot;
+		</p>
+	</div>
+);
+
+export function Testimonials({ reviews = defaultReviews }: TestimonialsProps) {
+	const midIndex = Math.ceil(reviews.length / 2);
+	const firstRow = reviews.slice(0, midIndex);
+	const secondRow = reviews.slice(midIndex);
+
 	return (
-		<section className="py-32 bg-white dark:bg-slate-950 overflow-hidden border-t border-slate-100 dark:border-white/5">
-			<div className="max-w-7xl mx-auto px-6 mb-20 text-center">
+		// Base section background flips from slate-50 to slate-950
+		<section
+			id="reviews"
+			className="relative bg-slate-50 dark:bg-slate-950 py-12 overflow-hidden transition-colors duration-300"
+		>
+			{/* Background glow changed to amber to match theme */}
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-amber-500/10 dark:bg-amber-500/10 blur-[200px] rounded-full pointer-events-none" />
+
+			<div className="container relative z-10 mx-auto px-6 mb-20 text-center">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
-					className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-500/20 mb-6"
+					transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
 				>
-					<ShieldCheck className="w-4 h-4 text-emerald-600" />
-					<span className="text-xs font-black uppercase tracking-widest text-emerald-700 dark:text-emerald-400">
-						Verified Outcomes
-					</span>
+					{/* Main heading flips from slate-900 to white */}
+					<h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-slate-900 dark:text-white mb-6 transition-colors duration-300">
+						Loved by thousands of <br className="hidden md:block" />
+						<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-400 dark:to-orange-500">
+							happy homeowners.
+						</span>
+					</h2>
+					{/* Subtext flips from slate-600 to slate-400 */}
+					<p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto transition-colors duration-300">
+						We let our work and our clients speak for us.
+					</p>
 				</motion.div>
-
-				<h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 leading-tight tracking-tighter">
-					Built for the Trades. <br />
-					<span className="text-amber-500 italic">
-						Trusted on the Job Site.
-					</span>
-				</h2>
 			</div>
 
-			{/* INFINITE SCROLL CAROUSEL */}
-			<div className="relative flex overflow-x-hidden">
-				<div className="flex animate-marquee whitespace-nowrap py-12">
-					{[...testimonials, ...testimonials].map((t, i) => (
-						<div
-							key={i}
-							className="inline-block w-[350px] md:w-[450px] mx-4 whitespace-normal"
-						>
-							<div className="h-full p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-								<div className="flex gap-1 mb-4">
-									{[...Array(5)].map((_, i) => (
-										<Star
-											key={i}
-											className="w-4 h-4 fill-amber-500 text-amber-500"
-										/>
-									))}
-								</div>
-
-								<Quote className="w-8 h-8 text-slate-200 dark:text-slate-800 mb-4" />
-
-								<p className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-8 leading-relaxed">
-									&ldquo;{t.quote}&rdquo;
-								</p>
-
-								<div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-200 dark:border-slate-800">
-									<div>
-										<p className="text-sm font-black text-slate-900 dark:text-white">
-											{t.author}
-										</p>
-										<p className="text-xs font-bold text-slate-500">{t.role}</p>
-									</div>
-									<div className="px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-black rounded-lg uppercase">
-										{t.impact}
-									</div>
-								</div>
-							</div>
-						</div>
-					))}
+			<div
+				className="relative flex flex-col gap-6 w-full"
+				// This mask fades the edges to transparent so the cards look like they are appearing/disappearing out of thin air
+				style={{
+					maskImage:
+						'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+					WebkitMaskImage:
+						'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+				}}
+			>
+				{/* Row 1: Scrolls Left */}
+				<div className="flex w-max overflow-hidden">
+					<motion.div
+						className="flex gap-6 pr-6 hover:[animation-play-state:paused]"
+						animate={{ x: ['0%', '-50%'] }}
+						transition={{ ease: 'linear', duration: 40, repeat: Infinity }}
+					>
+						{[...firstRow, ...firstRow].map((review, idx) => (
+							<ReviewCard key={`row1-${idx}`} review={review} />
+						))}
+					</motion.div>
 				</div>
 
-				{/* Fade Overlays for that high-end look */}
-				<div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white dark:from-slate-950 to-transparent z-10" />
-				<div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-slate-950 to-transparent z-10" />
+				{/* Row 2: Scrolls Right */}
+				<div className="flex w-max overflow-hidden">
+					<motion.div
+						className="flex gap-6 pr-6 hover:[animation-play-state:paused]"
+						animate={{ x: ['-50%', '0%'] }}
+						transition={{ ease: 'linear', duration: 45, repeat: Infinity }}
+					>
+						{[...secondRow, ...secondRow].map((review, idx) => (
+							<ReviewCard key={`row2-${idx}`} review={review} />
+						))}
+					</motion.div>
+				</div>
 			</div>
 		</section>
 	);

@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
 				protocol: 'https',
 				hostname: 'images.unsplash.com', // Keep this if you still have dummy MVP data
 			},
+
+			{
+				protocol: 'https',
+				hostname: 'i.pravatar.cc',
+			},
 		],
 	},
 };

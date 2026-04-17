@@ -2,9 +2,16 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, CheckCircle2, Zap } from 'lucide-react';
+import {
+	ArrowRight,
+	ArrowLeft,
+	CheckCircle2,
+	Zap,
+	Loader2,
+} from 'lucide-react';
 import Link from 'next/link';
 import { submitLead } from '@/app/actions';
+import { createClient } from '@/utils/supabase/client';
 
 // Qualification Data
 const PROJECT_TYPES = [
@@ -18,11 +25,13 @@ const TIMELINES = ['ASAP', '1-3 Months', '3-6 Months', 'Just Exploring'];
 
 export default function LeadFilterPage() {
 	const [step, setStep] = useState(1);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [formData, setFormData] = useState({
 		projectType: '',
 		budget: '',
 		timeline: '',
 		name: '',
+		email: '', // ✅ Added email to state
 		phone: '',
 	});
 
@@ -37,22 +46,37 @@ export default function LeadFilterPage() {
 		}
 	};
 
-	const [isSubmitting, setIsSubmitting] = useState(false);
-
+	// ✅ Clean, merged submit function
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsSubmitting(true);
 
 		try {
-			await submitLead({
+			const supabase = createClient();
+
+			// 1. Grab the ID of the contractor
+			const { data: tenant, error: tenantError } = await supabase
+				.from('tenants')
+				.select('id')
+				.limit(1)
+				.single();
+
+			if (tenantError || !tenant) {
+				throw new Error('Could not find a contractor to send this lead to.');
+			}
+
+			// 2. Submit the lead using that ID
+			await submitLead(tenant.id, {
 				projectType: formData.projectType,
 				budget: formData.budget,
 				timeline: formData.timeline,
 				name: formData.name,
+				email: formData.email,
 				phone: formData.phone,
 			});
 
-			setStep(5); // Move to Success Screen
+			// 3. Move to Success Screen
+			setStep(5);
 		} catch (error) {
 			console.error('Submission failed:', error);
 			alert(
@@ -210,6 +234,21 @@ export default function LeadFilterPage() {
 										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
+								{/* ✅ Added missing Email input */}
+								<div>
+									<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+										Email Address
+									</label>
+									<input
+										required
+										type="email"
+										value={formData.email}
+										onChange={e =>
+											setFormData({ ...formData, email: e.target.value })
+										}
+										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
+									/>
+								</div>
 								<div>
 									<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
 										Mobile Phone (For Text Updates)
@@ -228,9 +267,18 @@ export default function LeadFilterPage() {
 
 							<button
 								type="submit"
-								className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xl py-5 rounded-2xl shadow-xl shadow-emerald-200 flex items-center justify-center gap-3 mt-8 active:scale-95 transition-all"
+								disabled={isSubmitting}
+								className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-400 text-white font-black text-xl py-5 rounded-2xl shadow-xl shadow-emerald-200 flex items-center justify-center gap-3 mt-8 active:scale-95 transition-all"
 							>
-								Submit Application <ArrowRight size={20} />
+								{isSubmitting ? (
+									<>
+										Processing... <Loader2 size={20} className="animate-spin" />
+									</>
+								) : (
+									<>
+										Submit Application <ArrowRight size={20} />
+									</>
+								)}
 							</button>
 						</motion.form>
 					)}
@@ -267,7 +315,8 @@ export default function LeadFilterPage() {
 				{step > 1 && step < 5 && (
 					<button
 						onClick={handleBack}
-						className="absolute bottom-8 left-8 text-slate-400 hover:text-slate-900 flex items-center gap-1 text-xs font-bold uppercase tracking-widest transition-colors"
+						disabled={isSubmitting}
+						className="absolute bottom-8 left-8 text-slate-400 hover:text-slate-900 disabled:opacity-50 flex items-center gap-1 text-xs font-bold uppercase tracking-widest transition-colors"
 					>
 						<ArrowLeft size={14} /> Back
 					</button>

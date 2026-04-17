@@ -6,7 +6,7 @@ import { CheckCircle2, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function CTA() {
 	return (
-		<section className="relative py-32 px-6 overflow-hidden bg-slate-950">
+		<section className="relative py-12 px-6 overflow-hidden bg-slate-950">
 			{/* THE "RAIL" GRADIENT BACKGROUND */}
 			<div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 pointer-events-none">
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent blur-[120px]" />

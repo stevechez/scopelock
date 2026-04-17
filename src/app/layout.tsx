@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import Navbar from '@/components/marketing/Navbar';
+import Footer from '@/components/marketing/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
@@ -35,6 +37,7 @@ export default function RootLayout({
 			)}
 		>
 			<body className="min-h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
+				<Navbar />
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
@@ -43,6 +46,7 @@ export default function RootLayout({
 				>
 					{children}
 				</ThemeProvider>
+				<Footer />
 			</body>
 		</html>
 	);

@@ -1,159 +1,209 @@
-import { createClient } from '@/utils/supabase/server';
-import { notFound } from 'next/navigation';
-// import { acceptProposalAction } from '@/app/actions/client';
-import { createDepositCheckoutAction } from '@/app/actions/billing'; // Import from billing
-import { NextResponse } from 'next/server';
+'use client';
 
-export const dynamic = 'force-dynamic';
+import { useState } from 'react';
+import { createBrowserClient } from '@supabase/ssr';
+import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldCheck, ArrowRight, Loader2, Mailbox } from 'lucide-react';
 
-export async function POST(req: Request) {
-	// ... your webhook logic ...
-}
+export default function ClientPortalLogin() {
+	const [email, setEmail] = useState('');
+	const [token, setToken] = useState('');
+	const [step, setStep] = useState<'email' | 'code'>('email');
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
 
-export default async function ClientVaultPage({
-	params,
-}: {
-	params: { subdomain: string };
-}) {
-	const supabase = await createClient();
+	const router = useRouter();
 
-	// In Next.js 15, params must be awaited
-	const { subdomain } = await params;
+	// Create a Supabase client for the browser
+	const supabase = createBrowserClient(
+		process.env.NEXT_PUBLIC_SUPABASE_URL!,
+		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+	);
 
-	// 1. Fetch the Brand (Tenant)
-	const { data: tenant } = await supabase
-		.from('tenants')
-		.select('*')
-		.eq('subdomain', subdomain)
-		.single();
+	const handleSendCode = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setError('');
 
-	if (!tenant) notFound();
+		try {
+			const { error } = await supabase.auth.signInWithOtp({
+				email,
+				options: {
+					// This tells Supabase not to send a magic link, but a 6-digit code instead
+					shouldCreateUser: true,
+				},
+			});
 
-	// 2. Fetch the Proposals for this Homeowner
-	const { data: proposals } = await supabase
-		.from('proposals')
-		.select('*')
-		.eq('tenant_id', tenant.id)
-		.order('created_at', { ascending: false });
+			if (error) throw error;
+			setStep('code');
+		} catch (err) {
+			if (err instanceof Error) {
+				setError(err.message);
+			} else {
+				setError('Failed to send code. Please try again.');
+			}
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
-	// Use the tenant's brand color, fallback to a nice blue
-	const brandColor = tenant.primary_color || '#3b82f6';
+	const handleVerifyCode = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setError('');
+
+		try {
+			const { error } = await supabase.auth.verifyOtp({
+				email,
+				token,
+				type: 'email',
+			});
+
+			if (error) throw error;
+
+			// Success! Send them to the Switchboard which will route them to CommVault
+			router.push('/dashboard');
+			router.refresh();
+		} catch (err) {
+			// 1. Narrow the type: Check if it's a standard Error object
+			if (err instanceof Error) {
+				setError(err.message);
+			} else {
+				// 2. Fallback for weird edge cases where something non-Error was thrown
+				setError('An unexpected error occurred. Please try again.');
+			}
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	return (
-		<div className="min-h-screen bg-[#020617] text-white selection:bg-white/20">
-			{/* Branded Header */}
-			<header
-				className="py-8 px-6 border-b border-white/10"
-				style={{ borderBottomColor: `${brandColor}40` }}
-			>
-				<div className="max-w-4xl mx-auto flex items-center gap-4">
-					{tenant.logo_url && (
-						<img
-							src={tenant.logo_url}
-							alt="Logo"
-							className="h-10 w-auto rounded-md"
-						/>
-					)}
-					<h1
-						className="text-2xl font-black tracking-tighter"
-						style={{ color: brandColor }}
-					>
-						{tenant.name}
+		<div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 font-sans">
+			<div className="w-full max-w-md">
+				{/* Branding */}
+				<div className="text-center mb-10">
+					<div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-2xl mb-6 shadow-xl shadow-slate-900/20">
+						<ShieldCheck className="w-8 h-8 text-amber-500" />
+					</div>
+					<h1 className="text-3xl font-black text-slate-900 tracking-tight">
+						Client Portal
 					</h1>
-				</div>
-			</header>
-
-			{/* Client Content */}
-			<main className="max-w-4xl mx-auto py-16 px-6">
-				<div className="mb-12">
-					<h2 className="text-4xl font-black italic tracking-tight">
-						Your Client Vault
-					</h2>
-					<p className="text-slate-400 mt-2 font-medium">
-						Review and approve your active project scopes below.
+					<p className="text-slate-500 font-medium mt-2">
+						Secure access to your project timeline and financial documents.
 					</p>
 				</div>
 
-				<div className="space-y-8">
-					{!proposals || proposals.length === 0 ? (
-						<p className="text-slate-500 italic">
-							No active proposals at this time.
-						</p>
-					) : (
-						proposals.map(proposal => (
-							<div
-								key={proposal.id}
-								className="bg-slate-900/60 border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl"
+				{/* Login Card */}
+				<div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-200/50">
+					<AnimatePresence mode="wait">
+						{step === 'email' ? (
+							<motion.form
+								key="email-form"
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: 20 }}
+								onSubmit={handleSendCode}
+								className="space-y-6"
 							>
-								<div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 mb-8">
-									<div>
-										<h3 className="text-3xl font-black mb-2">
-											{proposal.title}
-										</h3>
-										<div
-											className="inline-block px-3 py-1 rounded-full border border-white/10 text-xs font-bold tracking-widest uppercase mb-4"
-											style={{
-												color:
-													proposal.status === 'accepted'
-														? '#10b981'
-														: brandColor,
-											}}
-										>
-											{proposal.status}
-										</div>
-									</div>
-									<div className="text-left md:text-right">
-										<p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">
-											Total Investment
-										</p>
-										<p className="text-4xl font-black">
-											${Number(proposal.amount).toLocaleString()}
-										</p>
-									</div>
+								<div>
+									<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+										Email Address
+									</label>
+									<input
+										type="email"
+										required
+										value={email}
+										onChange={e => setEmail(e.target.value)}
+										className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 font-medium focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+										placeholder="Enter your email"
+									/>
 								</div>
 
-								<div className="bg-black/40 rounded-2xl p-6 mb-8 border border-white/5">
-									<h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">
-										Scope of Work
-									</h4>
-									<p className="text-slate-300 leading-relaxed whitespace-pre-wrap">
-										{proposal.description}
+								{error && (
+									<div className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg">
+										{error}
+									</div>
+								)}
+
+								<button
+									type="submit"
+									disabled={isLoading || !email}
+									className="w-full bg-slate-900 text-white font-black py-4 rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-slate-900/20"
+								>
+									{isLoading ? (
+										<Loader2 className="w-5 h-5 animate-spin" />
+									) : (
+										'Send Secure Code'
+									)}
+								</button>
+							</motion.form>
+						) : (
+							<motion.form
+								key="code-form"
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: 20 }}
+								onSubmit={handleVerifyCode}
+								className="space-y-6"
+							>
+								<div className="text-center p-4 bg-amber-50 rounded-2xl mb-6">
+									<Mailbox className="w-8 h-8 text-amber-500 mx-auto mb-2" />
+									<p className="text-sm text-slate-700 font-medium">
+										We sent a 6-digit code to <br />
+										<strong className="text-slate-900">{email}</strong>
 									</p>
 								</div>
 
-								{/* The Handshake Action */}
-								{proposal.status !== 'accepted' && (
-									<form
-										action={async () => {
-											'use server';
-											await createDepositCheckoutAction(proposal.id, subdomain);
-										}}
-									>
-										<button
-											type="submit"
-											className="w-full md:w-auto px-10 py-5 rounded-2xl font-black text-black hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(255,255,255,0.1)] text-lg flex items-center justify-center gap-3"
-											style={{ backgroundColor: brandColor }}
-										>
-											<svg
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												strokeWidth="2"
-												className="w-6 h-6"
-											>
-												<rect x="3" y="5" width="18" height="14" rx="2" />
-												<line x1="3" y1="10" x2="21" y2="10" />
-												<path d="M7 15h.01M11 15h2" />
-											</svg>
-											Accept & Pay 20% Deposit
-										</button>
-									</form>
+								<div>
+									<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+										Enter 6-Digit Code
+									</label>
+									<input
+										type="text"
+										required
+										maxLength={6}
+										value={token}
+										onChange={e => setToken(e.target.value.replace(/\D/g, ''))} // Only allow numbers
+										className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 font-black text-center tracking-[0.5em] text-2xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+										placeholder="000000"
+									/>
+								</div>
+
+								{error && (
+									<div className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg">
+										{error}
+									</div>
 								)}
-							</div>
-						))
-					)}
+
+								<button
+									type="submit"
+									disabled={isLoading || token.length !== 6}
+									className="w-full bg-amber-500 text-slate-900 font-black py-4 rounded-xl hover:bg-amber-400 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-amber-500/20"
+								>
+									{isLoading ? (
+										<Loader2 className="w-5 h-5 animate-spin" />
+									) : (
+										'Verify & Enter Vault'
+									)}
+								</button>
+
+								<button
+									type="button"
+									onClick={() => setStep('email')}
+									className="w-full text-center text-sm font-bold text-slate-400 hover:text-slate-600 mt-4"
+								>
+									Use a different email
+								</button>
+							</motion.form>
+						)}
+					</AnimatePresence>
 				</div>
-			</main>
+
+				<div className="text-center mt-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
+					Powered by BUILDRAIL
+				</div>
+			</div>
 		</div>
 	);
 }

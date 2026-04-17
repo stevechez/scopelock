@@ -28,7 +28,7 @@ function SuccessContent() {
 			<p className="text-slate-400 mb-8 leading-relaxed">
 				Your &ldquo;Financial Control System&rdquo; is live at: <br />
 				<span className="text-amber-500 font-bold">
-					{subdomain}.getbuildrail.com
+					{subdomain}.buildrailhq.com
 				</span>
 			</p>
 
@@ -38,7 +38,7 @@ function SuccessContent() {
 				</p>
 				<p className="text-sm text-slate-300">
 					Since we are in Stealth/Dev mode, hop into Vercel and add{' '}
-					<strong>{subdomain}.getbuildrail.com</strong> to your project domains.
+					<strong>{subdomain}.buildrailhq.com</strong> to your project domains.
 				</p>
 			</div>
 
