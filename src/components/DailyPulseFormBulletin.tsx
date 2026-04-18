@@ -25,7 +25,7 @@ export function DailyPulseForm({ jobId }: { jobId: string }) {
 		setIsSubmitting(true);
 
 		try {
-			// 1. Upload to Storage (reusing the 'proofs' bucket or a new 'pulses' bucket)
+			// 1. Upload to Storage
 			const fileName = `pulses/${jobId}/${Date.now()}-${file.name}`;
 			const { error: uploadError } = await supabase.storage
 				.from('proofs')
@@ -37,16 +37,22 @@ export function DailyPulseForm({ jobId }: { jobId: string }) {
 				data: { publicUrl },
 			} = supabase.storage.from('proofs').getPublicUrl(fileName);
 
-			// 2. Save to Database
-			await submitDailyPulse(jobId, note, publicUrl);
+			// 📍 THE FIX: Package everything into a single FormData container
+			const formData = new FormData();
+			formData.append('jobId', jobId);
+			formData.append('note', note);
+			formData.append('publicUrl', publicUrl);
 
-			// 3. Reset
+			// 📍 THE FIX: Pass the single formData object as required by the action
+			await submitDailyPulse(formData);
+
+			// 3. Reset UI state
 			setNote('');
 			setPreview(null);
 			setFile(null);
 			alert('Pulse Sent! Nice work.');
 		} catch (error) {
-			console.error(error);
+			console.error('Pulse update failed:', error);
 			alert('Failed to send pulse. Try again.');
 		} finally {
 			setIsSubmitting(false);
@@ -82,7 +88,9 @@ export function DailyPulseForm({ jobId }: { jobId: string }) {
 						<div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
 							<Camera size={32} />
 						</div>
-						<span className="font-bold">Snap Today&quot;s Progress</span>
+						<span className="font-bold text-sm tracking-tight">
+							Snap Today&apos;s Progress
+						</span>
 					</button>
 				)}
 				<input

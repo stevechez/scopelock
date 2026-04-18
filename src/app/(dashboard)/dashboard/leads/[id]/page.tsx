@@ -12,7 +12,7 @@ import {
 	Receipt,
 	CheckCircle2,
 } from 'lucide-react';
-import ProposalForm from '@/components/dashboard/ProposalForm';
+import { ProposalForm } from '@/components/dashboard/ProposalForm';
 import PaymentManager from '@/components/dashboard/PaymentManager';
 import ProjectTimeline from '@/components/dashboard/ProjectTimeline';
 import FileVault from '@/components/dashboard/FileVault';

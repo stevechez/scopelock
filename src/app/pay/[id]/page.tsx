@@ -1,69 +1,74 @@
 import { createClient } from '@/utils/supabase/server';
-import { notFound, redirect } from 'next/navigation';
-import { createMilestonePaymentLink } from '@/app/actions';
+import { notFound } from 'next/navigation';
 import { PayButton } from '@/components/PayButton';
 
-interface PageProps {
-	params: Promise<{ id: string }>;
+interface MilestoneWithProject {
+	title: string;
+	amount: number;
+	projects: {
+		name: string;
+	} | null;
 }
 
-export default async function PayRailGateway({ params }: PageProps) {
+export default async function PaymentPage({
+	params,
+}: {
+	params: Promise<{ id: string }>;
+}) {
 	const { id } = await params;
-
 	const supabase = await createClient();
 
-	// 1. Fetch the milestone
-	const { data: milestone, error } = await supabase
+	const { data, error } = await supabase
 		.from('milestones')
 		.select(
 			`
-            *,
-            jobs (
-                title,
-                tenant_id,
-                tenants (
-                    company_name
-                )
+            title,
+            amount,
+            projects:project_id (
+                name
             )
         `,
 		)
 		.eq('id', id)
 		.single();
 
-	if (error || !milestone) {
-		notFound();
-	}
+	if (error || !data) notFound();
 
-	const job = milestone.jobs;
+	const milestone = data as unknown as MilestoneWithProject;
+	const projectName = milestone.projects?.name || 'Project Details';
 
-	// 2. THIS IS THE MISSING FUNCTION
-	const handleCheckout = async () => {
-		'use server';
-
-		const checkoutUrl = await createMilestonePaymentLink(
-			job.tenant_id,
-			milestone.id,
-			milestone.title,
-			milestone.amount,
-		);
-
-		redirect(checkoutUrl);
-	};
-
-	// 3. The UI
 	return (
-		<div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 font-sans">
-			<div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
-				<h1 className="text-2xl font-black text-white mb-4">{job.title}</h1>
-				<div className="text-4xl font-black text-amber-500 mb-8">
-					${Number(milestone.amount).toLocaleString()}
+		<div className="min-h-screen bg-[#05070f] flex items-center justify-center p-6 font-sans text-white">
+			<div className="bg-white/[0.03] border border-white/10 p-12 rounded-[3rem] max-w-md w-full text-center space-y-8 backdrop-blur-xl shadow-2xl">
+				<div>
+					<div className="inline-block bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-1 mb-6">
+						<p className="text-amber-500 font-black text-[9px] uppercase tracking-[0.4em]">
+							Secure Payment Portal
+						</p>
+					</div>
+					<h1 className="text-5xl font-black italic uppercase tracking-tighter leading-[0.9]">
+						{milestone.title}
+					</h1>
+					<p className="text-white/30 text-xs mt-4 font-bold uppercase tracking-widest">
+						{projectName}
+					</p>
 				</div>
 
-				{/* 4. The button now has access to the function above! */}
-				<PayButton
-					handleCheckout={handleCheckout}
-					amount={Number(milestone.amount)}
-				/>
+				<div className="py-10 border-y border-white/5">
+					<p className="text-white/20 text-[10px] font-black uppercase tracking-[0.2em] mb-2">
+						Amount Due
+					</p>
+					<p className="text-7xl font-black italic tracking-tighter">
+						${milestone.amount?.toLocaleString()}
+					</p>
+				</div>
+
+				<div className="space-y-4">
+					<PayButton milestoneId={id} />
+					<p className="text-[9px] text-white/10 font-medium uppercase tracking-[0.1em]">
+						Protected by ScopeLock™ Encryption
+					</p>
+				</div>
 			</div>
 		</div>
 	);

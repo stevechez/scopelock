@@ -7,7 +7,7 @@ import { Loader2, Save } from 'lucide-react';
 export default function SettingsForm({ currentName }: { currentName: string }) {
 	const [state, formAction, isPending] = useActionState(
 		updateTenantSettings,
-		null,
+		{}, // Pass an empty object instead of null
 	);
 
 	return (

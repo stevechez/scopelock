@@ -12,21 +12,29 @@ export function NewMilestoneForm({ jobId }: { jobId: string }) {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
+
 		try {
-			await createMilestone(jobId, title, Number(amount));
+			const formData = new FormData();
+			formData.append('jobId', jobId);
+			formData.append('title', title);
+			formData.append('amount', amount.toString());
+
+			await createMilestone(formData);
+
 			setTitle('');
 			setAmount('');
 		} catch (err) {
 			console.error(err);
 			alert('Failed to create milestone.');
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex gap-4 items-end"
+			className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-200 flex gap-4 items-end"
 		>
 			<div className="flex-1">
 				<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
@@ -86,23 +94,31 @@ export function RequestPaymentButton({
 	const handleSend = async () => {
 		setLoading(true);
 		try {
-			// Passing a placeholder image as the "proof of work" for MVP
-			const dummyProofImage =
-				'https://images.unsplash.com/photo-1541888081638-3482ee6919e8?auto=format&fit=crop&q=80&w=1000';
-			await requestMilestonePayment(milestoneId, jobId, dummyProofImage);
+			// 📍 1. Wrap data in FormData for the Server Action
+			const data = new FormData();
+			data.append('milestoneId', milestoneId);
+			data.append('jobId', jobId);
+			data.append(
+				'proofUrl',
+				'https://images.unsplash.com/photo-1541888081638-3482ee6919e8?auto=format&fit=crop&q=80&w=1000',
+			);
+
+			// 📍 2. Pass the single argument
+			await requestMilestonePayment(data);
 			alert('Payment Request SMS Sent!');
 		} catch (err) {
 			console.error(err);
 			alert('Failed to send request.');
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
 		<button
 			onClick={handleSend}
 			disabled={loading}
-			className="bg-emerald-50 text-emerald-600 font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-emerald-100 transition-colors disabled:opacity-50 border border-emerald-100"
+			className="bg-emerald-50 text-emerald-600 font-black text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-emerald-100 transition-colors disabled:opacity-50 border border-emerald-500/10"
 		>
 			{loading ? (
 				<Loader2 size={14} className="animate-spin" />

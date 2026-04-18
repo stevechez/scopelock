@@ -51,19 +51,30 @@ export default function LeadCaptureForm({
 		setIsSubmitting(true);
 
 		try {
-			// FIX: Use the simplified keys we just set up in actions.ts
-			await submitLead(tenantId, {
-				name: formData.name,
-				email: formData.email,
-				phone: formData.phone,
-				projectType: formData.projectType,
-				budget: formData.budget,
-				timeline: formData.timeline,
-			});
-			setSubmitted(true);
-		} catch (error) {
-			console.error(error);
-			alert('Submission failed. Please try again.');
+			// 1. Create the FormData object that the server action expects first
+			const data = new FormData();
+			data.append('name', formData.name);
+			data.append('email', formData.email);
+			data.append('phone', formData.phone);
+			data.append('projectType', formData.projectType);
+			data.append('budget', formData.budget);
+			data.append('timeline', formData.timeline);
+
+			/**
+			 * 2. THE FIX:
+			 * Your action is defined as: submitLead(formData: FormData, tenantId: string)
+			 * You must pass 'data' first and 'tenantId' second.
+			 */
+			const result = await submitLead(data, tenantId);
+
+			if (result && 'error' in result) {
+				alert(result.error);
+			} else {
+				setSubmitted(true);
+			}
+		} catch (err) {
+			console.error('Submission error:', err);
+			alert('Something went wrong. Please try again.');
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -79,7 +90,8 @@ export default function LeadCaptureForm({
 					Success
 				</h3>
 				<p className="text-slate-500 font-medium">
-					We&apos;ve received your brief, {formData.name.split(' ')[0]}.
+					We&apos;ve received your brief,{' '}
+					{formData.name.split(' ')[0] || 'friend'}.
 				</p>
 			</div>
 		);
@@ -88,7 +100,7 @@ export default function LeadCaptureForm({
 	return (
 		<div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-slate-100 min-h-[450px] flex flex-col justify-center relative">
 			{/* Progress Bar */}
-			{step < 4 && (
+			{step < 5 && (
 				<div className="absolute top-8 left-10 right-10 flex gap-2">
 					{[1, 2, 3, 4].map(i => (
 						<div
@@ -100,7 +112,6 @@ export default function LeadCaptureForm({
 			)}
 
 			<AnimatePresence mode="wait">
-				{/* STEP 1: TYPE */}
 				{step === 1 && (
 					<motion.div
 						key="s1"
@@ -126,7 +137,6 @@ export default function LeadCaptureForm({
 					</motion.div>
 				)}
 
-				{/* STEP 2: BUDGET */}
 				{step === 2 && (
 					<motion.div
 						key="s2"
@@ -152,7 +162,6 @@ export default function LeadCaptureForm({
 					</motion.div>
 				)}
 
-				{/* STEP 3: TIMELINE */}
 				{step === 3 && (
 					<motion.div
 						key="s3"
@@ -178,7 +187,6 @@ export default function LeadCaptureForm({
 					</motion.div>
 				)}
 
-				{/* STEP 4: FINAL INFO */}
 				{step === 4 && (
 					<motion.form key="s4" onSubmit={handleSubmit} className="space-y-4">
 						<h2 className="text-2xl font-black text-slate-900 italic uppercase mb-6">
@@ -213,8 +221,9 @@ export default function LeadCaptureForm({
 						/>
 
 						<button
+							type="submit"
 							disabled={isSubmitting}
-							className="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl flex items-center justify-center gap-2 mt-4 hover:bg-slate-800 transition-all"
+							className="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl flex items-center justify-center gap-2 mt-4 hover:bg-slate-800 transition-all active:scale-[0.98]"
 						>
 							{isSubmitting ? (
 								<Loader2 className="animate-spin text-amber-500" />
@@ -228,8 +237,9 @@ export default function LeadCaptureForm({
 				)}
 			</AnimatePresence>
 
-			{step > 1 && step < 5 && (
+			{step > 1 && !submitted && (
 				<button
+					type="button"
 					onClick={handleBack}
 					className="absolute bottom-6 left-10 text-slate-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 hover:text-slate-900 transition-colors"
 				>

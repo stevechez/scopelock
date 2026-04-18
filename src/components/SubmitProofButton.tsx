@@ -1,93 +1,78 @@
 'use client';
 
 import { useState } from 'react';
-import { Camera, Loader2 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { Camera, Loader2, Check } from 'lucide-react';
+import { createClient } from '@/utils/supabase/client';
 import { requestMilestonePayment } from '@/app/actions';
 
+// 📍 Fix: Add jobId to the interface
 interface SubmitProofButtonProps {
 	milestoneId: string;
-	jobId: string;
+	jobId: string; // Add this line
 }
 
 export function SubmitProofButton({
 	milestoneId,
 	jobId,
 }: SubmitProofButtonProps) {
-	const [isUploading, setIsUploading] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [done, setDone] = useState(false);
+	const supabase = createClient();
 
-	const handleCapture = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (!file) return;
+	const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files?.[0]) return;
 
-		setIsUploading(true);
+		setLoading(true);
+		const file = e.target.files[0];
+		// Now using jobId for better storage organization
+		const filePath = `proofs/${jobId}/${milestoneId}-${Date.now()}`;
+
 		try {
-			// 1. Create a unique filename (e.g., job-123/milestone-456-1691234.jpg)
-			const fileExt = file.name.split('.').pop();
-			const fileName = `${jobId}/${milestoneId}-${Date.now()}.${fileExt}`;
-
-			// 2. Upload the raw image directly to Supabase Storage
 			const { error: uploadError } = await supabase.storage
-				.from('proofs')
-				.upload(fileName, file, {
-					cacheControl: '3600',
-					upsert: false,
-				});
+				.from('site_photos')
+				.upload(filePath, file);
 
 			if (uploadError) throw uploadError;
 
-			// 3. Get the public URL for the uploaded photo
 			const {
 				data: { publicUrl },
-			} = supabase.storage.from('proofs').getPublicUrl(fileName);
+			} = supabase.storage.from('site_photos').getPublicUrl(filePath);
 
-			// 4. Trigger the Server Action to update the DB and text the client
-			await requestMilestonePayment(milestoneId, jobId, publicUrl);
-		} catch (error) {
-			console.error('Upload process failed:', error);
-			alert(
-				'Failed to upload proof. Please check your connection and try again.',
-			);
+			const formData = new FormData();
+			formData.append('milestoneId', milestoneId);
+			formData.append('jobId', jobId); // Include jobId in the server action
+			formData.append('proofUrl', publicUrl);
+
+			await requestMilestonePayment(formData);
+			setDone(true);
+		} catch (err) {
+			console.error(err);
+			alert('Failed to submit proof.');
 		} finally {
-			setIsUploading(false);
+			setLoading(false);
 		}
 	};
 
+	// ... rest of return statement stays the same
+
 	return (
-		<div className="w-full mt-2 relative">
-			{/* This hidden input is the magic. 
-        capture="environment" forces the rear camera on mobile devices.
-      */}
+		<label className="cursor-pointer group">
 			<input
 				type="file"
+				className="hidden"
+				onChange={handleUpload}
 				accept="image/*"
 				capture="environment"
-				id={`camera-${milestoneId}`}
-				onChange={handleCapture}
-				className="hidden"
-				disabled={isUploading}
+				disabled={loading}
 			/>
-
-			<label
-				htmlFor={`camera-${milestoneId}`}
-				className={`w-full py-3 rounded-xl font-semibold flex justify-center items-center gap-2 transition-all cursor-pointer shadow-md ${
-					isUploading
-						? 'bg-slate-200 text-slate-500 cursor-not-allowed'
-						: 'bg-slate-900 text-white active:bg-slate-800 active:scale-[0.98]'
-				}`}
-			>
-				{isUploading ? (
-					<>
-						<Loader2 size={18} className="animate-spin" />
-						Uploading & Sending...
-					</>
+			<div className="flex items-center gap-2 bg-white text-black font-black text-[10px] uppercase tracking-widest px-6 py-3 rounded-xl hover:bg-amber-500 transition-all shadow-lg shadow-black/20">
+				{loading ? (
+					<Loader2 size={14} className="animate-spin" />
 				) : (
-					<>
-						<Camera size={18} />
-						Submit Proof & Request Payment
-					</>
+					<Camera size={14} />
 				)}
-			</label>
-		</div>
+				{loading ? 'Processing...' : 'Submit Proof for Payment'}
+			</div>
+		</label>
 	);
 }

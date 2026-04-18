@@ -9,7 +9,7 @@ import SocialProof from '@/components/marketing/SocialProof';
 import ProductModules from '@/components/marketing/ProductModules';
 import BlueprintBreakdown from '@/components/marketing/BlueprintBreakdown';
 import PathToSystem from '@/components/marketing/PathToSystem';
-import Pricing from '@/components/marketing/Pricing';
+import { Pricing } from '@/components/marketing/Pricing';
 // import JumpstartBanner from '@/components/marketing/JumpstartBanner';
 // import FounderNote from '@/components/marketing/FounderNote';
 import { Testimonials } from '@/components/marketing/Testimonials';

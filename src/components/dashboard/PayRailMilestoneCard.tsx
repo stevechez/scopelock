@@ -10,6 +10,13 @@ interface MilestoneProps {
 	amount: number;
 }
 
+// 1. Define an expected response type to eliminate TypeScript "Property does not exist" errors
+interface ActionResponse {
+	error?: string;
+	milestone?: string;
+	url?: string;
+}
+
 export default function PayRailMilestoneCard({
 	tenantId,
 	milestoneName,
@@ -22,12 +29,25 @@ export default function PayRailMilestoneCard({
 	const generateLink = async () => {
 		setIsLoading(true);
 		try {
-			const url = await createMilestonePaymentLink(
+			// Reverted back to `result` so the error checking below works!
+			const result = (await createMilestonePaymentLink({
 				tenantId,
 				milestoneName,
 				amount,
-			);
-			setPaymentLink(url);
+			})) as ActionResponse;
+
+			if (result?.error) {
+				alert(result.error);
+				return;
+			}
+
+			const link = result?.milestone || result?.url;
+
+			if (!link) {
+				throw new Error('No payment link returned from the server.');
+			}
+
+			setPaymentLink(link);
 		} catch (error) {
 			console.error(error);
 			alert('Failed to generate link. Ensure your bank is connected.');
@@ -37,12 +57,17 @@ export default function PayRailMilestoneCard({
 	};
 
 	const copyToClipboard = () => {
-		if (paymentLink) {
-			navigator.clipboard.writeText(paymentLink);
-			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
-		}
+		if (!paymentLink) return;
+
+		navigator.clipboard.writeText(paymentLink);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
 	};
+
+	// Safely encode the SMS body so spaces, variables, and URLs don't break the native messaging app
+	const smsBody = encodeURIComponent(
+		`Hi! Here is the secure link to complete the ${milestoneName} milestone: ${paymentLink}`,
+	);
 
 	return (
 		<div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-sm">
@@ -73,11 +98,12 @@ export default function PayRailMilestoneCard({
 					)}
 				</button>
 			) : (
-				<div className="space-y-3 focus:outline-none focus:ring-0">
+				<div className="space-y-3">
 					<div className="p-3 bg-slate-200 dark:bg-slate-950 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-400 break-all select-all">
 						{paymentLink}
 					</div>
-					<div className="flex gap-2 focus:outline-none focus:ring-0">
+
+					<div className="flex gap-2">
 						<button
 							onClick={copyToClipboard}
 							className="flex-1 py-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white font-bold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 text-sm"
@@ -89,8 +115,9 @@ export default function PayRailMilestoneCard({
 							)}
 							{copied ? 'Copied' : 'Copy'}
 						</button>
+
 						<a
-							href={`sms:?&body=Hi! Here is the secure link to complete the ${milestoneName} milestone: ${paymentLink}`}
+							href={`sms:?body=${smsBody}`}
 							className="flex-1 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition-colors flex items-center justify-center gap-2 text-sm"
 						>
 							<Send className="w-4 h-4" />

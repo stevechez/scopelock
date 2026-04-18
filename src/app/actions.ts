@@ -19,11 +19,29 @@ import {
 // Initialize Lemon Squeezy
 lemonSqueezySetup({ apiKey: process.env.LEMON_SQUEEZY_API_KEY || '' });
 
-// --- SHARED TYPES ---
-export type ActionResponse = {
-	success: boolean;
+interface MilestonePayload {
+	tenantId: string;
+	milestoneName: string;
+	amount: number;
+}
+
+interface AIProposalPayload {
+	leadId: string;
+	// Add any other fields your component sends, e.g.:
+	// notes?: string;
+	// projectScope?: string;
+}
+
+interface SettingsState {
+	success?: boolean;
+	error?: string;
 	message?: string;
-} | null;
+}
+
+// --- SHARED TYPES ---
+export type ActionResponse =
+	| { success: true; message?: string }
+	| { success: false; error: string };
 
 export interface ProjectOverrides {
 	name: string;
@@ -132,21 +150,21 @@ export async function completeOnboarding(
 // 2. LEAD CAPTURE (Fixed Mapping & Syntax)
 // ==========================================
 export async function submitPublicLead(
+	formData: FormData,
 	tenantId: string,
-	data: {
-		name: string;
-		email: string;
-		phone?: string;
-		projectType?: string;
-		budget?: string;
-		timeline?: string;
-	},
 ): Promise<ActionResponse> {
 	try {
-		// Use the utility we already have to avoid manual cookie handling errors
 		const supabase = await createClient();
 
-		// 📍 1. Verification Check: Does this tenant actually exist?
+		// 📍 FIX: Do NOT re-declare tenantId here. Use the one from the argument.
+		const name = formData.get('name') as string;
+		const email = formData.get('email') as string;
+		const phone = formData.get('phone') as string;
+		const projectType = formData.get('projectType') as string;
+		const budget = formData.get('budget') as string;
+		const timeline = formData.get('timeline') as string;
+
+		// Validation check to ensure the contractor exists
 		const { data: tenantCheck, error: tenantError } = await supabase
 			.from('tenants')
 			.select('id')
@@ -154,39 +172,46 @@ export async function submitPublicLead(
 			.maybeSingle();
 
 		if (tenantError || !tenantCheck) {
-			return { success: false, message: 'Invalid contractor ID.' };
+			return { success: false, error: 'Invalid contractor ID.' };
 		}
 
-		// 📍 2. Insert the Lead
+		// Insert logic mapping to Supabase column names
 		const { error } = await supabase.from('leads').insert([
 			{
 				tenant_id: tenantId,
-				client_name: data.name,
-				client_email: data.email,
-				client_phone: data.phone,
-				project_type: data.projectType,
-				budget: data.budget,
-				timeline: data.timeline,
+				client_name: name,
+				client_email: email,
+				client_phone: phone,
+				project_type: projectType,
+				budget: budget,
+				timeline: timeline,
 				status: 'new',
 			},
 		]);
 
 		if (error) {
-			console.error('DATABASE REJECTION:', error.message);
-			return { success: false, message: `Database error: ${error.message}` };
+			console.error('Database Insert Error:', error.message);
+			return { success: false, error: error.message };
 		}
 
 		return { success: true, message: 'Lead submitted successfully! 🚀' };
 	} catch (err) {
-		console.error('SERVER ACTION ERROR:', err);
-		return { success: false, message: 'An unexpected error occurred.' };
+		console.error('Server Action Crash:', err);
+		return { success: false, error: 'An unexpected error occurred.' };
 	}
+	// 📍 FIX: Removed the unreachable return { success: true } here
 }
 
 // ==========================================
 // 3. STRIPE CONNECT (PAYRAIL)
 // ==========================================
-export async function createStripeConnectLink(tenantId: string) {
+export async function createStripeConnectLink({
+	tenantId,
+	email,
+}: {
+	tenantId: string;
+	email: string;
+}) {
 	const supabase = await createClient();
 	const {
 		data: { user },
@@ -284,14 +309,14 @@ export async function finalizeAndSendProposal(
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
-	if (!user) return { success: false, message: 'Unauthorized' };
+	if (!user) return { success: false, error: 'Unauthorized' };
 
 	const { error } = await supabase
 		.from('leads')
 		.update({ status: 'quoted', budget: proposedBudget || undefined })
 		.eq('id', leadId);
 
-	if (error) return { success: false, message: 'Failed to save the proposal.' };
+	if (error) return { success: false, error: 'Failed to save the proposal.' };
 
 	revalidatePath(`/dashboard/leads/${leadId}`);
 	revalidatePath('/dashboard');
@@ -304,7 +329,7 @@ export async function approveProposal(leadId: string): Promise<ActionResponse> {
 		.from('leads')
 		.update({ status: 'won' })
 		.eq('id', leadId);
-	if (error) return { success: false, message: 'Could not approve proposal.' };
+	if (error) return { success: false, error: 'Could not approve proposal.' };
 
 	revalidatePath(`/proposal/${leadId}`);
 	revalidatePath('/dashboard');
@@ -533,4 +558,355 @@ export async function createTask(projectId: string, title: string) {
 
 	if (error) throw new Error(error.message);
 	return { success: true };
+}
+export async function submitLead(formData: FormData, tenantId: string) {
+	const supabase = await createClient();
+
+	// 1. Extract values using the EXACT keys sent from the client
+	// 2. Add fallbacks to prevent inserting 'null' strings
+	const rawFormData = {
+		tenant_id: tenantId, // Crucial: Assign the lead to the tenant
+		name: (formData.get('name') as string) || '',
+		email: (formData.get('email') as string) || '',
+		phone: (formData.get('phone') as string) || '',
+		project_type: (formData.get('projectType') as string) || '', // Matches client key
+		budget: (formData.get('budget') as string) || '', // Matches client key
+		timeline: (formData.get('timeline') as string) || '', // Matches client key
+	};
+
+	try {
+		const { error } = await supabase
+			.from('leads')
+			.insert([rawFormData])
+			.select();
+
+		if (error) {
+			console.error('Supabase Error:', error.message);
+			return { success: false, error: error.message };
+		}
+
+		return { success: true };
+	} catch (err) {
+		console.error('Server Action Error:', err);
+		return { success: false, error: 'Failed to process lead.' };
+	}
+}
+export async function submitDailyPulse(formData: FormData) {
+	const supabase = await createClient();
+
+	const projectId = formData.get('projectId') as string;
+	const content = formData.get('content') as string;
+
+	const { data, error } = await supabase
+		.from('daily_logs') // or 'daily_pulse' depending on your schema
+		.insert([
+			{
+				project_id: projectId,
+				content: content,
+				created_at: new Date().toISOString(),
+			},
+		]);
+
+	if (error) {
+		console.error('Pulse Error:', error.message);
+		return { error: error.message };
+	}
+
+	// Refresh the page so the new pulse shows up instantly
+	revalidatePath(`/dashboard/jobs/${projectId}/pulse`);
+
+	return { success: true };
+}
+export async function requestMilestonePayment(formData: FormData) {
+	const supabase = await createClient();
+
+	const milestoneId = formData.get('milestoneId') as string;
+	const proofUrl = formData.get('proofUrl') as string;
+
+	const { error } = await supabase
+		.from('milestones')
+		.update({
+			status: 'PAYMENT_PENDING',
+			proof_photo_url: proofUrl,
+			requested_at: new Date().toISOString(),
+		})
+		.eq('id', milestoneId);
+
+	if (error) {
+		console.error('Payment Request Error:', error.message);
+		return { error: error.message };
+	}
+
+	// Refresh the payments dashboard
+	revalidatePath('/dashboard/jobs/payments');
+
+	return { success: true };
+}
+export async function createMilestonePaymentLink(payload: MilestonePayload) {
+	const supabase = await createClient();
+	const { tenantId, milestoneName, amount } = payload;
+
+	const { data, error } = await supabase
+		.from('milestones')
+		.update({ payment_status: 'PROCESSING' })
+		// 👇 Update the column names to match your exact Supabase schema
+		.eq('tenant_id', tenantId)
+		.eq('name', milestoneName)
+		.select()
+		.single();
+
+	if (error) {
+		console.error('Payment Link Error:', error.message);
+		return { error: error.message };
+	}
+
+	return { success: true, milestone: data };
+}
+
+export async function createMilestone(formData: FormData) {
+	const supabase = await createClient();
+
+	const jobId = formData.get('jobId') as string;
+	const title = formData.get('title') as string;
+	const amount = parseFloat(formData.get('amount') as string);
+
+	const { error } = await supabase.from('milestones').insert({
+		project_id: jobId,
+		title,
+		amount,
+		status: 'PENDING',
+	});
+
+	if (error) {
+		console.error('Create Milestone Error:', error.message);
+		return { error: error.message };
+	}
+
+	// Refresh the dashboard so the new milestone shows up in the list
+	revalidatePath(`/dashboard/jobs/payments/${jobId}`);
+
+	return { success: true };
+}
+export async function createJob(formData: FormData) {
+	const supabase = await createClient();
+
+	const name = formData.get('name') as string;
+	const description = formData.get('description') as string;
+	const budget = formData.get('budget') as string;
+
+	const { data, error } = await supabase
+		.from('projects')
+		.insert({
+			name,
+			description,
+			budget_total: parseFloat(budget) || 0,
+			status: 'ACTIVE',
+			// Assumes your tenant_id is handled by a trigger or session
+		})
+		.select()
+		.single();
+
+	if (error) {
+		console.error('Create Job Error:', error.message);
+		return { error: error.message };
+	}
+
+	// Refresh the list and jump into the new project
+	revalidatePath('/dashboard/jobs');
+	redirect(`/dashboard/jobs/${data.id}`);
+}
+export async function createChangeOrder(formData: FormData) {
+	const jobId = formData.get('jobId') as string;
+	const description = formData.get('description') as string;
+	const price = Number(formData.get('price'));
+	const supabase = await createClient();
+
+	const projectId = formData.get('projectId') as string;
+	const title = formData.get('title') as string;
+	const amount = parseFloat(formData.get('amount') as string) || 0;
+
+	const { error } = await supabase.from('change_orders').insert({
+		project_id: projectId,
+		title,
+		description,
+		estimated_cost: amount,
+		status: 'APPROVED', // Manual entries are usually pre-approved on-site
+	});
+
+	if (error) {
+		console.error('Change Order Error:', error.message);
+		return { error: error.message };
+	}
+
+	// Refresh the project detail and financial pages
+	revalidatePath(`/dashboard/jobs/${projectId}`);
+
+	return { success: true };
+}
+export async function acceptLead(leadId: string) {
+	const supabase = await createClient();
+
+	// 1. Fetch the lead data first
+	const { data: lead, error: fetchError } = await supabase
+		.from('leads')
+		.select('*')
+		.eq('id', leadId)
+		.single();
+
+	if (fetchError || !lead) {
+		return { error: 'Lead not found' };
+	}
+
+	// 2. Create the Project
+	const { data: project, error: projectError } = await supabase
+		.from('projects')
+		.insert({
+			/* ... */
+		})
+		.select()
+		.single();
+
+	if (projectError) return { error: projectError.message };
+
+	// 📍 IMPORTANT: Do NOT call redirect() here if the client
+	// needs to use the ID for router.push. Just return the project.
+	return project;
+	// 3. Mark lead as accepted
+	await supabase.from('leads').update({ status: 'ACCEPTED' }).eq('id', leadId);
+
+	// 4. Clean up and Redirect
+	revalidatePath('/dashboard/leads');
+	revalidatePath('/dashboard/jobs');
+
+	redirect(`/dashboard/jobs/${project.id}`);
+}
+
+export async function sendProposal(
+	formData: FormData,
+): Promise<ActionResponse> {
+	const supabase = await createClient();
+
+	const leadId = formData.get('leadId') as string;
+	const content = formData.get('content') as string;
+	const tenantId = formData.get('tenantId') as string;
+
+	const { error } = await supabase.from('proposals').insert({
+		lead_id: leadId,
+		tenant_id: tenantId,
+		content,
+		status: 'SENT',
+	});
+
+	if (error) {
+		return { success: false, error: error.message };
+	}
+
+	await supabase
+		.from('leads')
+		.update({ status: 'PROPOSAL_SENT' })
+		.eq('id', leadId);
+
+	revalidatePath('/dashboard/leads');
+
+	return { success: true };
+}
+export async function createLog(formData: FormData) {
+	try {
+		const supabase = await createClient();
+
+		// 1. Extract the data packaged in the component
+		const tenantId = formData.get('tenantId') as string;
+		const jobId = formData.get('jobId') as string;
+		const content = formData.get('content') as string;
+		const type = (formData.get('type') as string) || 'general';
+
+		// 2. Insert into your Supabase logs/updates table
+		const { data, error } = await supabase
+			.from('project_logs') // Ensure this matches your actual table name
+			.insert([
+				{
+					tenant_id: tenantId,
+					job_id: jobId,
+					content: content,
+					log_type: type,
+					created_at: new Date().toISOString(),
+				},
+			])
+			.select()
+			.single();
+
+		if (error) throw error;
+
+		// 3. Refresh the dashboard so the new log appears immediately
+		revalidatePath('/(dashboard)/jobs/[id]', 'page');
+
+		return { success: true, data };
+	} catch (error: any) {
+		console.error('CrewLens Log Error:', error.message);
+		return { success: false, error: error.message };
+	}
+}
+export async function generateAIProposal(payload: AIProposalPayload) {
+	try {
+		const { leadId } = payload;
+
+		// ==========================================
+		// TODO: ADD YOUR ACTUAL AI LOGIC HERE LATER
+		// ==========================================
+		// Example with OpenAI:
+		// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+		// const completion = await openai.chat.completions.create({
+		//     model: "gpt-4o",
+		//     messages: [{ role: "user", content: `Write a proposal for lead ${leadId}` }],
+		// });
+		// const aiText = completion.choices[0].message.content;
+
+		// 2. Simulate a network delay so you can see your loading spinners in the UI
+		await new Promise(resolve => setTimeout(resolve, 1500));
+
+		// 3. Return a successful mocked response for now
+		return {
+			success: true,
+			proposalText:
+				'This is an AI-generated proposal placeholder. Your OpenAI logic will replace this text.',
+		};
+	} catch (error) {
+		console.error('AI Generation Error:', error);
+		return {
+			error: 'Failed to generate AI proposal. Please try again.',
+		};
+	}
+}
+export async function updateTenantSettings(
+	prevState: SettingsState,
+	formData: FormData,
+): Promise<SettingsState> {
+	try {
+		// 3. Extract your form values (assuming your input has name="companyName")
+		const companyName = formData.get('companyName') as string;
+
+		if (!companyName) {
+			return { error: 'Company name is required.' };
+		}
+
+		// ==========================================
+		// TODO: ADD YOUR DATABASE UPDATE LOGIC HERE
+		// ==========================================
+		// Example with Supabase:
+		// const supabase = await createClient();
+		// const { error } = await supabase.from('tenants').update({ name: companyName }).eq('id', tenantId);
+		// if (error) throw error;
+
+		// Simulate network delay for your loading spinner
+		await new Promise(resolve => setTimeout(resolve, 1000));
+
+		// 4. Return the new state so useActionState can update the UI
+		return {
+			success: true,
+			message: 'Settings updated successfully!',
+		};
+	} catch (error) {
+		console.error('Settings Update Error:', error);
+		return { error: 'Failed to update settings. Please try again.' };
+	}
 }

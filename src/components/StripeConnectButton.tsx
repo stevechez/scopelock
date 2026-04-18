@@ -16,7 +16,7 @@ export default function StripeConnectButton({
 	const handleConnectStripe = async () => {
 		setIsLoading(true);
 		try {
-			const onboardingUrl = await createStripeConnectLink(tenantId, email);
+			const onboardingUrl = await createStripeConnectLink({ tenantId, email });
 			if (onboardingUrl) {
 				window.location.href = onboardingUrl;
 			}

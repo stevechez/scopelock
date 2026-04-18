@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { generateBidForgeProposal } from '@/app/actions';
+import { sendProposal } from '@/app/actions';
 import { Loader2, Sparkles, Send } from 'lucide-react';
 
 interface ProposalTier {
@@ -16,25 +16,45 @@ interface ProposalData {
 	tiers: ProposalTier[];
 }
 
-export default function BidForgeBuilder({ tenantId }: { tenantId: string }) {
+// 📍 FIX 1: Add leadId to the props interface
+export default function BidForgeBuilder({
+	tenantId,
+	leadId,
+}: {
+	tenantId: string;
+	leadId: string;
+}) {
 	const [notes, setNotes] = useState('');
+	// 📍 FIX 2: Consolidated into a single loading state for cleaner logic
 	const [isGenerating, setIsGenerating] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
 	const [proposal, setProposal] = useState<ProposalData | null>(null);
 
 	const handleGenerate = async () => {
 		if (!notes) return;
+
 		setIsGenerating(true);
 		try {
-			const data = await generateBidForgeProposal(notes);
-			setProposal(data);
+			const formData = new FormData();
+			formData.append('leadId', leadId);
+			formData.append('tenantId', tenantId);
+			formData.append('notes', notes); // Passing the notes to the AI action
+
+			const result = await sendProposal(formData);
+
+			if (result && 'success' in result && result.success) {
+				// If your action returns the generated data, set it here
+				// setProposal(result.data);
+				alert('Proposal forged and sent!');
+			} else if (result && 'error' in result) {
+				alert(`Error: ${result.error}`);
+			}
 		} catch (error) {
-			console.error(error);
-			alert('Failed to forge proposal. Check your API key.');
+			console.error('Generation failed:', error);
+			alert('A network error occurred.');
 		} finally {
-			setIsLoading(false);
+			setIsGenerating(false);
 		}
-	};
+	}; // 📍 FIX 3: Removed the extra trailing brace that was causing a syntax error
 
 	return (
 		<div className="space-y-8">

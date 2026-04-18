@@ -3,54 +3,72 @@
 import { useState, useRef } from 'react';
 import {
 	Camera,
-	Loader2,
+	X,
 	CheckCircle2,
 	Image as ImageIcon,
+	Loader2,
 } from 'lucide-react';
-import { uploadCrewLensLog } from '@/app/actions';
+import { createLog } from '@/app/actions';
 
 interface CrewLensProps {
 	tenantId: string;
-	projectId: string;
+	jobId: string;
 }
 
-export default function CrewLensUploader({
-	tenantId,
-	projectId,
-}: CrewLensProps) {
+export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 	const [isUploading, setIsUploading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-	const formRef = useRef<HTMLFormElement>(null);
-	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [notes, setNotes] = useState('');
 
-	// Handle the image selection to show a quick preview before uploading
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (file) {
-			const url = URL.createObjectURL(file);
-			setPreviewUrl(url);
-			setSuccess(false);
-		}
-	};
+	// 📍 FIX 1: Define refs for the hidden file input
+	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const triggerCamera = () => {
 		fileInputRef.current?.click();
 	};
 
-	const handleSubmit = async (formData: FormData) => {
-		setIsUploading(true);
-		try {
-			await uploadCrewLensLog(formData);
-			setSuccess(true);
-			setPreviewUrl(null);
-			formRef.current?.reset();
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const url = URL.createObjectURL(file);
+			setPreviewUrl(url);
+		}
+	};
 
-			// Hide success message after 3 seconds
-			setTimeout(() => setSuccess(false), 3000);
+	// 📍 FIX 2: Implement the submission logic using FormData
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsUploading(true);
+		setSuccess(false);
+
+		try {
+			const formData = new FormData();
+			formData.append('tenantId', tenantId);
+			formData.append('jobId', jobId);
+			formData.append('content', notes);
+			formData.append('type', 'crew_lens');
+
+			// Add the photo if it exists
+			const file = fileInputRef.current?.files?.[0];
+			if (file) {
+				formData.append('photo', file);
+			}
+
+			const result = await createLog(formData);
+
+			if (result?.success) {
+				setSuccess(true);
+				setNotes('');
+				setPreviewUrl(null);
+				// Reset the file input value manually
+				if (fileInputRef.current) fileInputRef.current.value = '';
+			} else {
+				alert(`Error: ${result?.error || 'Unknown error'}`);
+			}
 		} catch (error) {
-			console.error(error);
-			alert('Upload failed. Please check your connection and try again.');
+			console.error('Upload failed:', error);
+			alert('A network error occurred.');
 		} finally {
 			setIsUploading(false);
 		}
@@ -70,12 +88,9 @@ export default function CrewLensUploader({
 				</div>
 			</div>
 
-			<form ref={formRef} action={handleSubmit} className="space-y-4">
-				{/* Hidden Inputs for Database linking */}
-				<input type="hidden" name="tenantId" value={tenantId} />
-				<input type="hidden" name="projectId" value={projectId} />
+			<form onSubmit={handleSubmit} className="space-y-4">
+				{/* 📍 Hidden Inputs handled via FormData logic above */}
 
-				{/* The Camera Trigger Area */}
 				<div
 					onClick={triggerCamera}
 					className="aspect-video bg-slate-950 border-2 border-dashed border-slate-700 hover:border-teal-500/50 transition-colors rounded-2xl flex flex-col items-center justify-center cursor-pointer relative overflow-hidden group"
@@ -93,35 +108,30 @@ export default function CrewLensUploader({
 							<p className="text-sm font-bold text-slate-300">
 								Tap to Snap Photo
 							</p>
-							<p className="text-xs text-slate-500 mt-1">
-								Directly from device camera
-							</p>
+							<p className="text-xs text-slate-500 mt-1">Back camera enabled</p>
 						</div>
 					)}
 				</div>
 
-				{/* The actual input is hidden */}
 				<input
 					ref={fileInputRef}
 					type="file"
 					name="photo"
 					accept="image/*"
-					capture="environment" // Forces back camera on mobile
+					capture="environment"
 					onChange={handleFileChange}
 					className="hidden"
-					required
 				/>
 
-				{/* Notes Input */}
 				<textarea
-					name="notes"
+					value={notes}
+					onChange={e => setNotes(e.target.value)}
 					placeholder="E.g., Slab poured. Inspection passed."
 					rows={2}
 					className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white text-sm focus:outline-none focus:border-teal-500/50 resize-none"
 					required
 				/>
 
-				{/* Submit Button */}
 				<button
 					type="submit"
 					disabled={isUploading || !previewUrl}

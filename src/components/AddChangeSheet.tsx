@@ -38,8 +38,14 @@ export function AddChangeSheet({
 
 		setIsSubmitting(true);
 		try {
-			// Calls the secure server action to write to Supabase
-			await createChangeOrder(jobId, description, Number(price));
+			// 📍 THE FIX: Create the FormData payload
+			const formData = new FormData();
+			formData.append('jobId', jobId);
+			formData.append('description', description);
+			formData.append('price', price.toString());
+
+			// 📍 Pass the single formData argument
+			await createChangeOrder(formData);
 
 			console.log('Change Order Saved to Supabase!');
 			onClose();

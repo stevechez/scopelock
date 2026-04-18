@@ -15,7 +15,7 @@ import {
 	Hammer,
 } from 'lucide-react';
 import AppShell from '@/components/dashboard/AppShell';
-import CrewLensUploader from '@/components/CrewLensUploader';
+import { CrewLensUploader } from '@/components/CrewLensUploader';
 import BidForgeBuilder from '../BidForgeBuilder';
 
 // 🔥 IMPORT THE NEW COMPONENT HERE
@@ -230,10 +230,10 @@ export default function BuilderHQSandbox() {
 					<div className="mt-6">
 						<CrewLensUploader
 							tenantId="test_tenant_id_123"
-							projectId="project_12345"
+							jobId="project_12345"
 						/>
 					</div>
-					<BidForgeBuilder tenantId="test_tenant_id_123" />
+					{/* <BidForgeBuilder tenantId="test_tenant_id_123" /> */}
 					{/* <BidForgeBuilder tenantId={tenant.id} /> */}
 
 					<div className="bg-slate-900 border-2 border-slate-800 rounded-[2rem] p-6 shadow-xl relative overflow-hidden mt-6">

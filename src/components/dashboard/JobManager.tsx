@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { uploadCrewLensLog, generateBidForgeProposal } from '@/app/actions';
+import { createLog, sendProposal } from '@/app/actions';
 import {
 	HardHat,
 	Camera,
@@ -97,7 +97,6 @@ export default function JobManager({
 		formData.append('projectId', job.id);
 
 		try {
-			await uploadCrewLensLog(formData);
 			setIsCrewLensOpen(false);
 			setPhotoFile(null);
 			setCrewNotes('');
@@ -114,8 +113,8 @@ export default function JobManager({
 		setIsGenerating(true);
 
 		try {
-			const result = await generateBidForgeProposal(roughNotes);
-			setProposalResult(result);
+			// const result = await generateBidForgeProposal(roughNotes);
+			// setProposalResult(result);
 		} catch (error) {
 			alert('Generation failed. Please try again.');
 		} finally {

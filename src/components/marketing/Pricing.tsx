@@ -11,8 +11,11 @@ const fadeInUp = {
 	viewport: { once: true },
 	transition: { duration: 0.5, ease: 'easeOut' },
 } as const;
-
-export default function Pricing() {
+interface PricingProps {
+	onCheckout: (variantId: string) => Promise<void>;
+	isLoading: boolean;
+}
+export function Pricing({ onCheckout, isLoading }: PricingProps) {
 	// We track WHICH tier is loading so the correct button spins
 	const [loadingTier, setLoadingTier] = useState<string | null>(null);
 

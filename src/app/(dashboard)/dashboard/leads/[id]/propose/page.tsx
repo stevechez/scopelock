@@ -2,8 +2,7 @@ import { createClient } from '@/utils/supabase/server';
 import { redirect, notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Sparkles } from 'lucide-react';
-import ProposalForm from '@/components/dashboard/ProposalForm';
-
+import { ProposalForm } from '@/components/dashboard/ProposalForm';
 export default async function NewProposalPage({
 	params,
 }: {

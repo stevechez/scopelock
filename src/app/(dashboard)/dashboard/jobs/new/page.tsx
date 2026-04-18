@@ -7,107 +7,117 @@ import { ArrowLeft, Plus, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function NewJobPage() {
+	const router = useRouter();
 	const [title, setTitle] = useState('');
 	const [phone, setPhone] = useState('');
 	const [value, setValue] = useState('');
 	const [loading, setLoading] = useState(false);
-	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
-			const job = await createJob(title, phone, Number(value));
-			router.push(`/dashboard/jobs/${job.id}/payments`);
+			// 📍 1. Create the FormData envelope
+			const formData = new FormData();
+
+			// Mapping your local state to the keys expected by the Server Action
+			formData.append('name', title);
+			formData.append('description', `Client Phone: ${phone}`);
+			formData.append('budget', value);
+
+			// 📍 2. Pass the single formData argument
+			const result = await createJob(formData);
+
+			// If your createJob action returns an error object instead of redirecting
+			if (result?.error) {
+				throw new Error(result.error);
+			}
+
+			// Note: If createJob uses 'redirect()', the code below won't execute,
+			// which is the preferred Next.js 15 pattern.
 		} catch (err) {
 			console.error('Creation failed:', err);
-			alert('Error creating job. Please check your connection.');
+			alert('Failed to create project. Please try again.');
+		} finally {
 			setLoading(false);
 		}
 	};
 
 	return (
-		<div className="min-h-screen bg-slate-50 p-6 flex flex-col items-center selection:bg-slate-900 selection:text-white">
-			<div className="w-full max-w-lg mt-12">
+		<div className="min-h-screen bg-[#05070f] p-8 font-sans text-white">
+			<div className="max-w-2xl mx-auto space-y-8">
 				<Link
-					href="/dashboard"
-					className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-8 hover:text-slate-900 transition-colors w-fit"
+					href="/dashboard/jobs"
+					className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-xs font-black uppercase tracking-widest"
 				>
-					<ArrowLeft size={14} /> Back to Command Center
+					<ArrowLeft size={14} /> Back to Jobs
 				</Link>
 
-				<div className="mb-10">
-					<h1 className="text-4xl font-black text-slate-900 tracking-tight">
+				<div className="space-y-2">
+					<h1 className="text-5xl font-black italic uppercase tracking-tighter">
 						New Project
 					</h1>
-					<p className="text-slate-500 font-medium mt-2">
-						Set the foundation for a new build.
+					<p className="text-white/20 text-xs font-black uppercase tracking-[0.3em]">
+						Initialize ScopeLock™ Protocol
 					</p>
 				</div>
 
 				<form
 					onSubmit={handleSubmit}
-					className="space-y-6 bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-100"
+					className="bg-white/[0.03] border border-white/10 p-10 rounded-[3rem] space-y-6 backdrop-blur-xl"
 				>
-					<div>
-						<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-							Project Name
-						</label>
-						<input
-							required
-							type="text"
-							value={title}
-							onChange={e => setTitle(e.target.value)}
-							placeholder="e.g. Cupertino Kitchen Remodel"
-							className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all text-slate-900"
-						/>
-					</div>
-
-					<div>
-						<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-							Client Phone (SMS)
-						</label>
-						<input
-							required
-							type="tel"
-							value={phone}
-							onChange={e => setPhone(e.target.value)}
-							placeholder="+1 555 000 0000"
-							className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all text-slate-900"
-						/>
-					</div>
-
-					<div>
-						<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-							Initial Contract Value
-						</label>
-						<div className="relative mt-1">
-							<span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">
-								$
-							</span>
+					<div className="space-y-4">
+						<div>
+							<label className="text-[10px] font-black text-white/20 uppercase tracking-widest ml-1">
+								Project Name
+							</label>
+							<input
+								required
+								value={title}
+								onChange={e => setTitle(e.target.value)}
+								className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 mt-1 text-white outline-none focus:border-amber-500 transition-colors"
+								placeholder="e.g. Maciaszek Kitchen"
+							/>
+						</div>
+						<div>
+							<label className="text-[10px] font-black text-white/20 uppercase tracking-widest ml-1">
+								Client Phone
+							</label>
+							<input
+								required
+								value={phone}
+								onChange={e => setPhone(e.target.value)}
+								className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 mt-1 text-white outline-none focus:border-amber-500 transition-colors"
+								placeholder="555-0123"
+							/>
+						</div>
+						<div>
+							<label className="text-[10px] font-black text-white/20 uppercase tracking-widest ml-1">
+								Initial Budget
+							</label>
 							<input
 								required
 								type="number"
 								value={value}
 								onChange={e => setValue(e.target.value)}
+								className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 mt-1 text-white outline-none focus:border-amber-500 transition-colors"
 								placeholder="0.00"
-								className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 pl-8 text-sm focus:ring-2 focus:ring-slate-900 outline-none transition-all text-slate-900"
 							/>
 						</div>
 					</div>
 
 					<button
 						type="submit"
-						disabled={loading || !title || !phone || !value}
-						className="w-full bg-slate-900 text-white font-black text-lg py-5 rounded-2xl shadow-xl flex items-center justify-center gap-2 mt-4 hover:bg-slate-800 active:scale-95 transition-all disabled:opacity-50"
+						disabled={loading}
+						className="w-full bg-white text-black font-black uppercase text-xs tracking-[0.2em] py-5 rounded-2xl hover:bg-amber-500 transition-all flex items-center justify-center gap-2"
 					>
 						{loading ? (
-							<Loader2 size={20} className="animate-spin" />
+							<Loader2 className="animate-spin" size={18} />
 						) : (
-							<Plus size={20} />
+							<Plus size={18} />
 						)}
-						{loading ? 'Initializing...' : 'Start Project'}
+						{loading ? 'Initializing...' : 'Create Project'}
 					</button>
 				</form>
 			</div>

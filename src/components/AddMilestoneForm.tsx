@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Send } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { createMilestone } from '@/app/actions';
 
 export function AddMilestoneForm({
@@ -16,17 +16,29 @@ export function AddMilestoneForm({
 	const [amount, setAmount] = useState<number | ''>('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSave = async () => {
-		if (!title || !amount) return;
+	// 📍 THE CONSOLIDATED FIX:
+	// This one function replaces both handleSave and handleSubmit
+	const handleAction = async () => {
+		if (!title || !amount || amount > remaining) return;
+
 		setIsSubmitting(true);
 		try {
-			await createMilestone(jobId, title, Number(amount));
+			// 1. Package the data into a single FormData object
+			const formData = new FormData();
+			formData.append('jobId', jobId);
+			formData.append('title', title);
+			formData.append('amount', amount.toString());
+
+			// 2. Pass the single formData object as required by the action
+			await createMilestone(formData);
+
+			// 3. Reset UI state on success
 			setIsOpen(false);
 			setTitle('');
 			setAmount('');
 		} catch (error) {
-			console.error(error);
-			alert('Failed to save milestone.');
+			console.error('Failed to create milestone:', error);
+			alert('Could not save milestone. Please try again.');
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -69,13 +81,16 @@ export function AddMilestoneForm({
 			</div>
 			<div className="flex gap-2 mt-2">
 				<button
+					type="button"
 					onClick={() => setIsOpen(false)}
 					className="flex-1 py-3 text-slate-500 font-semibold active:bg-slate-100 rounded-xl"
 				>
 					Cancel
 				</button>
 				<button
-					onClick={handleSave}
+					type="button"
+					// 📍 Points to the corrected function
+					onClick={handleAction}
 					disabled={isSubmitting || !title || !amount || amount > remaining}
 					className="flex-1 bg-emerald-500 text-white font-bold py-3 rounded-xl shadow flex items-center justify-center gap-2 disabled:opacity-50 active:bg-emerald-600"
 				>

@@ -1,109 +1,84 @@
 'use client';
 
 import { useState } from 'react';
-import { finalizeAndSendProposal } from '@/app/actions';
-import {
-	Loader2,
-	FileSignature,
-	CheckCircle2,
-	AlertCircle,
-} from 'lucide-react';
+import { sendProposal } from '@/app/actions';
+import { Loader2, Send } from 'lucide-react';
 
-export default function ProposalForm({ leadId }: { leadId: string }) {
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [successMsg, setSuccessMsg] = useState('');
-	const [errorMsg, setErrorMsg] = useState('');
-	const [budget, setBudget] = useState('');
+interface Lead {
+	id: string;
+	name: string; // 📍 We use 'name' here
+	email?: string;
+}
+
+interface ProposalFormProps {
+	tenantId: string;
+	lead: Lead;
+	proposalText: string;
+}
+
+// 📍 Define the exact shape we expect from the Server Action
+type ActionResponse = {
+	success?: boolean;
+	error?: string;
+} | null;
+
+export function ProposalForm({
+	tenantId,
+	lead,
+	proposalText,
+}: ProposalFormProps) {
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setIsSubmitting(true);
-		setErrorMsg('');
-		setSuccessMsg('');
+		setLoading(true);
 
 		try {
-			// Calling the exact action we built earlier
-			const result = await finalizeAndSendProposal(leadId, budget);
+			const formData = new FormData();
+			formData.append('leadId', lead.id);
+			formData.append('tenantId', tenantId);
+			formData.append('content', proposalText);
 
-			if (result?.success) {
-				setSuccessMsg(result.message || 'Proposal finalized!');
-			} else {
-				setErrorMsg(result?.message || 'Failed to generate proposal.');
+			// 📍 FIX 1: Use 'sendProposal' with 'formData', and cast the type
+			const result = (await sendProposal(formData)) as ActionResponse;
+
+			// The absolute truthiness check
+			if (!result) {
+				throw new Error('No response received from the server.');
 			}
-		} catch (error) {
-			setErrorMsg('A critical error occurred.');
+
+			// 📍 FIX 2: Use 'lead.name' to match the interface, and direct property access
+			if (result && result.success) {
+				alert(`Proposal sent to ${lead.name}!`);
+			} else if (result.error) {
+				alert(`Error: ${result.error}`);
+			}
+		} catch (err) {
+			console.error('Submission failed:', err);
+			alert('A network error occurred. Please try again.');
 		} finally {
-			setIsSubmitting(false);
+			setLoading(false);
 		}
 	};
 
-	// If it succeeds, show a beautiful success state instead of the form
-	if (successMsg) {
-		return (
-			<div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-[2rem] p-8 text-center space-y-4">
-				<div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4">
-					<CheckCircle2 size={32} />
-				</div>
-				<h3 className="text-xl font-black text-emerald-900 dark:text-emerald-400 uppercase italic">
-					Proposal Locked
-				</h3>
-				<p className="text-emerald-700 dark:text-emerald-500/80 font-medium text-sm">
-					{successMsg} The client has been moved to the Quoted stage.
-				</p>
-			</div>
-		);
-	}
-
 	return (
-		<div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 rounded-[2rem] p-8">
-			<h3 className="text-xl font-black text-slate-900 dark:text-white italic uppercase mb-6 flex items-center gap-3">
-				<FileSignature className="text-blue-500" />
-				Draft Proposal
-			</h3>
-
-			<form onSubmit={handleSubmit} className="space-y-6">
-				<div>
-					<label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-						Final Proposed Scope & Budget
-					</label>
-					<div className="relative">
-						<span className="absolute left-4 top-4 text-slate-400 font-bold">
-							$
-						</span>
-						<input
-							type="text"
-							required
-							placeholder="125,000"
-							value={budget}
-							onChange={e => setBudget(e.target.value)}
-							className="w-full bg-white dark:bg-[#0B101E] border border-slate-200 dark:border-slate-800 rounded-xl py-4 pl-8 pr-4 text-slate-900 dark:text-white font-black focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-						/>
-					</div>
-					<p className="text-xs text-slate-500 mt-2 ml-1">
-						This will update the pipeline value on your dashboard.
-					</p>
-				</div>
-
-				{errorMsg && (
-					<div className="flex items-center gap-2 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 p-4 rounded-xl text-sm font-bold border border-red-100 dark:border-red-500/20">
-						<AlertCircle size={16} /> {errorMsg}
-					</div>
+		<form onSubmit={handleSubmit} className="space-y-6">
+			<textarea
+				defaultValue={proposalText}
+				className="w-full bg-white/5 border border-white/10 rounded-[2rem] p-8 text-white min-h-[400px] outline-none focus:border-amber-500/50 transition-all shadow-2xl"
+			/>
+			<button
+				type="submit"
+				disabled={loading}
+				className="w-full bg-white text-black font-black uppercase text-xs tracking-[0.2em] py-5 rounded-2xl hover:bg-amber-500 transition-all flex items-center justify-center gap-2"
+			>
+				{loading ? (
+					<Loader2 className="animate-spin" size={18} />
+				) : (
+					<Send size={18} />
 				)}
-
-				<button
-					type="submit"
-					disabled={isSubmitting || !budget}
-					className="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/20"
-				>
-					{isSubmitting ? (
-						<>
-							<Loader2 size={18} className="animate-spin" /> Finalizing...
-						</>
-					) : (
-						'Lock In & Update Status'
-					)}
-				</button>
-			</form>
-		</div>
+				{loading ? 'Transmitting...' : 'Send to Client'}
+			</button>
+		</form>
 	);
 }

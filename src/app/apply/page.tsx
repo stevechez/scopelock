@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { submitLead } from '@/app/actions';
-import { createClient } from '@/utils/supabase/client';
 
 // Qualification Data
 const PROJECT_TYPES = [
@@ -31,7 +30,7 @@ export default function LeadFilterPage() {
 		budget: '',
 		timeline: '',
 		name: '',
-		email: '', // ✅ Added email to state
+		email: '',
 		phone: '',
 	});
 
@@ -40,49 +39,40 @@ export default function LeadFilterPage() {
 
 	const updateForm = (key: string, value: string) => {
 		setFormData({ ...formData, [key]: value });
-		// Auto-advance on selection for the radio-style buttons
 		if (['projectType', 'budget', 'timeline'].includes(key)) {
 			setTimeout(handleNext, 300);
 		}
 	};
 
-	// ✅ Clean, merged submit function
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsSubmitting(true);
 
 		try {
-			const supabase = createClient();
+			const currentTenantId = 'default-tenant-id';
 
-			// 1. Grab the ID of the contractor
-			const { data: tenant, error: tenantError } = await supabase
-				.from('tenants')
-				.select('id')
-				.limit(1)
-				.single();
+			const serverFormData = new FormData();
+			serverFormData.append('tenantId', currentTenantId);
+			serverFormData.append('projectType', formData.projectType);
+			serverFormData.append('budget', formData.budget);
+			serverFormData.append('timeline', formData.timeline);
 
-			if (tenantError || !tenant) {
-				throw new Error('Could not find a contractor to send this lead to.');
+			if (formData.name) serverFormData.append('name', formData.name);
+			if (formData.email) serverFormData.append('email', formData.email);
+			if (formData.phone) serverFormData.append('phone', formData.phone);
+
+			// 📍 FIX applied here:
+			const result = await submitLead(serverFormData, currentTenantId);
+
+			if (result && 'error' in result) {
+				alert(`Error: ${result.error}`);
+				setIsSubmitting(false);
+			} else {
+				setStep(5);
 			}
-
-			// 2. Submit the lead using that ID
-			await submitLead(tenant.id, {
-				projectType: formData.projectType,
-				budget: formData.budget,
-				timeline: formData.timeline,
-				name: formData.name,
-				email: formData.email,
-				phone: formData.phone,
-			});
-
-			// 3. Move to Success Screen
-			setStep(5);
 		} catch (error) {
 			console.error('Submission failed:', error);
-			alert(
-				'There was an issue submitting your application. Please try again.',
-			);
-		} finally {
+			alert('Failed to submit application. Please try again.');
 			setIsSubmitting(false);
 		}
 	};
@@ -99,7 +89,7 @@ export default function LeadFilterPage() {
 						<Zap size={12} className="text-white fill-white" />
 					</div>
 					<span className="font-black text-sm tracking-tight italic">
-						Build<span className="font-medium not-italic">Rail</span>
+						BUILD<span className="font-medium not-italic">RAIL</span>
 					</span>
 				</Link>
 				<div className="flex gap-1">
@@ -234,7 +224,6 @@ export default function LeadFilterPage() {
 										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
-								{/* ✅ Added missing Email input */}
 								<div>
 									<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
 										Email Address

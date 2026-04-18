@@ -24,14 +24,17 @@ export default function ProposalGenerator({ lead }: { lead: Lead }) {
 	const generateProposal = async () => {
 		setLoading(true);
 		try {
-			const result = await generateAIProposal(lead.id);
-			if (result.success && result.content) {
-				setProposal(result.content);
+			const result = await generateAIProposal({ leadId: lead.id });
+
+			// Fixed: Check for proposalText instead of content to match the server action
+			if (result.success && result.proposalText) {
+				setProposal(result.proposalText);
 			} else {
-				alert('AI Architect is busy. Try again in a second.');
+				alert(result.error || 'AI Architect is busy. Try again in a second.');
 			}
 		} catch (err) {
 			console.error(err);
+			alert('An unexpected error occurred.');
 		} finally {
 			setLoading(false);
 		}
