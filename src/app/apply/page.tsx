@@ -49,7 +49,7 @@ export default function LeadFilterPage() {
 		setIsSubmitting(true);
 
 		try {
-			const currentTenantId = 'default-tenant-id';
+			const currentTenantId = '9e443a67-0cfe-4260-a2ce-7f258f681ce1';
 
 			const serverFormData = new FormData();
 			serverFormData.append('tenantId', currentTenantId);
