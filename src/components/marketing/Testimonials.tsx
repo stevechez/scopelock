@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Star, CheckCircle2 } from 'lucide-react';
 
-// (Assuming you have this interface defined in your types/lib file)
 export interface ReviewItem {
 	name: string;
 	role: string;
@@ -62,11 +61,10 @@ const defaultReviews: ReviewItem[] = [
 ];
 
 const ReviewCard = ({ review }: { review: ReviewItem }) => (
-	// Card background flips from solid white to translucent white
-	<div className="relative w-[350px] md:w-[450px] shrink-0 rounded-3xl border border-border dark:border-white/10 bg-white dark:bg-white/5 p-8 backdrop-blur-md transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/10 shadow-sm dark:shadow-none">
+	<div className="relative w-[350px] md:w-[450px] shrink-0 rounded-[2.5rem] border border-border dark:border-white/10 bg-white dark:bg-white/5 p-8 backdrop-blur-md transition-all duration-500 hover:border-amber-500/30 hover:shadow-xl hover:shadow-amber-500/5 hover:-translate-y-1">
 		<div className="flex items-center gap-4 mb-6">
-			{/* Avatar border flips from light gray to dark slate */}
-			<div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-border border-border transition-colors duration-300">
+			{/* Avatar Border */}
+			<div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-border dark:border-white/10 transition-colors duration-300">
 				<Image
 					src={review.image}
 					alt={review.name}
@@ -76,25 +74,28 @@ const ReviewCard = ({ review }: { review: ReviewItem }) => (
 			</div>
 			<div>
 				<div className="flex items-center gap-2">
-					{/* Name text flips from slate-900 to white */}
-					<h3 className="font-bold text-foreground text-foreground tracking-tight transition-colors duration-300">
+					{/* Name */}
+					<h3 className="font-bold text-black tracking-tight transition-colors duration-300">
 						{review.name}
 					</h3>
 					<CheckCircle2 className="w-4 h-4 text-amber-500" />
 				</div>
-				{/* Role text flips from slate-600 to slate-400 */}
-				<p className="text-sm font-medium text-slate-600 dark:text-muted transition-colors duration-300">
+				{/* Role */}
+				<p className="text-sm font-medium text-muted transition-colors duration-300">
 					{review.role}
 				</p>
 			</div>
 		</div>
-		<div className="flex gap-1 mb-4">
+
+		{/* Stars */}
+		<div className="flex gap-1 mb-5">
 			{[...Array(5)].map((_, i) => (
 				<Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
 			))}
 		</div>
-		{/* Quote text flips from slate-700 to slate-300 */}
-		<p className="text-slate-700 dark:text-slate-300 leading-relaxed font-light transition-colors duration-300">
+
+		{/* The Quote (Fixed Contrast) */}
+		<p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium transition-colors duration-300">
 			&quot;{review.quote}&quot;
 		</p>
 	</div>
@@ -106,13 +107,12 @@ export function Testimonials({ reviews = defaultReviews }: TestimonialsProps) {
 	const secondRow = reviews.slice(midIndex);
 
 	return (
-		// Base section background flips from slate-50 to slate-950
 		<section
 			id="reviews"
-			className="relative bg-slate-50 dark:bg-slate-950 py-12 overflow-hidden transition-colors duration-300"
+			className="relative bg-background py-24 overflow-hidden transition-colors duration-500"
 		>
-			{/* Background glow changed to amber to match theme */}
-			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-amber-500/10 dark:bg-amber-500/10 blur-[200px] rounded-full pointer-events-none" />
+			{/* Ambient Glow */}
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
 
 			<div className="container relative z-10 mx-auto px-6 mb-20 text-center">
 				<motion.div
@@ -121,23 +121,20 @@ export function Testimonials({ reviews = defaultReviews }: TestimonialsProps) {
 					viewport={{ once: true }}
 					transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
 				>
-					{/* Main heading flips from slate-900 to white */}
-					<h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-foreground text-foreground mb-6 transition-colors duration-300">
+					<h2 className="text-4xl md:text-6xl font-black tracking-tighter text-foreground mb-6 transition-colors duration-300 uppercase italic leading-[0.9]">
 						Loved by thousands of <br className="hidden md:block" />
-						<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-400 dark:to-orange-500">
+						<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-600">
 							happy homeowners.
 						</span>
 					</h2>
-					{/* Subtext flips from slate-600 to slate-400 */}
-					<p className="text-xl text-slate-600 dark:text-muted font-light max-w-2xl mx-auto transition-colors duration-300">
+					<p className="text-xl text-muted font-medium max-w-2xl mx-auto transition-colors duration-300">
 						We let our work and our clients speak for us.
 					</p>
 				</motion.div>
 			</div>
 
 			<div
-				className="relative flex flex-col gap-6 w-full"
-				// This mask fades the edges to transparent so the cards look like they are appearing/disappearing out of thin air
+				className="relative flex flex-col gap-8 w-full"
 				style={{
 					maskImage:
 						'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
@@ -148,7 +145,7 @@ export function Testimonials({ reviews = defaultReviews }: TestimonialsProps) {
 				{/* Row 1: Scrolls Left */}
 				<div className="flex w-max overflow-hidden">
 					<motion.div
-						className="flex gap-6 pr-6 hover:[animation-play-state:paused]"
+						className="flex gap-8 pr-8 hover:[animation-play-state:paused]"
 						animate={{ x: ['0%', '-50%'] }}
 						transition={{ ease: 'linear', duration: 40, repeat: Infinity }}
 					>
@@ -161,7 +158,7 @@ export function Testimonials({ reviews = defaultReviews }: TestimonialsProps) {
 				{/* Row 2: Scrolls Right */}
 				<div className="flex w-max overflow-hidden">
 					<motion.div
-						className="flex gap-6 pr-6 hover:[animation-play-state:paused]"
+						className="flex gap-8 pr-8 hover:[animation-play-state:paused]"
 						animate={{ x: ['-50%', '0%'] }}
 						transition={{ ease: 'linear', duration: 45, repeat: Infinity }}
 					>

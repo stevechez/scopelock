@@ -358,24 +358,51 @@ export async function createPaymentRequest(
 // ==========================================
 // 6. BILLING (Lemon Squeezy)
 // ==========================================
-export async function getSubscriptionCheckoutURL(
-	variantId: string,
-	email?: string,
-) {
+// src/app/actions.ts
+
+// src/app/actions.ts
+
+export async function getSubscriptionCheckoutURL() {
 	try {
+		// 1. THIS IS THE CALL: It likely uses the 'lemonsqueezy' library or a fetch
+		// Ensure you have your variantId and storeId correctly here
 		const checkout = await createCheckout(
 			process.env.LEMON_SQUEEZY_STORE_ID!,
-			variantId,
+			process.env.LEMON_SQUEEZY_VARIANT_ID!, // The specific plan ID
 			{
-				checkoutData: { email: email ?? undefined },
+				checkoutData: {
+					email: '', // You can pre-fill this if you have the user's email
+				},
 				productOptions: {
-					redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`,
+					redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
 				},
 			},
 		);
-		return checkout.data?.data.attributes.url;
+
+		// 2. DEBUG: This prints the secret response to your terminal
+		console.log('--- LEMON SQUEEZY RESPONSE START ---');
+		console.dir(checkout, { depth: null });
+		console.log('--- LEMON SQUEEZY RESPONSE END ---');
+
+		// 3. DEFENSIVE CHECK: Prevents the "attributes of undefined" crash
+		const url = checkout?.data?.data?.attributes?.url;
+
+		if (!url) {
+			// Check if there are specific errors returned by the API
+			const apiError =
+				(checkout as any)?.error?.message ||
+				'No URL returned from Lemon Squeezy';
+			console.error('Checkout failed validation:', apiError);
+			throw new Error(apiError);
+		}
+
+		return url;
 	} catch (error) {
-		throw new Error('Could not initialize checkout.');
+		// 4. LOG THE RAW ERROR
+		console.error('CRITICAL CHECKOUT EXCEPTION:', error);
+		throw new Error(
+			error instanceof Error ? error.message : 'Could not initialize checkout.',
+		);
 	}
 }
 export async function addProjectUpdate(

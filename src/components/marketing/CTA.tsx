@@ -1,86 +1,72 @@
 'use client';
 
-import Link from 'next/link';
+import { CheckCircle2, ArrowRight, Zap, Shield, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Sparkles, ArrowRight, Wrench } from 'lucide-react';
 
-export default function CTA() {
+export default function JumpstartHero() {
 	return (
-		<section className="relative py-24 px-6 overflow-hidden bg-background text-foreground border-t border-border border-border/50">
-			{/* THE "RAIL" GRADIENT BACKGROUND */}
-			<div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 pointer-events-none">
-				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-500/5 via-transparent to-transparent blur-[120px]" />
-			</div>
+		<section className="py-24 bg-white dark:bg-slate-950 px-6 transition-colors duration-500">
+			<div className="max-w-4xl mx-auto text-center">
+				{/* Badge */}
+				<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-8">
+					<Zap className="w-3 h-3 text-amber-500" />
+					<span className="text-[10px] font-black uppercase tracking-widest text-amber-600">
+						Limited Concierge Spots Available
+					</span>
+				</div>
 
-			<div className="relative z-10 max-w-5xl mx-auto">
-				<div className="bg-slate-50 dark:bg-slate-900/40 backdrop-blur-xl border border-border dark:border-white/10 rounded-[3rem] p-8 md:p-16 text-center shadow-xl">
-					<motion.div
-						initial={{ opacity: 0, scale: 0.9 }}
-						whileInView={{ opacity: 1, scale: 1 }}
-						viewport={{ once: true }}
-						className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-200 dark:bg-amber-500/10 border border-slate-300 dark:border-amber-500/20 mb-8"
-					>
-						<Wrench className="w-4 h-4 text-slate-700 dark:text-amber-500" />
-						<span className="text-xs font-black uppercase tracking-[0.2em] text-slate-700 dark:text-amber-500">
-							Optional White-Glove Service
-						</span>
-					</motion.div>
+				<h1 className="text-5xl md:text-8xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter uppercase italic leading-[0.85]">
+					Don&apos;t have time? <br />
+					<span className="text-amber-500">We&apos;ll build it.</span>
+				</h1>
 
-					<h2 className="text-4xl md:text-6xl font-black text-foreground text-foreground mb-6 leading-[0.95] tracking-tighter">
-						Don&apos;t have time to build it? <br />
-						<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-600 italic">
-							We&apos;ll build it for you.
-						</span>
-					</h2>
+				<p className="text-xl text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
+					Stop fighting website builders on your weekends. We design and launch
+					your high-converting{' '}
+					<span className="text-slate-900 dark:text-white font-bold">
+						Site Engine
+					</span>{' '}
+					portal in 72 hours. You stay on the job site, we handle the tech.
+				</p>
 
-					<p className="text-lg md:text-xl text-slate-600 dark:text-muted mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-						Stop fighting website builders on your weekends. With the{' '}
-						<strong className="text-foreground text-foreground">
-							BuildRail Jumpstart
-						</strong>
-						, our team designs and launches your high-converting{' '}
-						<strong className="text-amber-600 dark:text-amber-500">
-							Site Engine
-						</strong>{' '}
-						portal, so you can stay on the job site while we handle the tech.
-					</p>
-
-					{/* VALUE CHECKLIST */}
-					<div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-12 text-sm font-bold text-slate-700 dark:text-slate-300">
-						<div className="flex items-center gap-2">
-							<CheckCircle2 className="w-5 h-5 text-amber-500" />
-							Full Site Engine Setup
+				{/* Proof Grid */}
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+					{[
+						{ icon: <Zap />, text: 'Full Site Engine Setup' },
+						{ icon: <Shield />, text: 'Custom Comm Vault Scripts' },
+						{ icon: <Clock />, text: 'Stripe PayRail Verified' },
+					].map((item, i) => (
+						<div
+							key={i}
+							className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5"
+						>
+							<div className="text-amber-500 w-5 h-5">{item.icon}</div>
+							<span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+								{item.text}
+							</span>
 						</div>
-						<div className="flex items-center gap-2">
-							<CheckCircle2 className="w-5 h-5 text-amber-500" />
-							Custom Comm Vault Scripts
-						</div>
-						<div className="flex items-center gap-2">
-							<CheckCircle2 className="w-5 h-5 text-amber-500" />
-							Stripe PayRail Verified
-						</div>
-					</div>
+					))}
+				</div>
 
-					<div className="flex flex-col items-center gap-6">
-						<Link href="/jumpstart" className="w-full sm:w-auto">
-							<motion.button
-								whileHover={{ scale: 1.02, y: -4 }}
-								whileTap={{ scale: 0.98 }}
-								className="group relative w-full sm:w-auto px-10 py-5 bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 font-black rounded-2xl text-lg shadow-xl transition-all flex items-center justify-center gap-3"
-							>
-								Get Your Site Built ($497)
-								<ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-							</motion.button>
-						</Link>
+				{/* THE MASTER CTA */}
+				<motion.button
+					whileHover={{ scale: 1.02 }}
+					whileTap={{ scale: 0.98 }}
+					onClick={() => {
+						/* Trigger your getSubscriptionCheckoutURL action here */
+					}}
+					className="group relative inline-flex items-center gap-3 px-10 py-6 bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-900 rounded-3xl font-black uppercase tracking-widest text-lg shadow-2xl hover:shadow-amber-500/20 transition-all"
+				>
+					Get Your Site Built ($497)
+					<ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+				</motion.button>
 
-						<div className="flex items-center justify-center gap-3 text-[10px] md:text-xs font-bold text-muted uppercase tracking-widest flex-wrap">
-							<span>One-Time Fee</span>
-							<span className="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
-							<span>Done-For-You</span>
-							<span className="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
-							<span>Launch in 72hrs</span>
-						</div>
-					</div>
+				<div className="mt-8 flex items-center justify-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+					<span>One-Time Fee</span>
+					<span className="w-1 h-1 bg-slate-300 rounded-full" />
+					<span>Done-For-You</span>
+					<span className="w-1 h-1 bg-slate-300 rounded-full" />
+					<span>Launch in 72hrs</span>
 				</div>
 			</div>
 		</section>

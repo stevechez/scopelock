@@ -82,7 +82,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
 	return (
 		<section
 			id="pricing"
-			className="py-24 md:py-32 bg-background text-foreground px-6 relative"
+			className="py-24 md:py-32 bg-background text-black px-6 relative"
 		>
 			{/* Ambient Background Glow */}
 			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-6xl bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
@@ -94,7 +94,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
 						initial={{ opacity: 0, y: 10 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
-						className="text-4xl md:text-6xl font-black text-foreground text-foreground mb-6 tracking-tighter uppercase italic"
+						className="text-4xl md:text-6xl font-black text-black text-foreground mb-6 tracking-tighter uppercase italic"
 					>
 						Scale on your terms.
 					</motion.h2>
@@ -102,7 +102,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
 					{/* Billing Toggle */}
 					<div className="flex items-center justify-center gap-4 mb-8">
 						<span
-							className={`text-sm font-bold ${!isYearly ? 'text-foreground text-foreground' : 'text-muted'}`}
+							className={`text-sm font-bold ${!isYearly ? 'text-black text-foreground' : 'text-muted'}`}
 						>
 							Monthly
 						</span>
@@ -116,7 +116,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
 							/>
 						</button>
 						<span
-							className={`text-sm font-bold ${isYearly ? 'text-foreground text-foreground' : 'text-muted'}`}
+							className={`text-sm font-bold ${isYearly ? 'text-black text-foreground' : 'text-muted'}`}
 						>
 							Yearly{' '}
 							<span className="text-emerald-500 text-[10px] ml-1 uppercase">
@@ -148,7 +148,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
 
 							<div className="mb-8">
 								<h3
-									className={`text-xl font-black mb-2 ${tier.featured ? 'text-white' : 'text-foreground text-foreground'}`}
+									className={`text-xl font-black mb-2 ${tier.featured ? 'text-white' : 'text-black'}`}
 								>
 									{tier.name}
 								</h3>
@@ -162,7 +162,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
 							<div className="mb-8">
 								<div className="flex items-baseline gap-1">
 									<span
-										className={`text-5xl font-black tracking-tighter ${tier.featured ? 'text-white' : 'text-foreground text-foreground'}`}
+										className={`text-5xl font-black tracking-tighter ${tier.featured ? 'text-white' : 'text-black'}`}
 									>
 										${tier.price}
 									</span>

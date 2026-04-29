@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+/* 1. Define your physical colors for Light Mode */
 :root {
 	--background: #ffffff;
 	--foreground: #0f172a;
@@ -7,6 +8,7 @@
 	--border: rgba(15, 23, 42, 0.08);
 }
 
+/* 2. Define your physical colors for Dark Mode */
 .dark {
 	--background: #020617;
 	--foreground: #ffffff;
@@ -14,6 +16,24 @@
 	--border: rgba(255, 255, 255, 0.08);
 }
 
+/* 3. Tell Tailwind v4 to turn these variables into utility classes */
+@theme {
+	/* Mapped from the :root/.dark blocks above */
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-muted: var(--muted);
+	--color-border: var(--border);
+
+	/* Mapped from your Manifest */
+	--color-primary: var(--color-primary);
+	--color-accent: var(--color-accent);
+
+	/* Font Mappings */
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+}
+
+/* 4. Animations */
 @keyframes shimmer {
 	0% {
 		background-position: 200% 0;
@@ -23,25 +43,10 @@
 	}
 }
 
-@theme {
-	/* 1. Map your Manifest variables to Tailwind classes */
-	--color-primary: var(--color-primary);
-	--color-accent: var(--color-accent);
-
-	/* 2. Keep these if you want to keep using the Next.js Geist fonts */
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
-}
+/* 5. Cleaned up Base Layer */
 @layer base {
 	body {
-		@apply bg-white text-foreground dark:bg-slate-950 dark:text-slate-50;
-	}
-}
-@layer base {
-	body {
-		@apply bg-white text-foreground transition-colors duration-300;
-	}
-	.dark body {
-		@apply bg-slate-950 text-white;
+		/* Since the variables handle light/dark natively, we just apply them once! */
+		@apply bg-background text-foreground transition-colors duration-300;
 	}
 }

@@ -7,7 +7,7 @@ import VideoModal from '@/components/marketing/VideoModal';
 import StickyCTA from '@/components/marketing/StickyCTA';
 import SocialProof from '@/components/marketing/SocialProof';
 import ProductModules from '@/components/marketing/ProductModules';
-import BlueprintBreakdown from '@/components/marketing/BlueprintBreakdown';
+// import BlueprintBreakdown from '@/components/marketing/BlueprintBreakdown';
 import PathToSystem from '@/components/marketing/PathToSystem';
 import { Pricing } from '@/components/marketing/Pricing';
 // import JumpstartBanner from '@/components/marketing/JumpstartBanner';
@@ -46,7 +46,7 @@ export default function BlueprintMarketingPage() {
 			<Hero onOpenDemo={() => setIsDemoOpen(true)} />
 			<SocialProof />
 			<ProductModules />
-			<BlueprintBreakdown />
+			{/* <BlueprintBreakdown /> */}
 			<PathToSystem />
 			<Testimonials />
 			<Pricing onCheckout={handleCheckout} isLoading={isCheckoutLoading} />
