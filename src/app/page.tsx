@@ -55,7 +55,7 @@ export default function BlueprintMarketingPage() {
 			<Pricing onCheckout={handleCheckout} isLoading={isCheckoutLoading} />
 			{/* <JumpstartBanner /> */}
 			<CTA />
-			{/* <Footer /> */}
+			<Footer />
 		</div>
 	);
 }

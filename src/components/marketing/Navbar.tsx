@@ -84,7 +84,7 @@ export default function Navbar() {
 					</div>
 
 					<Link
-						href={getAppUrl('/signup')}
+						href={getAppUrl('#pricing')}
 						className="hidden sm:block px-5 py-2.5 bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-900 text-sm font-black rounded-xl hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all active:scale-95"
 					>
 						Start Free Trial

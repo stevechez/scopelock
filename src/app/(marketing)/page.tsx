@@ -27,7 +27,9 @@ export default function MarketingPage() {
 					</Link>
 				</div>
 			</nav>
-
+			<Link href="/dashboard/settings" className="text-blue-500 underline">
+				Go to Settings
+			</Link>
 			<main className="max-w-7xl mx-auto px-6 pt-20 pb-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 				{/* The "Belief Shock" Copy */}
 				<div>

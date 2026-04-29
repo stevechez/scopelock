@@ -1,0 +1,84 @@
+{
+	"integration": {
+		"platform": "BUILDRAIL",
+		"tenant_id": "9e443a67-0cfe-4260-a2ce-7f258f681ce1",
+		"lead_routing_email": "leads@elitehardscapes.com"
+	},
+	"identity": {
+		"businessName": "Elite Hardscapes",
+		"ownerName": "John Smith",
+		"contact": {
+			"phone": "(555) 123-4567",
+			"email": "hello@elitehardscapes.com",
+			"address": "123 Stone Way, Aptos, CA 95003"
+		},
+		"socials": {
+			"instagram": "https://instagram.com/elitehardscapes",
+			"facebook": "https://facebook.com/elitehardscapes",
+			"yelp": "https://yelp.com/biz/elite-hardscapes"
+		}
+	},
+	"theme": {
+		"primaryColor": "#0F172A",
+		"accentColor": "#2563EB",
+		"fontFamily": "Inter"
+	},
+	"metadata": {
+		"seo": {
+			"title": "Elite Hardscapes | Premium Paving in Aptos",
+			"description": "30 years of engineering excellence in custom stone pavers, retaining walls, and outdoor living spaces.",
+			"keywords": [
+				"Hardscaping Aptos",
+				"Stone Pavers Santa Cruz",
+				"Landscape Engineering",
+				"Retaining Walls"
+			],
+			"canonicalUrl": "https://elitehardscapes.net"
+		},
+		"assets": {
+			"logoLight": "/images/logo-light.svg",
+			"logoDark": "/images/logo-dark.svg",
+			"ogImage": "/images/og-elite-hardscapes.jpg",
+			"favicon": "/favicon.ico"
+		}
+	},
+	"content": {
+		"hero": {
+			"badge": "Premium Hardscaping Services",
+			"headline": "Building Outdoor Dreams With Precision & Trust",
+			"subheadline": "Expert hardscaping and landscape engineering — from foundation to finish. We deliver on time, on budget, and beyond expectations.",
+			"primaryButtonText": "Get A Free Quote",
+			"secondaryButtonText": "View Our Work"
+		},
+		"services": [
+			{
+				"id": "custom-pavers",
+				"title": "Custom Stone Pavers",
+				"description": "Premium driveway and patio paving using interlocking stones engineered for decades of durability.",
+				"iconName": "hammer",
+				"isActive": true
+			},
+			{
+				"id": "retaining-walls",
+				"title": "Structural Retaining Walls",
+				"description": "Engineered walls that protect your property from erosion while adding distinct architectural beauty.",
+				"iconName": "wrench",
+				"isActive": true
+			},
+			{
+				"id": "outdoor-kitchens",
+				"title": "Outdoor Kitchens",
+				"description": "Fully integrated outdoor cooking and dining spaces featuring built-in grills, fire pits, and custom masonry.",
+				"iconName": "kitchen",
+				"isActive": true
+			},
+			{
+				"id": "pool-decks",
+				"title": "Pool Deck Resurfacing",
+				"description": "Slip-resistant, heat-reflective pool deck installations using travertine and modern concrete overlays.",
+				"iconName": "bath",
+				"isActive": false
+			}
+		]
+	}
+}

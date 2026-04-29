@@ -1,34 +1,20 @@
 @import 'tailwindcss';
 
-/* Bring back the v3 class-based dark mode behavior for next-themes */
-@custom-variant dark (&:where(.dark, .dark *));
-/* 1. Add the typography plugin right here */
-@plugin "@tailwindcss/typography";
+@theme {
+	/* 1. Map your Manifest variables to Tailwind classes */
+	--color-primary: var(--color-primary);
+	--color-accent: var(--color-accent);
 
-/* Your custom CSS below... */
+	/* 2. Keep these if you want to keep using the Next.js Geist fonts */
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+}
+
+/* 3. Global Reset using your variables */
 @layer base {
-	:root {
-		--background: #ffffff;
-		--foreground: #171717;
-	}
-
-	@theme inline {
-		--color-background: var(--background);
-		--color-foreground: var(--foreground);
-		--font-sans: var(--font-geist-sans);
-		--font-mono: var(--font-geist-mono);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		:root {
-			--background: #0a0a0a;
-			--foreground: #ededed;
-		}
-	}
-
 	body {
-		background: var(--background);
-		color: var(--foreground);
-		font-family: Arial, Helvetica, sans-serif;
+		background-color: white; /* Or map to a manifest color */
+		color: var(--color-primary); /* Uses your Manifest Primary Color */
+		font-family: var(--font-sans);
 	}
 }

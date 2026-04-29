@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { completeOnboarding } from '@/app/actions';
 import { motion } from 'framer-motion';
 import { Building2, Rocket, ArrowRight, Loader2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function OnboardingPage() {
 	const [companyName, setCompanyName] = useState('');
@@ -12,16 +13,36 @@ export default function OnboardingPage() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const router = useRouter();
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log('🚀 Submit button clicked!'); // If you don't see this in the BROWSER console, the button is broken.
+
 		setIsSubmitting(true);
 
 		try {
-			// We'll update completeOnboarding to handle tenant creation/init
-			await completeOnboarding(companyName, ownerName);
-			router.push('/dashboard/welcome');
+			const form = e.currentTarget;
+			const data = new FormData(form);
+
+			// Log the actual data being sent
+			console.log('Form Data Object:', Object.fromEntries(data.entries()));
+
+			// Fire the action
+			const result = await submitJumpstart(data);
+			console.log('Server Response:', result);
+
+			toast.success('Application Received! Steve will reach out soon.');
+			form.reset();
+			setFormData({
+				name: '',
+				phone: '',
+				businessName: '',
+				serviceArea: '',
+				goal: 'Professionalizing my brand',
+				notes: '',
+			});
 		} catch (error) {
-			alert('Something went wrong. Please try again.');
+			console.error('Submission error catch:', error);
+			toast.error('Check browser console for errors.');
 		} finally {
 			setIsSubmitting(false);
 		}

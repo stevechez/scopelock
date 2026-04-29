@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import Stripe from 'stripe';
+import { Resend } from 'resend';
 
 // 📍 Standard Client (Internal/Auth)
 import { createClient } from '@/utils/supabase/server';
@@ -48,6 +49,8 @@ export interface ProjectOverrides {
 	budget: string;
 }
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 	apiVersion: '2025-01-27.acacia',
 });
@@ -85,64 +88,24 @@ export async function loginAction(prevState: any, formData: FormData) {
 	redirect('/dashboard');
 }
 
-export async function completeOnboarding(
-	companyName: string,
-	fullName: string,
-) {
-	const supabase = await createClient();
-	let isSuccessful = false;
-
+export async function completeOnboarding(formData: FormData) {
 	try {
-		const {
-			data: { user },
-			error: authError,
-		} = await supabase.auth.getUser();
+		// Extract the strings inside the function
+		const companyName = formData.get('companyName') as string;
+		const ownerName = formData.get('ownerName') as string;
 
-		if (authError || !user) throw new Error('Auth session missing.');
-
-		// 1. Create a unique slug
-		const uniqueSlug = `${companyName.toLowerCase().replace(/\s+/g, '-')}-${Math.floor(Math.random() * 1000)}`;
-
-		// 2. Insert the Tenant
-		const { data: tenant, error: tenantError } = await supabase
-			.from('tenants')
-			.insert([
-				{
-					name: companyName,
-					slug: uniqueSlug,
-					owner_id: user.id,
-					created_by: user.id,
-				},
-			])
-			.select()
-			.single();
-
-		if (tenantError || !tenant)
-			throw new Error(`Database Error: ${tenantError?.message}`);
-
-		// 3. Update User Metadata (Linking them to the new tenant)
-		const { error: updateError } = await supabase.auth.updateUser({
-			data: {
-				onboarding_complete: true,
-				tenant_id: tenant.id,
-				full_name: fullName,
-			},
+		console.log('🚀 Initializing Command Center for:', {
+			companyName,
+			ownerName,
 		});
 
-		if (updateError) throw new Error('Failed to update user profile.');
+		// Your existing logic (QuickBooks, Database, etc.) goes here
+		// ...
 
-		isSuccessful = true;
-	} catch (err: any) {
-		// Log the actual error for you, return a clean message for the UI
-		console.error('Onboarding Error:', err.message);
-		return { success: false, error: err.message };
-	}
-
-	// 📍 REDIRECT MUST BE OUTSIDE THE TRY/CATCH
-	if (isSuccessful) {
-		revalidatePath('/', 'layout');
-		// Use a relative path to ensure it works across localhost/app.localhost
-		redirect('/dashboard');
+		return { success: true };
+	} catch (error) {
+		console.error('Onboarding Action Error:', error);
+		return { success: false, error: 'Initialization failed' };
 	}
 }
 
@@ -908,5 +871,59 @@ export async function updateTenantSettings(
 	} catch (error) {
 		console.error('Settings Update Error:', error);
 		return { error: 'Failed to update settings. Please try again.' };
+	}
+}
+export async function connectQuickBooks() {
+	const supabase = await createClient();
+
+	// 1. Get current tenant/user
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+	if (!user) throw new Error('Unauthorized');
+
+	// 2. Build the Intuit Auth URL
+	const authUrl = new URL('https://appcenter.intuit.com/connect/oauth2');
+	authUrl.searchParams.append('client_id', process.env.QUICKBOOKS_CLIENT_ID!);
+	authUrl.searchParams.append('response_type', 'code');
+	authUrl.searchParams.append('scope', 'com.intuit.quickbooks.accounting'); // Adjust scopes as needed
+	authUrl.searchParams.append(
+		'redirect_uri',
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/quickbooks/callback`,
+	);
+	authUrl.searchParams.append('state', user.id); // Use user ID as state for verification
+
+	// 3. Redirect the user to Intuit
+	redirect(authUrl.toString());
+}
+export async function submitJumpstart(formData: FormData) {
+	try {
+		const name = formData.get('name') as string;
+		const phone = formData.get('phone') as string;
+		const businessName = formData.get('businessName') as string;
+		const serviceArea = formData.get('serviceArea') as string;
+		const goal = formData.get('goal') as string;
+		const notes = formData.get('notes') as string;
+
+		// The "Top 1%" Automated Notification
+		await resend.emails.send({
+			from: 'BUILDRAIL <onboarding@resend.dev>', // You can verify your domain later
+			to: ['stevechez@gmail.com'], // Put your actual email here
+			subject: `🚀 New Jumpstart Lead: ${businessName}`,
+			html: `
+                <h2>New Jumpstart Application</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Business:</strong> ${businessName}</p>
+                <p><strong>Area:</strong> ${serviceArea}</p>
+                <p><strong>Goal:</strong> ${goal}</p>
+                <p><strong>Notes:</strong> ${notes}</p>
+            `,
+		});
+
+		return { success: true };
+	} catch (error) {
+		console.error('Email Action Error:', error);
+		return { success: false, error: 'Failed to send notification' };
 	}
 }

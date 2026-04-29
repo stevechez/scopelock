@@ -1,52 +1,64 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import manifest from '../../config/project-manifest.json';
 import './globals.css';
-import { cn } from '@/lib/utils';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import Navbar from '@/components/marketing/Navbar';
-import Footer from '@/components/marketing/Footer';
+import { Toaster } from 'sonner';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
-	subsets: ['latin'],
-});
+// This function dynamically generates the SEO tags for the whole site
+export async function generateMetadata(): Promise<Metadata> {
+	const { metadata, identity } = manifest;
 
-export const metadata: Metadata = {
-	title: 'BuildRail | The Operating System for Elite Builders',
-	description:
-		'Build your site, win bigger bids, eliminate payment friction, and automate project transparency.',
-};
+	return {
+		title: {
+			default: metadata.seo.title,
+			template: `%s | ${identity.businessName}`, // Allows sub-pages to append the name
+		},
+		description: metadata.seo.description,
+		keywords: metadata.seo.keywords,
+		metadataBase: new URL(metadata.seo.canonicalUrl),
+
+		// OpenGraph (Facebook, LinkedIn, iMessage)
+		openGraph: {
+			title: metadata.seo.title,
+			description: metadata.seo.description,
+			url: metadata.seo.canonicalUrl,
+			siteName: identity.businessName,
+			images: [
+				{
+					url: metadata.assets.ogImage,
+					width: 1200,
+					height: 630,
+					alt: `${identity.businessName} Portfolio`,
+				},
+			],
+			locale: 'en_US',
+			type: 'website',
+		},
+
+		// Standard Favicon
+		icons: {
+			icon: metadata.assets.favicon,
+		},
+	};
+}
 
 export default function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
+	const { theme } = manifest;
+
 	return (
-		<html
-			lang="en"
-			suppressHydrationWarning
-			className={cn(
-				'h-full antialiased',
-				geistSans.variable,
-				geistMono.variable,
-				inter.variable,
-				'font-sans',
-			)}
-		>
-			<body className="min-h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
-				<Navbar />
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					{children}
-				</ThemeProvider>
-				<Footer />
+		<html lang="en">
+			<body
+				style={{
+					// @ts-expect-error because these are dynamic CSS variables, TypeScript doesn't recognize them as valid properties
+					'--color-primary': theme.primaryColor,
+					'--color-accent': theme.accentColor,
+				}}
+			>
+				{children}
+				<Toaster richColors position="top-center" />
 			</body>
 		</html>
 	);

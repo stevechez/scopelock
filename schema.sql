@@ -141,10 +141,6 @@ CREATE TABLE IF NOT EXISTS "public"."tenants" (
 ALTER TABLE "public"."tenants" OWNER TO "postgres";
 
 
-ALTER TABLE ONLY "public"."leads"
-    ADD CONSTRAINT "leads_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."payments"
     ADD CONSTRAINT "payments_pkey" PRIMARY KEY ("id");

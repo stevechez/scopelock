@@ -1,16 +1,28 @@
 'use client';
 
-import { useActionState } from 'react';
-import { loginAction } from '@/app/actions/auth'; // Ensure this action exists
+import { useActionState, useEffect } from 'react';
+import { loginAction } from '@/app/actions/auth';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 const initialState = { error: '', success: false };
 
 export default function LoginPage() {
+	// 1. Hook into the Server Action
 	const [state, formAction, isPending] = useActionState(
 		loginAction,
 		initialState,
 	);
+
+	// 2. Listen for changes in the 'state' to fire toasts
+	useEffect(() => {
+		if (state?.error) {
+			toast.error(state.error);
+		}
+		if (state?.success) {
+			toast.success('Welcome back, access granted.');
+		}
+	}, [state]);
 
 	return (
 		<div className="min-h-screen bg-[#050505] flex items-center justify-center p-6 text-white selection:bg-amber-500/30">
@@ -24,6 +36,7 @@ export default function LoginPage() {
 					</p>
 				</div>
 
+				{/* 3. Use the formAction from the hook */}
 				<form action={formAction} className="space-y-5">
 					<input
 						name="email"
@@ -41,8 +54,13 @@ export default function LoginPage() {
 					/>
 
 					<button
+						type="submit"
 						disabled={isPending}
-						className="w-full bg-white text-black font-black py-4 rounded-2xl hover:bg-amber-500 hover:text-white transition-all shadow-xl active:scale-95 disabled:opacity-50"
+						className={`w-full font-black py-4 rounded-2xl transition-all shadow-xl active:scale-95 disabled:opacity-50 ${
+							isPending
+								? 'bg-zinc-800 text-zinc-500'
+								: 'bg-white text-black hover:bg-amber-500 hover:text-white'
+						}`}
 					>
 						{isPending ? 'AUTHORIZING...' : 'ACCESS DASHBOARD'}
 					</button>
@@ -50,7 +68,7 @@ export default function LoginPage() {
 
 				<div className="mt-8 text-center">
 					<Link
-						href="/signup"
+						href="/apply"
 						className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-amber-500 transition-colors"
 					>
 						New Contractor? Apply for Access

@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import {
 	Camera,
-	X,
 	CheckCircle2,
 	Image as ImageIcon,
 	Loader2,
@@ -21,7 +20,6 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 	const [notes, setNotes] = useState('');
 
-	// 📍 FIX 1: Define refs for the hidden file input
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const triggerCamera = () => {
@@ -33,15 +31,16 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 		if (file) {
 			const url = URL.createObjectURL(file);
 			setPreviewUrl(url);
+			setSuccess(false); // Reset success state if they take a new photo
 		}
 	};
 
-	// 📍 FIX 2: Implement the submission logic using FormData
+	// 📍 THE HANDLER: Standardized for Next.js 15
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setIsUploading(true);
-		setSuccess(false);
+		if (!notes || !previewUrl) return;
 
+		setIsUploading(true);
 		try {
 			const formData = new FormData();
 			formData.append('tenantId', tenantId);
@@ -49,7 +48,6 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 			formData.append('content', notes);
 			formData.append('type', 'crew_lens');
 
-			// Add the photo if it exists
 			const file = fileInputRef.current?.files?.[0];
 			if (file) {
 				formData.append('photo', file);
@@ -61,14 +59,11 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 				setSuccess(true);
 				setNotes('');
 				setPreviewUrl(null);
-				// Reset the file input value manually
 				if (fileInputRef.current) fileInputRef.current.value = '';
-			} else {
-				alert(`Error: ${result?.error || 'Unknown error'}`);
 			}
 		} catch (error) {
 			console.error('Upload failed:', error);
-			alert('A network error occurred.');
+			alert('Could not save update.');
 		} finally {
 			setIsUploading(false);
 		}
@@ -89,8 +84,6 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 			</div>
 
 			<form onSubmit={handleSubmit} className="space-y-4">
-				{/* 📍 Hidden Inputs handled via FormData logic above */}
-
 				<div
 					onClick={triggerCamera}
 					className="aspect-video bg-slate-950 border-2 border-dashed border-slate-700 hover:border-teal-500/50 transition-colors rounded-2xl flex flex-col items-center justify-center cursor-pointer relative overflow-hidden group"
@@ -139,7 +132,7 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 				>
 					{isUploading ? (
 						<>
-							<Loader2 className="w-5 h-5 animate-spin" /> Uploading to Vault...
+							<Loader2 className="w-5 h-5 animate-spin" /> Syncing to Vault...
 						</>
 					) : success ? (
 						<>

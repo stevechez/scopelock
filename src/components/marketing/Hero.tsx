@@ -23,8 +23,7 @@ export default function Hero({ onOpenDemo }: { onOpenDemo: () => void }) {
 	};
 
 	return (
-		<section className="relative pt-12 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden bg-white dark:bg-slate-950">
-			{/* 1. REFINED GRID BACKGROUND */}
+<section className="relative pt-28 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden bg-white dark:bg-slate-950">		
 			<div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
 			{/* 2. REFINED AMBIANCE */}
@@ -69,18 +68,6 @@ export default function Hero({ onOpenDemo }: { onOpenDemo: () => void }) {
 						The only Project OS designed to kill the admin bleed. Secure Comm
 						Vaults and white-glove client experiences—all under your brand.
 					</motion.p>
-
-					<div className="flex flex-col mb-8">
-						<div className="flex items-center gap-2 mb-2">
-							<span className="bg-amber-500/20 text-amber-500 text-xs font-black uppercase tracking-widest px-2 py-1 rounded-md border border-amber-500/30">
-								7-Day Free Trial
-							</span>
-						</div>
-						<div className="flex items-baseline gap-1">
-							<span className="text-5xl font-black text-white">$49</span>
-							<span className="text-slate-400 font-bold">/mo</span>
-						</div>
-					</div>
 
 					{/* CTAs */}
 					<motion.div
