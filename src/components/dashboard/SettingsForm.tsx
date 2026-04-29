@@ -13,7 +13,7 @@ export default function SettingsForm({ currentName }: { currentName: string }) {
 	return (
 		<form action={formAction} className="space-y-6">
 			<div>
-				<label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+				<label className="block text-[10px] font-black text-muted uppercase tracking-widest mb-2">
 					Company Name
 				</label>
 				<input
@@ -21,7 +21,7 @@ export default function SettingsForm({ currentName }: { currentName: string }) {
 					name="companyName"
 					defaultValue={currentName}
 					required
-					className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 rounded-xl p-4 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none transition-all"
+					className="w-full bg-slate-50 dark:bg-slate-900/50 border border-border dark:border-white/10 rounded-xl p-4 text-foreground text-foreground font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none transition-all"
 				/>
 			</div>
 

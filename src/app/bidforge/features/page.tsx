@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function LandingPage() {
 	return (
-		<div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+		<div className="min-h-screen bg-slate-50 font-sans text-foreground">
 			{/* 1. HERO SECTION */}
 			<section className="bg-slate-900 text-white pt-24 pb-32 px-4 relative overflow-hidden">
 				<div className="max-w-4xl mx-auto text-center relative z-10">
@@ -21,11 +21,11 @@ export default function LandingPage() {
 					<div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
 						<Link
 							href="/signup"
-							className="w-full sm:w-auto px-8 py-4 bg-amber-500 text-slate-900 font-bold rounded-xl hover:bg-amber-400 transition-colors shadow-lg hover:shadow-xl hover:-translate-y-1 transform duration-200 text-lg"
+							className="w-full sm:w-auto px-8 py-4 bg-amber-500 text-foreground font-bold rounded-xl hover:bg-amber-400 transition-colors shadow-lg hover:shadow-xl hover:-translate-y-1 transform duration-200 text-lg"
 						>
 							Start Free Trial (3 Scripts on Us)
 						</Link>
-						<p className="text-slate-400 text-sm sm:hidden mt-2">
+						<p className="text-muted text-sm sm:hidden mt-2">
 							No credit card required
 						</p>
 					</div>
@@ -46,7 +46,7 @@ export default function LandingPage() {
 					</h2>
 
 					<div className="grid md:grid-cols-3 gap-8">
-						<div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
+						<div className="p-6 bg-slate-50 border border-border rounded-2xl">
 							<div className="w-12 h-12 bg-red-100 text-red-600 rounded-lg flex items-center justify-center mb-4 mx-auto text-2xl">
 								📉
 							</div>
@@ -58,7 +58,7 @@ export default function LandingPage() {
 								the job on price, or miss out on premium upgrades.
 							</p>
 						</div>
-						<div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
+						<div className="p-6 bg-slate-50 border border-border rounded-2xl">
 							<div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-4 mx-auto text-2xl">
 								🚪
 							</div>
@@ -70,7 +70,7 @@ export default function LandingPage() {
 								because asking for more money feels awkward.
 							</p>
 						</div>
-						<div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
+						<div className="p-6 bg-slate-50 border border-border rounded-2xl">
 							<div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 mx-auto text-2xl">
 								⏳
 							</div>
@@ -92,7 +92,7 @@ export default function LandingPage() {
 						<h2 className="text-3xl md:text-5xl font-bold mb-4">
 							Your New Communication Operating System
 						</h2>
-						<p className="text-slate-400 text-lg">
+						<p className="text-muted text-lg">
 							We took the psychology of high-end sales and put it in your
 							pocket.
 						</p>
@@ -292,16 +292,16 @@ export default function LandingPage() {
 						larger bid, your subscription is covered for the year.
 					</p>
 
-					<div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-xl max-w-md mx-auto relative transform hover:-translate-y-2 transition-transform duration-300">
+					<div className="bg-white p-8 md:p-12 rounded-3xl border border-border shadow-xl max-w-md mx-auto relative transform hover:-translate-y-2 transition-transform duration-300">
 						<div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide">
 							PRO TIER
 						</div>
 						<h3 className="text-2xl font-bold mb-2">Unlimited Access</h3>
 						<div className="flex items-center justify-center gap-1 mb-6">
-							<span className="text-5xl font-extrabold text-slate-900">
+							<span className="text-5xl font-extrabold text-foreground">
 								$29
 							</span>
-							<span className="text-slate-500 font-medium">/month</span>
+							<span className="text-muted font-medium">/month</span>
 						</div>
 
 						<ul className="text-left space-y-4 mb-8 text-slate-600 font-medium">
@@ -373,11 +373,11 @@ export default function LandingPage() {
 
 						<Link
 							href="/signup"
-							className="block w-full py-4 bg-amber-500 text-slate-900 font-bold rounded-xl hover:bg-amber-400 transition-colors text-lg shadow-md"
+							className="block w-full py-4 bg-amber-500 text-foreground font-bold rounded-xl hover:bg-amber-400 transition-colors text-lg shadow-md"
 						>
 							Start Free Trial
 						</Link>
-						<p className="text-sm text-slate-400 mt-4">
+						<p className="text-sm text-muted mt-4">
 							Get 3 free scripts before you pay a dime.
 						</p>
 					</div>
@@ -385,7 +385,7 @@ export default function LandingPage() {
 			</section>
 
 			{/* FOOTER */}
-			<footer className="bg-slate-900 py-8 text-center text-slate-500 text-sm">
+			<footer className="bg-slate-900 py-8 text-center text-muted text-sm">
 				<p>© {new Date().getFullYear()} Contractor OS. All rights reserved.</p>
 			</footer>
 		</div>

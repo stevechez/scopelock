@@ -80,10 +80,10 @@ export default function HelpCenter() {
 			<div className="max-w-4xl mx-auto flex flex-col">
 				{/* HEADER */}
 				<div className="text-center mb-12">
-					<h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
+					<h1 className="text-4xl md:text-5xl font-black text-foreground text-foreground tracking-tight mb-4">
 						How can we help you build?
 					</h1>
-					<p className="text-slate-500 dark:text-slate-400 font-medium">
+					<p className="text-muted dark:text-muted font-medium">
 						Ask the AI, search the docs, or use{' '}
 						<kbd
 							onClick={() => setIsPaletteOpen(true)}
@@ -103,19 +103,19 @@ export default function HelpCenter() {
 					className="relative group mb-8 z-20"
 				>
 					<div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-amber-300 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500" />
-					<div className="relative flex items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-2 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 transition-all">
+					<div className="relative flex items-center bg-background text-foreground border border-border border-border rounded-2xl p-2 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 transition-all">
 						<Wand2 className="w-6 h-6 text-amber-500 ml-4" />
 						<input
 							type="text"
 							value={aiQuery}
 							onChange={e => setAiQuery(e.target.value)}
 							placeholder="Describe your problem... (e.g. How do I send a payment link?)"
-							className="w-full bg-transparent border-none text-slate-900 dark:text-white px-4 py-4 focus:outline-none font-medium placeholder:text-slate-400"
+							className="w-full bg-transparent border-none text-foreground text-foreground px-4 py-4 focus:outline-none font-medium placeholder:text-muted"
 						/>
 						<button
 							type="submit"
 							disabled={isThinking || !aiQuery}
-							className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-xl font-bold hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-2"
+							className="bg-slate-900 dark:bg-white text-white dark:text-foreground px-6 py-3 rounded-xl font-bold hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-2"
 						>
 							{isThinking ? 'Searching...' : 'Ask'}{' '}
 							<ArrowRight className="w-4 h-4" />
@@ -135,7 +135,7 @@ export default function HelpCenter() {
 								setWizardStartNode(action.targetNode);
 								setIsWizardOpen(true);
 							}}
-							className="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-amber-500 hover:text-amber-500 dark:hover:text-amber-400 transition-all shadow-sm hover:shadow-md"
+							className="flex items-center gap-2 px-4 py-2 rounded-full bg-background text-foreground border border-border border-border text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-amber-500 hover:text-amber-500 dark:hover:text-amber-400 transition-all shadow-sm hover:shadow-md"
 						>
 							{action.icon} {action.label}
 						</button>
@@ -151,7 +151,7 @@ export default function HelpCenter() {
 							animate={{ opacity: 1, height: 'auto', y: 0 }}
 							exit={{ opacity: 0, height: 0, y: -20 }}
 							transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-							className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xl"
+							className="bg-background text-foreground border border-border border-border rounded-3xl overflow-hidden shadow-xl"
 						>
 							<div className="p-8">
 								{/* STATE 1: SKELETON LOADER */}
@@ -187,7 +187,7 @@ export default function HelpCenter() {
 											<div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-white shadow-lg shadow-amber-500/20">
 												<Wand2 className="w-4 h-4" />
 											</div>
-											<h3 className="font-black text-slate-900 dark:text-white text-lg">
+											<h3 className="font-black text-foreground text-foreground text-lg">
 												BuildRail AI
 											</h3>
 										</div>
@@ -196,8 +196,8 @@ export default function HelpCenter() {
 											{aiResponse.answer}
 										</p>
 
-										<div className="pt-6 border-t border-slate-100 dark:border-slate-800">
-											<h4 className="font-bold text-xs uppercase tracking-widest text-slate-400 mb-4">
+										<div className="pt-6 border-t border-border border-border">
+											<h4 className="font-bold text-xs uppercase tracking-widest text-muted mb-4">
 												Relevant Guides
 											</h4>
 											<div className="grid sm:grid-cols-2 gap-3">
@@ -213,10 +213,10 @@ export default function HelpCenter() {
 														<Link
 															key={i}
 															href={`/help/${articleSlug}`}
-															className="group relative flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 hover:border-amber-500 cursor-pointer transition-colors block"
+															className="group relative flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-950/50 border border-border border-border hover:border-amber-500 cursor-pointer transition-colors block"
 														>
 															<div className="flex items-center gap-3">
-																<BookText className="w-5 h-5 text-slate-400 group-hover:text-amber-500 transition-colors flex-shrink-0" />
+																<BookText className="w-5 h-5 text-muted group-hover:text-amber-500 transition-colors flex-shrink-0" />
 																<span className="font-bold text-sm text-slate-700 dark:text-slate-200 group-hover:text-amber-500 transition-colors line-clamp-2">
 																	{article}
 																</span>

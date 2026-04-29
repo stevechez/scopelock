@@ -43,9 +43,9 @@ export default async function PublicSubdomainPage({
 	const accentColor = tenant.accent_color || '#f59e0b';
 
 	return (
-		<div className="min-h-screen bg-white font-sans text-slate-900">
+		<div className="min-h-screen bg-white font-sans text-foreground">
 			{/* NAVBAR */}
-			<nav className="fixed top-0 inset-x-0 bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
+			<nav className="fixed top-0 inset-x-0 bg-white/80 backdrop-blur-md border-b border-border z-50">
 				<div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 					<div className="flex items-center gap-3">
 						<div
@@ -62,7 +62,7 @@ export default async function PublicSubdomainPage({
 					<div className="flex items-center gap-4">
 						<Link
 							href="/login"
-							className="hidden md:flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest hover:text-slate-900 transition-colors"
+							className="hidden md:flex items-center gap-2 text-xs font-black text-muted uppercase tracking-widest hover:text-foreground transition-colors"
 						>
 							<Lock className="w-3 h-3" /> Client Login
 						</Link>
@@ -86,7 +86,7 @@ export default async function PublicSubdomainPage({
 						<h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] mb-6">
 							{tenant.site_headline}
 						</h1>
-						<p className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 max-w-lg">
+						<p className="text-lg md:text-xl text-muted font-medium leading-relaxed mb-8 max-w-lg">
 							{tenant.site_subheadline}
 						</p>
 
@@ -97,7 +97,7 @@ export default async function PublicSubdomainPage({
 							>
 								Start Your Project <ArrowRight className="w-4 h-4" />
 							</button>
-							<div className="flex items-center justify-center gap-2 text-sm font-bold text-slate-400 px-6 py-4">
+							<div className="flex items-center justify-center gap-2 text-sm font-bold text-muted px-6 py-4">
 								<ShieldCheck
 									className="w-5 h-5"
 									style={{ color: accentColor }}
@@ -119,16 +119,16 @@ export default async function PublicSubdomainPage({
 						</div>
 
 						{/* Rating Card */}
-						<div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-[2rem] shadow-xl border border-slate-100 flex flex-col items-center rotate-3">
+						<div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-[2rem] shadow-xl border border-border flex flex-col items-center rotate-3">
 							<div className="flex gap-1 mb-2" style={{ color: accentColor }}>
 								{[1, 2, 3, 4, 5].map(i => (
 									<Star key={i} className="w-4 h-4 fill-current" />
 								))}
 							</div>
-							<span className="font-black text-3xl tracking-tighter text-slate-900">
+							<span className="font-black text-3xl tracking-tighter text-foreground">
 								5.0
 							</span>
-							<span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+							<span className="text-[9px] font-black uppercase tracking-widest text-muted">
 								Verified Reviews
 							</span>
 						</div>
@@ -141,19 +141,19 @@ export default async function PublicSubdomainPage({
 				<div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
 					<div className="flex flex-col md:flex-row gap-8">
 						<div className="flex items-center gap-3">
-							<Phone className="w-4 h-4 text-slate-500" />
+							<Phone className="w-4 h-4 text-muted" />
 							<span className="font-bold tracking-widest text-sm uppercase">
 								Contact Team
 							</span>
 						</div>
 						<div className="flex items-center gap-3">
-							<MapPin className="w-4 h-4 text-slate-500" />
+							<MapPin className="w-4 h-4 text-muted" />
 							<span className="font-bold tracking-widest text-sm uppercase">
 								Cupertino, CA
 							</span>
 						</div>
 					</div>
-					<p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+					<p className="text-[10px] font-black text-muted uppercase tracking-widest">
 						Powered by BuildRail HQ
 					</p>
 				</div>

@@ -50,7 +50,7 @@ export default function ProposalGenerator({ lead }: { lead: Lead }) {
 				<h2 className="text-2xl font-black text-white italic uppercase mb-2 flex items-center gap-2">
 					AI Architect <Sparkles className="text-amber-500" size={20} />
 				</h2>
-				<p className="text-slate-400 font-medium mb-8">
+				<p className="text-muted font-medium mb-8">
 					Generate a professional 3-tier estimate based on lead budget and
 					project type.
 				</p>
@@ -59,7 +59,7 @@ export default function ProposalGenerator({ lead }: { lead: Lead }) {
 					<button
 						onClick={generateProposal}
 						disabled={loading}
-						className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-black py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50"
+						className="w-full bg-amber-500 hover:bg-amber-400 text-foreground font-black py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50"
 					>
 						{loading ? (
 							<Loader2 className="animate-spin" />

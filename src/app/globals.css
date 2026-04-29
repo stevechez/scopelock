@@ -1,5 +1,28 @@
 @import 'tailwindcss';
 
+:root {
+	--background: #ffffff;
+	--foreground: #0f172a;
+	--muted: #64748b;
+	--border: rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+	--background: #020617;
+	--foreground: #ffffff;
+	--muted: #94a3b8;
+	--border: rgba(255, 255, 255, 0.08);
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
 @theme {
 	/* 1. Map your Manifest variables to Tailwind classes */
 	--color-primary: var(--color-primary);
@@ -9,12 +32,16 @@
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
 }
-
-/* 3. Global Reset using your variables */
 @layer base {
 	body {
-		background-color: white; /* Or map to a manifest color */
-		color: var(--color-primary); /* Uses your Manifest Primary Color */
-		font-family: var(--font-sans);
+		@apply bg-white text-foreground dark:bg-slate-950 dark:text-slate-50;
+	}
+}
+@layer base {
+	body {
+		@apply bg-white text-foreground transition-colors duration-300;
+	}
+	.dark body {
+		@apply bg-slate-950 text-white;
 	}
 }

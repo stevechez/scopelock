@@ -175,21 +175,21 @@ export default function DecisionWizard({
 							animate={{ opacity: 1, scale: 1, y: 0 }}
 							exit={{ opacity: 0, scale: 0.95, y: 10 }}
 							transition={{ duration: 0.2, ease: 'easeOut' }}
-							className="w-full max-w-xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden pointer-events-auto flex flex-col max-h-[80vh]"
+							className="w-full max-w-xl bg-background text-foreground rounded-3xl shadow-2xl border border-border border-border overflow-hidden pointer-events-auto flex flex-col max-h-[80vh]"
 						>
 							{/* HEADER */}
-							<div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800/50">
+							<div className="flex items-center justify-between p-6 border-b border-border border-border/50">
 								<div className="flex items-center gap-3">
 									<div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-500">
 										<Map className="w-4 h-4" />
 									</div>
-									<span className="font-bold text-slate-900 dark:text-white text-sm">
+									<span className="font-bold text-foreground text-foreground text-sm">
 										Decision Wizard
 									</span>
 								</div>
 								<button
 									onClick={handleClose}
-									className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
+									className="p-2 text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
 								>
 									<X className="w-5 h-5" />
 								</button>
@@ -206,7 +206,7 @@ export default function DecisionWizard({
 												animate={{ opacity: 1, x: 0 }}
 												exit={{ opacity: 0, x: -10 }}
 												onClick={handleBack}
-												className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-amber-500 transition-colors"
+												className="flex items-center gap-2 text-sm font-bold text-muted hover:text-amber-500 transition-colors"
 											>
 												<ArrowLeft className="w-4 h-4" /> Back
 											</motion.button>
@@ -226,11 +226,11 @@ export default function DecisionWizard({
 											transition={{ duration: 0.2, ease: 'easeOut' }}
 											className="w-full"
 										>
-											<h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">
+											<h2 className="text-2xl md:text-3xl font-black text-foreground text-foreground mb-3 tracking-tight">
 												{step.question}
 											</h2>
 											{step.description && (
-												<p className="text-slate-500 dark:text-slate-400 font-medium mb-8">
+												<p className="text-muted dark:text-muted font-medium mb-8">
 													{step.description}
 												</p>
 											)}
@@ -240,7 +240,7 @@ export default function DecisionWizard({
 													<button
 														key={idx}
 														onClick={() => handleOptionClick(option)}
-														className="w-full flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-amber-50 dark:hover:bg-amber-500/10 border border-slate-200 dark:border-slate-700 hover:border-amber-500 text-left transition-all group"
+														className="w-full flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-amber-50 dark:hover:bg-amber-500/10 border border-border border-border hover:border-amber-500 text-left transition-all group"
 													>
 														<span className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400">
 															{option.label}

@@ -42,9 +42,9 @@ export default function ProjectTimeline({
 			<div className="lg:col-span-1">
 				<form
 					onSubmit={handleSubmit}
-					className="bg-slate-50 dark:bg-white/[0.03] p-6 rounded-[2rem] border border-slate-200 dark:border-white/5 sticky top-24"
+					className="bg-slate-50 dark:bg-white/[0.03] p-6 rounded-[2rem] border border-border dark:border-white/5 sticky top-24"
 				>
-					<h3 className="text-sm font-black uppercase tracking-widest text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+					<h3 className="text-sm font-black uppercase tracking-widest text-foreground text-foreground mb-4 flex items-center gap-2">
 						<MessageSquare size={16} className="text-amber-500" /> Post Update
 					</h3>
 					<input
@@ -52,13 +52,13 @@ export default function ProjectTimeline({
 						placeholder="Milestone Title (e.g. Permits Filed)"
 						value={title}
 						onChange={e => setTitle(e.target.value)}
-						className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm mb-3 outline-none focus:ring-2 focus:ring-amber-500"
+						className="w-full bg-background text-foreground border border-border border-border rounded-xl px-4 py-3 text-sm mb-3 outline-none focus:ring-2 focus:ring-amber-500"
 					/>
 					<textarea
 						placeholder="Details for the homeowner..."
 						value={desc}
 						onChange={e => setDesc(e.target.value)}
-						className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm mb-4 min-h-[100px] outline-none focus:ring-2 focus:ring-amber-500"
+						className="w-full bg-background text-foreground border border-border border-border rounded-xl px-4 py-3 text-sm mb-4 min-h-[100px] outline-none focus:ring-2 focus:ring-amber-500"
 					/>
 					<button
 						disabled={loading}
@@ -78,27 +78,27 @@ export default function ProjectTimeline({
 			{/* THE FEED */}
 			<div className="lg:col-span-2 space-y-6">
 				{updates.length === 0 ? (
-					<div className="text-center py-20 border-2 border-dashed border-slate-100 dark:border-white/5 rounded-[3rem]">
+					<div className="text-center py-20 border-2 border-dashed border-border dark:border-white/5 rounded-[3rem]">
 						<Clock className="mx-auto text-slate-300 mb-2" size={32} />
-						<p className="text-slate-400 font-bold uppercase text-xs tracking-widest">
+						<p className="text-muted font-bold uppercase text-xs tracking-widest">
 							No project activity yet
 						</p>
 					</div>
 				) : (
-					<div className="relative pl-8 border-l-2 border-slate-100 dark:border-white/5 ml-4 space-y-10">
+					<div className="relative pl-8 border-l-2 border-border dark:border-white/5 ml-4 space-y-10">
 						{updates.map(upd => (
 							<div key={upd.id} className="relative">
-								<div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white dark:bg-slate-900 border-4 border-amber-500 shadow-sm" />
-								<div className="bg-white dark:bg-[#0B101E] border border-slate-100 dark:border-white/5 p-6 rounded-3xl shadow-sm">
+								<div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-background text-foreground border-4 border-amber-500 shadow-sm" />
+								<div className="bg-white dark:bg-[#0B101E] border border-border dark:border-white/5 p-6 rounded-3xl shadow-sm">
 									<div className="flex justify-between items-start mb-2">
-										<h4 className="font-black text-slate-900 dark:text-white uppercase italic">
+										<h4 className="font-black text-foreground text-foreground uppercase italic">
 											{upd.title}
 										</h4>
-										<span className="text-[10px] font-black text-slate-400 uppercase">
+										<span className="text-[10px] font-black text-muted uppercase">
 											{new Date(upd.created_at).toLocaleDateString()}
 										</span>
 									</div>
-									<p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+									<p className="text-sm text-muted dark:text-muted leading-relaxed font-medium">
 										{upd.description}
 									</p>
 								</div>

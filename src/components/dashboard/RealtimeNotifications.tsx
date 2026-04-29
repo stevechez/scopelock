@@ -42,12 +42,12 @@ export default function RealtimeNotifications({
 												</div>
 											</div>
 											<div className="ml-4 flex-1">
-												<p className="text-sm font-black text-slate-900 uppercase tracking-tight">
+												<p className="text-sm font-black text-foreground uppercase tracking-tight">
 													Payment Received!
 												</p>
-												<p className="mt-1 text-sm text-slate-500 font-medium">
+												<p className="mt-1 text-sm text-muted font-medium">
 													A milestone for{' '}
-													<span className="text-slate-900 font-bold">
+													<span className="text-foreground font-bold">
 														{payload.new.title}
 													</span>{' '}
 													was just paid.
@@ -55,7 +55,7 @@ export default function RealtimeNotifications({
 											</div>
 										</div>
 									</div>
-									<div className="flex border-l border-slate-100 p-4 items-center">
+									<div className="flex border-l border-border p-4 items-center">
 										<PartyPopper className="w-5 h-5 text-amber-500" />
 									</div>
 								</div>

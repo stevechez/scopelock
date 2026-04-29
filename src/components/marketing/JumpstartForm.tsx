@@ -66,7 +66,7 @@ export default function JumpstartForm() {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="bg-white dark:bg-[#0B101E] p-8 md:p-12 rounded-[2.5rem] border border-slate-200 dark:border-white/5 shadow-2xl space-y-10 transition-colors"
+			className="bg-white dark:bg-[#0B101E] p-8 md:p-12 rounded-[2.5rem] border border-border dark:border-white/5 shadow-2xl space-y-10 transition-colors"
 		>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 				{/* SECTION 1 */}
@@ -75,13 +75,13 @@ export default function JumpstartForm() {
 						<span className="w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-500 flex items-center justify-center text-xs font-black">
 							1
 						</span>
-						<h3 className="text-sm font-black uppercase tracking-widest text-slate-900 dark:text-white">
+						<h3 className="text-sm font-black uppercase tracking-widest text-foreground text-foreground">
 							Personal Details
 						</h3>
 					</div>
 
 					<div className="space-y-1.5">
-						<label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+						<label className="block text-xs font-bold text-muted dark:text-muted uppercase tracking-wide">
 							Your Name
 						</label>
 						<input
@@ -90,12 +90,12 @@ export default function JumpstartForm() {
 							value={formData.name}
 							onChange={handleInputChange}
 							type="text"
-							className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+							className="w-full px-4 py-3.5 rounded-xl border border-border border-border bg-slate-50 dark:bg-slate-900/50 text-foreground text-foreground focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
 							placeholder="e.g. Steve Dunn"
 						/>
 					</div>
 					<div className="space-y-1.5">
-						<label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+						<label className="block text-xs font-bold text-muted dark:text-muted uppercase tracking-wide">
 							Cell Phone
 						</label>
 						<input
@@ -104,7 +104,7 @@ export default function JumpstartForm() {
 							value={formData.phone}
 							onChange={handleInputChange}
 							type="tel"
-							className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+							className="w-full px-4 py-3.5 rounded-xl border border-border border-border bg-slate-50 dark:bg-slate-900/50 text-foreground text-foreground focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
 							placeholder="(555) 000-0000"
 						/>
 					</div>
@@ -116,13 +116,13 @@ export default function JumpstartForm() {
 						<span className="w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-500 flex items-center justify-center text-xs font-black">
 							2
 						</span>
-						<h3 className="text-sm font-black uppercase tracking-widest text-slate-900 dark:text-white">
+						<h3 className="text-sm font-black uppercase tracking-widest text-foreground text-foreground">
 							Business Profile
 						</h3>
 					</div>
 
 					<div className="space-y-1.5">
-						<label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+						<label className="block text-xs font-bold text-muted dark:text-muted uppercase tracking-wide">
 							Business Name
 						</label>
 						<input
@@ -131,12 +131,12 @@ export default function JumpstartForm() {
 							value={formData.businessName}
 							onChange={handleInputChange}
 							type="text"
-							className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+							className="w-full px-4 py-3.5 rounded-xl border border-border border-border bg-slate-50 dark:bg-slate-900/50 text-foreground text-foreground focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
 							placeholder="e.g. Apex Remodeling"
 						/>
 					</div>
 					<div className="space-y-1.5">
-						<label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+						<label className="block text-xs font-bold text-muted dark:text-muted uppercase tracking-wide">
 							Primary Service Area
 						</label>
 						<input
@@ -145,14 +145,14 @@ export default function JumpstartForm() {
 							value={formData.serviceArea}
 							onChange={handleInputChange}
 							type="text"
-							className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+							className="w-full px-4 py-3.5 rounded-xl border border-border border-border bg-slate-50 dark:bg-slate-900/50 text-foreground text-foreground focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
 							placeholder="e.g. South Bay"
 						/>
 					</div>
 				</section>
 			</div>
 
-			<hr className="border-slate-100 dark:border-white/5" />
+			<hr className="border-border dark:border-white/5" />
 
 			{/* SECTION 3 */}
 			<section className="space-y-6">
@@ -160,13 +160,13 @@ export default function JumpstartForm() {
 					<span className="w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-500 flex items-center justify-center text-xs font-black">
 						3
 					</span>
-					<h3 className="text-sm font-black uppercase tracking-widest text-slate-900 dark:text-white">
+					<h3 className="text-sm font-black uppercase tracking-widest text-foreground text-foreground">
 						Project Scope
 					</h3>
 				</div>
 
 				<div className="space-y-1.5">
-					<label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+					<label className="block text-xs font-bold text-muted dark:text-muted uppercase tracking-wide">
 						What&apos;s your primary goal?
 					</label>
 					<div className="relative">
@@ -174,13 +174,13 @@ export default function JumpstartForm() {
 							name="goal"
 							value={formData.goal}
 							onChange={handleInputChange}
-							className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none appearance-none transition-all"
+							className="w-full px-4 py-3.5 rounded-xl border border-border border-border bg-slate-50 dark:bg-slate-900/50 text-foreground text-foreground focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none appearance-none transition-all"
 						>
 							<option>Professionalizing my brand</option>
 							<option>Automating my client follow-ups</option>
 							<option>Streamlining my change orders</option>
 						</select>
-						<div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+						<div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-muted">
 							<svg
 								className="w-4 h-4"
 								fill="none"
@@ -198,7 +198,7 @@ export default function JumpstartForm() {
 					</div>
 				</div>
 				<div className="space-y-1.5">
-					<label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+					<label className="block text-xs font-bold text-muted dark:text-muted uppercase tracking-wide">
 						Notes for Steve
 					</label>
 					<textarea
@@ -206,7 +206,7 @@ export default function JumpstartForm() {
 						value={formData.notes}
 						onChange={handleInputChange}
 						rows={4}
-						className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none resize-none transition-all placeholder:text-slate-400"
+						className="w-full px-4 py-3.5 rounded-xl border border-border border-border bg-slate-50 dark:bg-slate-900/50 text-foreground text-foreground focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none resize-none transition-all placeholder:text-muted"
 						placeholder="Tell me a bit about the types of jobs you usually run..."
 					></textarea>
 				</div>
@@ -228,7 +228,7 @@ export default function JumpstartForm() {
 					)}
 				</button>
 
-				<div className="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400">
+				<div className="flex items-center justify-center gap-2 text-muted dark:text-muted">
 					<ShieldCheck className="w-4 h-4 text-emerald-500" />
 					<span className="text-xs font-medium">
 						No payment required until your application is approved.

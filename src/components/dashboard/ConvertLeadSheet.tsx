@@ -83,7 +83,7 @@ export function ConvertLeadSheet({
 					<SheetTitle className="text-3xl font-black uppercase italic tracking-tighter text-white">
 						Initialize Project
 					</SheetTitle>
-					<SheetDescription className="text-slate-400 font-medium">
+					<SheetDescription className="text-muted font-medium">
 						You are promoting this lead to an active build. This will provision
 						a new project container.
 					</SheetDescription>
@@ -91,7 +91,7 @@ export function ConvertLeadSheet({
 
 				<div className="grid gap-6 py-10">
 					<div className="space-y-2">
-						<Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+						<Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted">
 							Project Identity
 						</Label>
 						<Input
@@ -101,7 +101,7 @@ export function ConvertLeadSheet({
 						/>
 					</div>
 					<div className="space-y-2">
-						<Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+						<Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted">
 							Target Budget
 						</Label>
 						<Input

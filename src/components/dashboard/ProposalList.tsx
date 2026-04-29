@@ -29,7 +29,7 @@ export default function ProposalList({ proposals }: { proposals: Proposal[] }) {
 
 	if (!proposals || proposals.length === 0) {
 		return (
-			<p className="text-slate-500 font-bold text-center py-8 border border-dashed border-slate-700 rounded-xl">
+			<p className="text-muted font-bold text-center py-8 border border-dashed border-slate-700 rounded-xl">
 				No active proposals.
 			</p>
 		);
@@ -50,7 +50,7 @@ export default function ProposalList({ proposals }: { proposals: Proposal[] }) {
 				>
 					<div>
 						<div className="font-bold text-white">{prop.title}</div>
-						<div className="text-xs text-slate-400 uppercase tracking-widest mt-1 font-bold">
+						<div className="text-xs text-muted uppercase tracking-widest mt-1 font-bold">
 							Status: {prop.status}
 						</div>
 					</div>

@@ -28,17 +28,17 @@ export default function QuickBooksSettings({
 	};
 
 	return (
-		<div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+		<div className="bg-white rounded-3xl p-8 border border-border shadow-sm">
 			<div className="flex items-center justify-between mb-6">
 				<div className="flex items-center gap-4">
 					<div className="w-12 h-12 bg-[#2CA01C]/10 rounded-2xl flex items-center justify-center">
 						<span className="text-[#2CA01C] font-black text-xl italic">qb</span>
 					</div>
 					<div>
-						<h3 className="text-xl font-bold text-slate-900">
+						<h3 className="text-xl font-bold text-foreground">
 							QuickBooks Online
 						</h3>
-						<p className="text-slate-500 text-sm">
+						<p className="text-muted text-sm">
 							Sync leads and generate invoices automatically.
 						</p>
 					</div>
@@ -49,24 +49,24 @@ export default function QuickBooksSettings({
 						<CheckCircle2 size={16} /> Connected
 					</div>
 				) : (
-					<div className="text-slate-400 text-xs font-bold uppercase tracking-widest">
+					<div className="text-muted text-xs font-bold uppercase tracking-widest">
 						Not Connected
 					</div>
 				)}
 			</div>
 
-			<div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-6">
+			<div className="bg-slate-50 rounded-2xl p-6 border border-border mb-6">
 				{isConnected ? (
 					<div className="flex justify-between items-center">
 						<div>
-							<p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+							<p className="text-[10px] font-black text-muted uppercase tracking-widest">
 								Linked Company
 							</p>
-							<p className="text-lg font-bold text-slate-900">
+							<p className="text-lg font-bold text-foreground">
 								{companyName || 'Sandbox Company'}
 							</p>
 						</div>
-						<button className="text-slate-400 hover:text-red-500 transition-colors text-sm font-bold">
+						<button className="text-muted hover:text-red-500 transition-colors text-sm font-bold">
 							Disconnect
 						</button>
 					</div>

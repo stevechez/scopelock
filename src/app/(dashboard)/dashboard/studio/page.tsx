@@ -138,7 +138,7 @@ export default function PiczoStudioPage() {
 						</button>
 						<button
 							onClick={addBento}
-							className="p-2 hover:bg-white/10 rounded-lg text-slate-400"
+							className="p-2 hover:bg-white/10 rounded-lg text-muted"
 						>
 							<Layout size={18} />
 						</button>

@@ -69,22 +69,22 @@ export default async function LeadDetailsPage({
 			{/* TOP NAVIGATION */}
 			<Link
 				href="/dashboard"
-				className="inline-flex items-center gap-2 text-slate-500 hover:text-amber-500 transition-colors font-bold text-sm mb-8 uppercase tracking-widest"
+				className="inline-flex items-center gap-2 text-muted hover:text-amber-500 transition-colors font-bold text-sm mb-8 uppercase tracking-widest"
 			>
 				<ArrowLeft size={16} /> Back to Command Center
 			</Link>
 
 			{/* HEADER */}
-			<div className="bg-white dark:bg-[#0B101E] border border-slate-200 dark:border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 transition-colors">
+			<div className="bg-white dark:bg-[#0B101E] border border-border dark:border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 transition-colors">
 				<div>
-					<h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight italic uppercase leading-none mb-2">
+					<h1 className="text-4xl font-black text-foreground text-foreground tracking-tight italic uppercase leading-none mb-2">
 						{lead.client_name}
 					</h1>
-					<p className="text-slate-500 dark:text-slate-400 font-medium">
+					<p className="text-muted dark:text-muted font-medium">
 						Submitted on {dateSubmitted}
 					</p>
 				</div>
-				<div className="bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest border border-slate-200 dark:border-slate-700">
+				<div className="bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest border border-border border-border">
 					Status: <span className="text-amber-500">{lead.status || 'New'}</span>
 				</div>
 			</div>
@@ -92,26 +92,26 @@ export default async function LeadDetailsPage({
 			{/* DOSSIER GRID */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 				{/* Contact Card */}
-				<div className="bg-white dark:bg-[#0B101E] border border-slate-200 dark:border-white/5 rounded-[2rem] p-8 shadow-sm transition-colors">
-					<h2 className="text-xl font-black text-slate-900 dark:text-white italic uppercase mb-6 flex items-center gap-3">
+				<div className="bg-white dark:bg-[#0B101E] border border-border dark:border-white/5 rounded-[2rem] p-8 shadow-sm transition-colors">
+					<h2 className="text-xl font-black text-foreground text-foreground italic uppercase mb-6 flex items-center gap-3">
 						<User className="text-amber-500" /> Contact Info
 					</h2>
 					<div className="space-y-6">
 						<div>
-							<p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+							<p className="text-[10px] font-black text-muted uppercase tracking-widest mb-1">
 								Email
 							</p>
-							<p className="text-lg font-medium text-slate-900 dark:text-white flex items-center gap-2 break-all">
-								<Mail size={16} className="text-slate-400 shrink-0" />{' '}
+							<p className="text-lg font-medium text-foreground text-foreground flex items-center gap-2 break-all">
+								<Mail size={16} className="text-muted shrink-0" />{' '}
 								{lead.client_email}
 							</p>
 						</div>
 						<div>
-							<p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+							<p className="text-[10px] font-black text-muted uppercase tracking-widest mb-1">
 								Phone
 							</p>
-							<p className="text-lg font-medium text-slate-900 dark:text-white flex items-center gap-2">
-								<Phone size={16} className="text-slate-400 shrink-0" />{' '}
+							<p className="text-lg font-medium text-foreground text-foreground flex items-center gap-2">
+								<Phone size={16} className="text-muted shrink-0" />{' '}
 								{lead.client_phone || 'Not provided'}
 							</p>
 						</div>
@@ -119,25 +119,25 @@ export default async function LeadDetailsPage({
 				</div>
 
 				{/* Project Details Card */}
-				<div className="bg-white dark:bg-[#0B101E] border border-slate-200 dark:border-white/5 rounded-[2rem] p-8 shadow-sm transition-colors">
-					<h2 className="text-xl font-black text-slate-900 dark:text-white italic uppercase mb-6 flex items-center gap-3">
+				<div className="bg-white dark:bg-[#0B101E] border border-border dark:border-white/5 rounded-[2rem] p-8 shadow-sm transition-colors">
+					<h2 className="text-xl font-black text-foreground text-foreground italic uppercase mb-6 flex items-center gap-3">
 						<HardHat className="text-amber-500" /> Project Details
 					</h2>
 					<div className="space-y-6">
 						<div>
-							<p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+							<p className="text-[10px] font-black text-muted uppercase tracking-widest mb-1">
 								Project Type
 							</p>
-							<p className="text-lg font-medium text-slate-900 dark:text-white">
+							<p className="text-lg font-medium text-foreground text-foreground">
 								{lead.project_type || 'Unspecified'}
 							</p>
 						</div>
 						<div className="grid grid-cols-2 gap-4">
 							<div>
-								<p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+								<p className="text-[10px] font-black text-muted uppercase tracking-widest mb-1">
 									Budget
 								</p>
-								<p className="text-lg font-medium text-slate-900 dark:text-white flex items-center gap-2">
+								<p className="text-lg font-medium text-foreground text-foreground flex items-center gap-2">
 									<Wallet size={16} className="text-emerald-500 shrink-0" />{' '}
 									{lead.budget || 'TBD'}
 								</p>
@@ -146,10 +146,10 @@ export default async function LeadDetailsPage({
 								<FileVault leadId={lead.id} files={files || []} />
 							</div>
 							<div>
-								<p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+								<p className="text-[10px] font-black text-muted uppercase tracking-widest mb-1">
 									Timeline
 								</p>
-								<p className="text-lg font-medium text-slate-900 dark:text-white flex items-center gap-2">
+								<p className="text-lg font-medium text-foreground text-foreground flex items-center gap-2">
 									<CalendarClock size={16} className="text-blue-500 shrink-0" />{' '}
 									{lead.timeline || 'Flexible'}
 								</p>
@@ -161,13 +161,13 @@ export default async function LeadDetailsPage({
 
 			{/* PROPOSAL GENERATOR */}
 			{lead.status === 'won' && (
-				<div className="mt-16 pt-16 border-t border-slate-100 dark:border-white/5">
+				<div className="mt-16 pt-16 border-t border-border dark:border-white/5">
 					<div className="mb-10">
-						<h2 className="text-3xl font-black text-slate-900 dark:text-white italic uppercase flex items-center gap-3">
+						<h2 className="text-3xl font-black text-foreground text-foreground italic uppercase flex items-center gap-3">
 							<CheckCircle2 className="text-emerald-500" />
 							Project Execution Feed
 						</h2>
-						<p className="text-slate-400 text-sm font-bold uppercase tracking-widest mt-1">
+						<p className="text-muted text-sm font-bold uppercase tracking-widest mt-1">
 							Real-time updates shared with {lead.client_name}
 						</p>
 					</div>
@@ -176,9 +176,9 @@ export default async function LeadDetailsPage({
 			)}
 
 			{/* FINANCIALS SECTION */}
-			<div className="mt-12 pt-12 border-t border-slate-100 dark:border-white/5">
+			<div className="mt-12 pt-12 border-t border-border dark:border-white/5">
 				<div className="mb-8">
-					<h2 className="text-2xl font-black text-slate-900 dark:text-white italic uppercase flex items-center gap-3">
+					<h2 className="text-2xl font-black text-foreground text-foreground italic uppercase flex items-center gap-3">
 						<Receipt className="text-emerald-500" />
 						Financials & Milestones
 					</h2>

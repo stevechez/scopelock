@@ -36,7 +36,7 @@ export default function InvoiceList({ invoices }: { invoices: Invoice[] }) {
 
 	if (!invoices || invoices.length === 0) {
 		return (
-			<p className="text-slate-500 font-bold text-center py-8 border border-dashed border-slate-700 rounded-xl">
+			<p className="text-muted font-bold text-center py-8 border border-dashed border-slate-700 rounded-xl">
 				No active invoices.
 			</p>
 		);
@@ -58,7 +58,7 @@ export default function InvoiceList({ invoices }: { invoices: Invoice[] }) {
 					<div>
 						<div className="font-bold text-white">{inv.description}</div>
 						<div
-							className={`text-xs uppercase tracking-widest mt-1 font-bold ${inv.status === 'paid' ? 'text-emerald-400' : 'text-slate-400'}`}
+							className={`text-xs uppercase tracking-widest mt-1 font-bold ${inv.status === 'paid' ? 'text-emerald-400' : 'text-muted'}`}
 						>
 							Status: {inv.status}
 						</div>
@@ -73,7 +73,7 @@ export default function InvoiceList({ invoices }: { invoices: Invoice[] }) {
 							<button
 								onClick={() => handleMarkPaid(inv.id)}
 								disabled={isPending}
-								className="text-[10px] uppercase tracking-widest font-bold bg-slate-900 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-full hover:bg-emerald-500 hover:text-slate-900 hover:border-emerald-500 transition-all disabled:opacity-50"
+								className="text-[10px] uppercase tracking-widest font-bold bg-slate-900 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-full hover:bg-emerald-500 hover:text-foreground hover:border-emerald-500 transition-all disabled:opacity-50"
 							>
 								{isPending ? 'Updating...' : 'Mark Paid'}
 							</button>

@@ -45,20 +45,20 @@ export default async function ArticlePage({
 				{/* Back Button */}
 				<Link
 					href="/help"
-					className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-amber-500 mb-12 transition-colors"
+					className="inline-flex items-center gap-2 text-sm font-bold text-muted hover:text-amber-500 mb-12 transition-colors"
 				>
 					<ArrowLeft className="w-4 h-4" /> Back to Help Center
 				</Link>
 
 				{/* Article Header */}
-				<header className="mb-12 border-b border-slate-200 dark:border-slate-800 pb-12">
+				<header className="mb-12 border-b border-border border-border pb-12">
 					<div className="flex items-center gap-2 text-amber-500 font-bold text-sm mb-6">
 						<Clock className="w-4 h-4" /> {frontmatter.readTime || '5 min read'}
 					</div>
-					<h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
+					<h1 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-6 tracking-tight">
 						{frontmatter.title}
 					</h1>
-					<p className="text-xl text-slate-500 dark:text-slate-400 font-medium">
+					<p className="text-xl text-muted dark:text-muted font-medium">
 						{frontmatter.description}
 					</p>
 				</header>

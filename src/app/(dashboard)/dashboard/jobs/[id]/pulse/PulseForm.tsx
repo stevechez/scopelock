@@ -80,11 +80,11 @@ export function PulseForm({ jobId }: { jobId: string }) {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="bg-white p-6 rounded-[2.5rem] border border-slate-200 shadow-sm mt-6"
+			className="bg-white p-6 rounded-[2.5rem] border border-border shadow-sm mt-6"
 		>
 			<div className="space-y-4">
 				<div>
-					<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+					<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 						Field Notes
 					</label>
 					<textarea
@@ -92,16 +92,16 @@ export function PulseForm({ jobId }: { jobId: string }) {
 						value={notes}
 						onChange={e => setNotes(e.target.value)}
 						placeholder="What happened on site today?"
-						className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none min-h-[100px] resize-none text-slate-900"
+						className="w-full bg-slate-50 border border-border rounded-2xl p-4 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none min-h-[100px] resize-none text-foreground"
 					/>
 				</div>
 
 				<div>
-					<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+					<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 						Attach Photo
 					</label>
 					{previewUrl ? (
-						<div className="mt-1 relative h-48 w-full rounded-2xl overflow-hidden border border-slate-200 group">
+						<div className="mt-1 relative h-48 w-full rounded-2xl overflow-hidden border border-border group">
 							<Image
 								src={previewUrl}
 								alt="Preview"
@@ -121,13 +121,13 @@ export function PulseForm({ jobId }: { jobId: string }) {
 					) : (
 						<div
 							onClick={() => fileInputRef.current?.click()}
-							className="mt-1 w-full bg-slate-50 border-2 border-dashed border-slate-200 hover:border-slate-400 hover:bg-slate-100 transition-colors rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer text-slate-400 group"
+							className="mt-1 w-full bg-slate-50 border-2 border-dashed border-border hover:border-slate-400 hover:bg-slate-100 transition-colors rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer text-muted group"
 						>
 							<Camera
 								size={24}
 								className="group-hover:text-slate-600 transition-colors mb-2"
 							/>
-							<span className="text-xs font-bold text-slate-500 text-center">
+							<span className="text-xs font-bold text-muted text-center">
 								Tap to capture site progress
 							</span>
 						</div>

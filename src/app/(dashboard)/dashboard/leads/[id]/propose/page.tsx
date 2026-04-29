@@ -47,14 +47,14 @@ export default async function NewProposalPage({
 					<div>
 						<Link
 							href={`/dashboard/leads/${id}`}
-							className="flex items-center gap-2 text-slate-500 hover:text-white font-bold text-xs uppercase tracking-widest transition-colors mb-4"
+							className="flex items-center gap-2 text-muted hover:text-white font-bold text-xs uppercase tracking-widest transition-colors mb-4"
 						>
 							<ArrowLeft size={14} /> Back to {lead.client_name}
 						</Link>
 						<h1 className="text-5xl font-black text-white italic uppercase tracking-tighter leading-none">
 							Draft <span className="text-amber-500">Vault</span> Proposal
 						</h1>
-						<p className="text-slate-400 mt-4 font-medium max-w-md">
+						<p className="text-muted mt-4 font-medium max-w-md">
 							Review and refine the AI-generated scope. This proposal will be
 							stored in the client&quot;s private portal once sent.
 						</p>

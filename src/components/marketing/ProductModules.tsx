@@ -24,20 +24,20 @@ export default function ProductModules() {
 		<>
 			<section
 				id="features"
-				className="py-12 px-6 bg-white dark:bg-slate-950 overflow-hidden"
+				className="py-12 px-6 bg-background text-foreground overflow-hidden"
 			>
 				{/* MASTER HEADER */}
 				<motion.div
 					{...fadeInUp}
 					className="text-center max-w-4xl mx-auto mb-32"
 				>
-					<h2 className="text-4xl md:text-7xl font-black text-slate-900 dark:text-white mb-8 leading-[0.95] tracking-tighter uppercase italic">
+					<h2 className="text-4xl md:text-7xl font-black text-foreground text-foreground mb-8 leading-[0.95] tracking-tighter uppercase italic">
 						Lead to Cash <br />
 						<span className="text-amber-500 underline decoration-amber-500/20 underline-offset-8">
 							Without the Friction.
 						</span>
 					</h2>
-					<p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
+					<p className="text-xl text-muted dark:text-muted font-medium max-w-2xl mx-auto">
 						A complete digital stack for the modern contractor. Every tool is
 						built to save you an hour of admin and add a point to your margin.
 					</p>
@@ -56,11 +56,11 @@ export default function ProductModules() {
 									Step 01 — Attract
 								</span>
 							</div>
-							<h3 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight tracking-tight">
+							<h3 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-6 leading-tight tracking-tight">
 								The Site Engine: <br />
 								Your 24/7 Closer.
 							</h3>
-							<p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+							<p className="text-lg light:text-slate-600 dark:text-slate-100 mb-8 leading-relaxed">
 								Most contractor sites are digital brochures. The{' '}
 								<strong>Site Engine</strong> is a sales machine that ranks your
 								services locally and forces homeowners to take action.
@@ -73,7 +73,7 @@ export default function ProductModules() {
 								].map((item, i) => (
 									<li
 										key={i}
-										className="flex items-center gap-3 font-bold text-slate-700 dark:text-slate-300"
+										className="flex items-center gap-3 font-bold light:text-slate-700 dark:text-slate-300"
 									>
 										<div className="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 text-xs">
 											✓
@@ -108,22 +108,22 @@ export default function ProductModules() {
 						<div className="flex-1 w-full">
 							<div className="relative group">
 								<div className="absolute -inset-4 bg-blue-100 dark:bg-blue-900/20 rounded-[2rem] transform rotate-2 group-hover:rotate-0 transition-transform duration-500"></div>
-								<div className="relative bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800">
+								<div className="relative bg-background text-slate-950 p-8 rounded-2xl shadow-2xl border border-border border-border">
 									<div className="space-y-4">
-										<div className="font-black text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-2">
+										<div className="font-black text-foreground text-foreground border-b border-border border-border pb-2">
 											3-Tier Proposal Generated
 										</div>
-										<div className="p-3 bg-slate-50 dark:bg-slate-800 rounded border border-slate-100 dark:border-slate-700 text-sm">
-											<span className="font-bold text-slate-500">Tier 1:</span>{' '}
-											The Standard Finish ($12k)
+										<div className="p-3 bg-slate-50 dark:bg-slate-800 rounded border border-border border-border text-sm">
+											<span className="font-bold text-muted">Tier 1:</span> The
+											Standard Finish ($12k)
 										</div>
 										<div className="p-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded text-sm font-bold text-blue-700 dark:text-blue-400 shadow-sm">
 											<span className="text-blue-500">Tier 2:</span> The Premium
 											Build ($18k) - Recommended
 										</div>
-										<div className="p-3 bg-slate-50 dark:bg-slate-800 rounded border border-slate-100 dark:border-slate-700 text-sm">
-											<span className="font-bold text-slate-500">Tier 3:</span>{' '}
-											The Architectural Suite ($28k)
+										<div className="p-3 bg-slate-50 dark:bg-slate-800 rounded border border-border border-border text-sm">
+											<span className="font-bold text-muted">Tier 3:</span> The
+											Architectural Suite ($28k)
 										</div>
 									</div>
 								</div>
@@ -133,10 +133,10 @@ export default function ProductModules() {
 							<div className="text-blue-600 dark:text-blue-400 font-black tracking-widest text-sm mb-4 uppercase">
 								Module 01: Sales & Proposals
 							</div>
-							<h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 italic tracking-tight">
+							<h2 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-6 italic tracking-tight">
 								BidForge™
 							</h2>
-							<div className="space-y-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+							<div className="space-y-6 text-lg text-slate-600 dark:text-muted leading-relaxed">
 								<p>Stop leaving money on the table with amateur estimates.</p>
 								<p>
 									**BidForge** equips you with professional, field-tested AI
@@ -169,11 +169,11 @@ export default function ProductModules() {
 									Step 03 — Protect
 								</span>
 							</div>
-							<h3 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight tracking-tight">
+							<h3 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-6 leading-tight tracking-tight">
 								ScopeLock™: <br />
 								No More Free Work.
 							</h3>
-							<p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+							<p className="text-lg text-slate-600 dark:text-muted mb-8 leading-relaxed">
 								Scope creep kills margins. When a client says &ldquo;while
 								you&rsquo;re here,&rdquo; ScopeLock captures the change, gets
 								digital approval, and adds it to the final bill instantly.
@@ -211,11 +211,11 @@ export default function ProductModules() {
 									Step 04 — Get Paid
 								</span>
 							</div>
-							<h3 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight tracking-tight">
+							<h3 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-6 leading-tight tracking-tight">
 								PayRail: <br />
 								Paid in 60 Seconds.
 							</h3>
-							<p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+							<p className="text-lg text-slate-600 dark:text-muted mb-8 leading-relaxed">
 								Stop chasing checks. Send an SMS payment link the second the
 								milestone is hit. High-speed payouts delivered to your bank via
 								Stripe.
@@ -226,7 +226,7 @@ export default function ProductModules() {
 						</div>
 						<div className="lg:order-1">
 							<div className="max-w-[300px] mx-auto relative bg-slate-900 rounded-[3rem] p-4 border-[6px] border-slate-800 shadow-2xl rotate-[-2deg]">
-								<div className="bg-white dark:bg-slate-900 rounded-[2.2rem] overflow-hidden p-6 aspect-[9/16] relative">
+								<div className="bg-background text-foreground rounded-[2.2rem] overflow-hidden p-6 aspect-[9/16] relative">
 									<div className="w-12 h-1 bg-slate-100 dark:bg-slate-800 mx-auto mb-8 rounded-full" />
 									<div className="space-y-4">
 										<div className="p-4 bg-blue-500 text-white rounded-2xl rounded-tr-none ml-6 text-[10px] font-black leading-tight uppercase tracking-tighter shadow-lg shadow-blue-500/20">
@@ -250,10 +250,10 @@ export default function ProductModules() {
 							<div className="text-teal-600 dark:text-teal-400 font-black tracking-widest text-sm mb-4 uppercase">
 								Module 04: Field Visibility
 							</div>
-							<h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 italic tracking-tight">
+							<h2 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-6 italic tracking-tight">
 								CrewLens™
 							</h2>
-							<div className="space-y-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+							<div className="space-y-6 text-lg text-slate-600 dark:text-muted leading-relaxed">
 								<p>
 									You can&quot;t be on every job site at once, but your eyes can
 									be.
@@ -273,7 +273,7 @@ export default function ProductModules() {
 								<div className="relative bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-800 text-white p-6">
 									<div className="h-40 bg-slate-800 rounded-xl mb-4 flex flex-col items-center justify-center border border-slate-700 border-dashed">
 										<span className="text-2xl mb-2">📸</span>
-										<span className="text-slate-400 text-sm font-bold uppercase tracking-widest">
+										<span className="text-muted text-sm font-bold uppercase tracking-widest">
 											Live Site Feed
 										</span>
 									</div>
@@ -294,25 +294,25 @@ export default function ProductModules() {
 			{/* THE DEEP DIVE (CATCH-ALL) */}
 			<section
 				id="details"
-				className="py-24 bg-white dark:bg-slate-950 px-6 border-t border-slate-100 dark:border-slate-800"
+				className="py-24 bg-background text-foreground px-6 border-t border-border border-border"
 			>
 				<div className="max-w-6xl mx-auto">
 					<div className="text-center mb-16">
-						<h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 italic tracking-tight">
+						<h2 className="text-4xl md:text-5xl font-black text-foreground text-foreground mb-4 italic tracking-tight">
 							The BUILDRAIL Ecosystem
 						</h2>
-						<p className="text-xl text-slate-500 dark:text-slate-400 font-medium">
+						<p className="text-xl text-muted dark:text-muted font-medium">
 							Everything you get when you deploy the platform.
 						</p>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 						{/* Comm Vault */}
-						<div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800">
-							<h3 className="text-2xl font-black text-slate-900 dark:text-white mb-4 italic">
+						<div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2.5rem] border border-border border-border">
+							<h3 className="text-2xl font-black text-foreground text-slate-950 mb-4 italic">
 								Comm Vault™
 							</h3>
-							<p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+							<p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
 								The central intelligence hub. Secure communication and
 								bank-grade storage with passwordless &ldquo;Magic Link&rdquo;
 								client access.
@@ -320,22 +320,22 @@ export default function ProductModules() {
 						</div>
 
 						{/* BidForge */}
-						<div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800">
-							<h3 className="text-2xl font-black text-slate-900 dark:text-white mb-4 italic">
+						<div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2.5rem] border border-border border-border">
+							<h3 className="text-2xl font-black text-foreground text-slate-950 mb-4 italic">
 								BidForge™
 							</h3>
-							<p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+							<p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
 								Professional AI scripts and 3-tier proposal generation designed
 								to anchor prices high and close deals effortlessly.
 							</p>
 						</div>
 
 						{/* Site Engine */}
-						<div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800">
-							<h3 className="text-2xl font-black text-slate-900 dark:text-white mb-4 italic">
+						<div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2.5rem] border border-border border-border">
+							<h3 className="text-2xl font-black text-foreground text-slate-950 mb-4 italic">
 								Site Engine™
 							</h3>
-							<p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+							<p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
 								A fully managed, high-converting portfolio website deployed in
 								24 hours to capture and funnel local leads into your dashboard.
 							</p>

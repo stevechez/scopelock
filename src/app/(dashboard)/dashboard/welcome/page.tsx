@@ -40,7 +40,7 @@ export default async function WelcomePage() {
 					Welcome to the Vault.
 				</h1>
 
-				<p className="text-xl text-slate-400 font-medium mb-10 relative z-10">
+				<p className="text-xl text-muted font-medium mb-10 relative z-10">
 					<span className="text-white font-bold">{tenant.company_name}</span> is
 					officially online. Your command center is provisioned and ready for
 					your first project.
@@ -50,14 +50,14 @@ export default async function WelcomePage() {
 					<div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50">
 						<ShieldCheck className="w-6 h-6 text-emerald-500 mb-2" />
 						<h3 className="text-white font-bold">ScopeLock Active</h3>
-						<p className="text-slate-400 text-sm">
+						<p className="text-muted text-sm">
 							Change orders are strictly enforced.
 						</p>
 					</div>
 					<div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50">
 						<Zap className="w-6 h-6 text-amber-500 mb-2" />
 						<h3 className="text-white font-bold">PayRail Standby</h3>
-						<p className="text-slate-400 text-sm">
+						<p className="text-muted text-sm">
 							Connect Stripe to start invoicing.
 						</p>
 					</div>

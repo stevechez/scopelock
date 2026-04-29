@@ -58,18 +58,18 @@ export default async function JobDetailPage({
 
 	return (
 		<div className="min-h-screen bg-[#F8FAFC] pb-32 relative flex flex-col">
-			<header className="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
+			<header className="bg-white border-b border-border px-6 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
 				<Link
 					href="/dashboard"
-					className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-widest hover:text-slate-900 transition-colors"
+					className="flex items-center gap-2 text-muted font-bold text-[10px] uppercase tracking-widest hover:text-foreground transition-colors"
 				>
 					<ArrowLeft size={14} /> Command Center
 				</Link>
 				<div className="text-right">
-					<h2 className="text-sm font-black text-slate-900 leading-none">
+					<h2 className="text-sm font-black text-foreground leading-none">
 						{job.title}
 					</h2>
-					<p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+					<p className="text-[10px] font-bold text-muted uppercase tracking-widest mt-1">
 						Project Hub
 					</p>
 				</div>
@@ -83,13 +83,13 @@ export default async function JobDetailPage({
 					</div>
 					<Link
 						href={`/dashboard/jobs/${jobId}/payments`}
-						className="bg-white text-slate-500 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
+						className="bg-white text-muted hover:text-foreground border border-border px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
 					>
 						<CreditCard size={16} /> SiteDraft
 					</Link>
 					<Link
 						href={`/dashboard/jobs/${jobId}/pulse`}
-						className="bg-white text-slate-500 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
+						className="bg-white text-muted hover:text-foreground border border-border px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
 					>
 						<Activity size={16} /> CrewLens
 					</Link>
@@ -97,23 +97,23 @@ export default async function JobDetailPage({
 
 				{/* Scope Dashboard Header */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-						<p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
+					<div className="bg-white rounded-3xl p-8 border border-border shadow-sm">
+						<p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-1">
 							Base Contract
 						</p>
-						<h2 className="text-3xl font-black text-slate-900">
+						<h2 className="text-3xl font-black text-foreground">
 							${Number(job.base_contract_value).toLocaleString()}
 						</h2>
 					</div>
 					<div className="bg-slate-900 rounded-3xl p-8 shadow-xl text-white relative overflow-hidden">
 						<div className="relative z-10">
-							<p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
+							<p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-1">
 								Adjusted Contract Value
 							</p>
 							<h2 className="text-3xl font-black text-emerald-400">
 								${newContractValue.toLocaleString()}
 							</h2>
-							<p className="text-xs font-bold text-slate-400 mt-2">
+							<p className="text-xs font-bold text-muted mt-2">
 								+{totalChanges.toLocaleString()} in Scope Changes
 							</p>
 						</div>
@@ -121,18 +121,18 @@ export default async function JobDetailPage({
 				</div>
 
 				{/* Scope Action Area */}
-				<div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-					<h3 className="text-lg font-black text-slate-900 tracking-tight mb-6">
+				<div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-border">
+					<h3 className="text-lg font-black text-foreground tracking-tight mb-6">
 						Original Scope & Changes
 					</h3>
 
 					{/* The original Scope Items list */}
 					<div className="mb-8">
-						<h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+						<h4 className="text-xs font-bold text-muted uppercase tracking-widest mb-4">
 							Base Scope Items
 						</h4>
 						{scopeItems?.length === 0 ? (
-							<p className="text-slate-400 italic text-sm">
+							<p className="text-muted italic text-sm">
 								No initial scope items recorded.
 							</p>
 						) : (
@@ -140,7 +140,7 @@ export default async function JobDetailPage({
 								{scopeItems?.map(item => (
 									<li
 										key={item.id}
-										className="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100"
+										className="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-border"
 									>
 										{item.is_included ? (
 											<CheckCircle2
@@ -151,7 +151,7 @@ export default async function JobDetailPage({
 											<XCircle className="text-red-400 shrink-0" size={18} />
 										)}
 										<span
-											className={`text-sm font-medium ${item.is_included ? 'text-slate-700' : 'text-slate-400 line-through'}`}
+											className={`text-sm font-medium ${item.is_included ? 'text-slate-700' : 'text-muted line-through'}`}
 										>
 											{item.description}
 										</span>
@@ -161,31 +161,31 @@ export default async function JobDetailPage({
 						)}
 					</div>
 
-					<hr className="border-slate-100 mb-8" />
+					<hr className="border-border mb-8" />
 
 					{/* The New Change Orders System */}
 					<div>
-						<h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+						<h4 className="text-xs font-bold text-muted uppercase tracking-widest mb-4">
 							Approved Changes
 						</h4>
 						<ScopeLockForm jobId={job.id} />
 
 						<div className="mt-6 space-y-3">
 							{!changes || changes.length === 0 ? (
-								<p className="text-slate-500 text-sm font-medium text-center py-6 bg-slate-50 rounded-2xl border border-slate-100">
+								<p className="text-muted text-sm font-medium text-center py-6 bg-slate-50 rounded-2xl border border-border">
 									No scope changes recorded yet.
 								</p>
 							) : (
 								changes.map((change: ChangeOrder) => (
 									<div
 										key={change.id}
-										className="bg-slate-50 p-4 rounded-xl shadow-sm border border-slate-100 flex items-center justify-between"
+										className="bg-slate-50 p-4 rounded-xl shadow-sm border border-border flex items-center justify-between"
 									>
 										<div>
-											<h4 className="font-bold text-slate-900 text-sm">
+											<h4 className="font-bold text-foreground text-sm">
 												{change.description}
 											</h4>
-											<p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+											<p className="text-[10px] font-bold text-muted uppercase tracking-widest mt-1">
 												Status: {change.status}
 											</p>
 										</div>

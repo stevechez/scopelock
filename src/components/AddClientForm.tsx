@@ -24,7 +24,7 @@ export default function AddClientForm() {
 			<h2 className="text-2xl font-black text-white italic mb-1 uppercase tracking-tight">
 				Invite Client
 			</h2>
-			<p className="text-slate-400 text-sm mb-6 font-medium">
+			<p className="text-muted text-sm mb-6 font-medium">
 				Provision a new secure vault.
 			</p>
 
@@ -35,7 +35,7 @@ export default function AddClientForm() {
 							name="firstName"
 							required
 							placeholder="First Name"
-							className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all placeholder:text-slate-500"
+							className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all placeholder:text-muted"
 						/>
 					</div>
 					<div className="w-1/2">
@@ -43,7 +43,7 @@ export default function AddClientForm() {
 							name="lastName"
 							required
 							placeholder="Last Name"
-							className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all placeholder:text-slate-500"
+							className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all placeholder:text-muted"
 						/>
 					</div>
 				</div>
@@ -53,7 +53,7 @@ export default function AddClientForm() {
 					type="email"
 					required
 					placeholder="client@email.com"
-					className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all placeholder:text-slate-500"
+					className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all placeholder:text-muted"
 				/>
 
 				{state.error && (

@@ -34,7 +34,7 @@ export default async function PublicSitePage({
 	}
 
 	return (
-		<div className="min-h-screen bg-slate-50 font-sans selection:bg-amber-500 selection:text-slate-900">
+		<div className="min-h-screen bg-slate-50 font-sans selection:bg-amber-500 selection:text-foreground">
 			{/* HERO SECTION */}
 			<header className="relative bg-slate-900 pt-24 pb-32 overflow-hidden border-b-8 border-amber-500">
 				<div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2831&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay" />
@@ -80,21 +80,21 @@ export default async function PublicSitePage({
 			<section className="py-24 px-6 bg-white">
 				<div className="max-w-6xl mx-auto">
 					<div className="text-center mb-16">
-						<h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
+						<h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
 							The {tenant.company_name} Difference
 						</h2>
-						<p className="text-lg text-slate-500 max-w-2xl mx-auto">
+						<p className="text-lg text-muted max-w-2xl mx-auto">
 							We don&quot;t just build homes; we build trust. Here is what
 							happens when you work with us.
 						</p>
 					</div>
 
 					<div className="grid md:grid-cols-3 gap-8">
-						<div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
+						<div className="p-8 bg-slate-50 rounded-3xl border border-border">
 							<div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
 								<span className="font-black text-xl">1</span>
 							</div>
-							<h3 className="text-xl font-bold text-slate-900 mb-3">
+							<h3 className="text-xl font-bold text-foreground mb-3">
 								Transparent Estimates
 							</h3>
 							<p className="text-slate-600 leading-relaxed">
@@ -102,11 +102,11 @@ export default async function PublicSitePage({
 								choose the exact scope that fits your budget.
 							</p>
 						</div>
-						<div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
+						<div className="p-8 bg-slate-50 rounded-3xl border border-border">
 							<div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
 								<span className="font-black text-xl">2</span>
 							</div>
-							<h3 className="text-xl font-bold text-slate-900 mb-3">
+							<h3 className="text-xl font-bold text-foreground mb-3">
 								Daily Client Portal
 							</h3>
 							<p className="text-slate-600 leading-relaxed">
@@ -114,11 +114,11 @@ export default async function PublicSitePage({
 								notes, and track your project timeline in real-time.
 							</p>
 						</div>
-						<div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
+						<div className="p-8 bg-slate-50 rounded-3xl border border-border">
 							<div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
 								<span className="font-black text-xl">3</span>
 							</div>
-							<h3 className="text-xl font-bold text-slate-900 mb-3">
+							<h3 className="text-xl font-bold text-foreground mb-3">
 								Secure Payments
 							</h3>
 							<p className="text-slate-600 leading-relaxed">
@@ -131,7 +131,7 @@ export default async function PublicSitePage({
 			</section>
 
 			{/* FOOTER */}
-			<footer className="bg-slate-900 text-slate-400 py-12 text-center border-t border-white/10">
+			<footer className="bg-slate-900 text-muted py-12 text-center border-t border-white/10">
 				<div className="flex items-center justify-center gap-2 mb-4 text-white font-black">
 					<HardHat className="w-6 h-6 text-amber-500" /> {tenant.company_name}
 				</div>

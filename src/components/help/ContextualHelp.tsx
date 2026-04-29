@@ -64,10 +64,10 @@ export default function ContextualHelp({ slug, trigger }: ContextualHelpProps) {
 							animate={{ x: 0 }}
 							exit={{ x: '100%' }}
 							transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-							className="fixed right-0 top-0 h-full w-full max-w-md z-[111] bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col"
+							className="fixed right-0 top-0 h-full w-full max-w-md z-[111] bg-background text-foreground shadow-2xl border-l border-border border-border flex flex-col"
 						>
 							{/* HEADER */}
-							<div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
+							<div className="p-6 border-b border-border border-border flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
 								<div className="flex items-center gap-2 text-amber-500 font-bold text-sm">
 									<BookOpen className="w-4 h-4" /> Quick Guide
 								</div>
@@ -75,14 +75,14 @@ export default function ContextualHelp({ slug, trigger }: ContextualHelpProps) {
 									onClick={() => setIsOpen(false)}
 									className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
 								>
-									<X className="w-5 h-5 text-slate-400" />
+									<X className="w-5 h-5 text-muted" />
 								</button>
 							</div>
 
 							{/* CONTENT AREA */}
 							<div className="flex-1 overflow-y-auto p-8">
 								{isLoading ? (
-									<div className="h-full flex flex-col items-center justify-center text-slate-400">
+									<div className="h-full flex flex-col items-center justify-center text-muted">
 										<Loader2 className="w-8 h-8 animate-spin mb-4" />
 										<p className="text-sm font-medium">Loading guide...</p>
 									</div>
@@ -96,11 +96,11 @@ export default function ContextualHelp({ slug, trigger }: ContextualHelpProps) {
 							</div>
 
 							{/* FOOTER */}
-							<div className="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+							<div className="p-6 border-t border-border border-border bg-slate-50/50 dark:bg-slate-800/30">
 								<a
 									href={`/help/${slug}`}
 									target="_blank"
-									className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+									className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-foreground rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
 								>
 									Open in Full Page <ExternalLink className="w-4 h-4" />
 								</a>

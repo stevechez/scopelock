@@ -49,7 +49,7 @@ export default async function LeadsPage() {
 								Leads
 							</span>
 						</h1>
-						<p className="text-slate-400 font-medium text-xl max-w-xl leading-relaxed">
+						<p className="text-muted font-medium text-xl max-w-xl leading-relaxed">
 							Filter, manage, and convert high-intent briefs into world-class
 							projects.
 						</p>
@@ -64,7 +64,7 @@ export default async function LeadsPage() {
 							<span className="text-2xl font-black tabular-nums tracking-tighter">
 								{leads?.length || 0}
 							</span>
-							<span className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">
+							<span className="text-xs font-black uppercase tracking-[0.2em] text-muted">
 								Total Inquiries
 							</span>
 						</div>
@@ -80,7 +80,7 @@ export default async function LeadsPage() {
 						<Table>
 							<TableHeader className="bg-white/[0.02] border-b border-white/5">
 								<TableRow className="hover:bg-transparent border-none">
-									<TableHead className="py-8 pl-10 font-black text-slate-500 uppercase text-[11px] tracking-[0.25em]">
+									<TableHead className="py-8 pl-10 font-black text-muted uppercase text-[11px] tracking-[0.25em]">
 										Recieved
 									</TableHead>
 									<TableHead className="py-8 font-black text-slate-200 uppercase text-[11px] tracking-[0.25em]">
@@ -102,7 +102,7 @@ export default async function LeadsPage() {
 									<TableRow>
 										<TableCell
 											colSpan={5}
-											className="h-96 text-center text-slate-500 font-medium italic text-xl"
+											className="h-96 text-center text-muted font-medium italic text-xl"
 										>
 											The pipeline is currently clear.
 										</TableCell>
@@ -113,7 +113,7 @@ export default async function LeadsPage() {
 											key={lead.id}
 											className="border-white/[0.03] hover:bg-white/[0.04] transition-all cursor-pointer group/row"
 										>
-											<TableCell className="py-10 pl-10 text-slate-500 tabular-nums font-bold text-sm uppercase tracking-tighter">
+											<TableCell className="py-10 pl-10 text-muted tabular-nums font-bold text-sm uppercase tracking-tighter">
 												{formatDistanceToNow(new Date(lead.created_at), {
 													addSuffix: true,
 												})}
@@ -122,7 +122,7 @@ export default async function LeadsPage() {
 												<div className="text-2xl font-black text-white group-hover/row:text-amber-500 transition-colors tracking-tight">
 													{lead.client_name}
 												</div>
-												<div className="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1">
+												<div className="text-sm text-muted font-bold uppercase tracking-widest mt-1">
 													{lead.client_email}
 												</div>
 											</TableCell>

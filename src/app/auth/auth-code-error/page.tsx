@@ -12,13 +12,13 @@ export default function AuthErrorPage() {
 			<h1 className="text-2xl font-black text-white mb-4">
 				Link Expired or Invalid
 			</h1>
-			<p className="text-slate-400 mb-8 max-w-sm">
+			<p className="text-muted mb-8 max-w-sm">
 				For your security, magic links can only be used once and expire after a
 				short time. Please request a new one.
 			</p>
 			<Link
 				href="/login" // Assuming they will hit the middleware and be redirected
-				className="bg-white text-slate-900 px-6 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-amber-500 transition-all"
+				className="bg-white text-foreground px-6 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-amber-500 transition-all"
 			>
 				Try Again
 			</Link>

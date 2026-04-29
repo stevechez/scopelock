@@ -26,11 +26,11 @@ export default function DynamicToolPage({
 				<h1 className="text-2xl font-black text-red-500 uppercase italic">
 					Tool Not Found
 				</h1>
-				<p className="text-slate-400 mt-4">
+				<p className="text-muted mt-4">
 					The URL slug was:{' '}
 					<span className="text-amber-500 font-mono">&ldquo;{slug}&rdquo;</span>
 				</p>
-				<p className="text-slate-500 text-sm mt-2">
+				<p className="text-muted text-sm mt-2">
 					Make sure this matches a key in your{' '}
 					<code className="bg-slate-900 px-2 py-1 rounded">TOOL_CONFIG</code>.
 				</p>
@@ -52,7 +52,7 @@ export default function DynamicToolPage({
 			<form className="bg-slate-900 border border-white/5 p-8 rounded-[2rem] space-y-6 shadow-2xl">
 				{tool.fields.map(field => (
 					<div key={field.id}>
-						<label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 ml-1">
+						<label className="block text-xs font-black text-muted uppercase tracking-widest mb-3 ml-1">
 							{field.label}
 						</label>
 						{field.type === 'textarea' ? (

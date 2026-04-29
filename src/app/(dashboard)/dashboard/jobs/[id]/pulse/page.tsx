@@ -51,18 +51,18 @@ export default async function CrewLensPage({
 
 	return (
 		<div className="min-h-screen bg-[#F8FAFC] pb-32 relative flex flex-col">
-			<header className="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
+			<header className="bg-white border-b border-border px-6 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
 				<Link
 					href="/dashboard"
-					className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-widest hover:text-slate-900 transition-colors"
+					className="flex items-center gap-2 text-muted font-bold text-[10px] uppercase tracking-widest hover:text-foreground transition-colors"
 				>
 					<ArrowLeft size={14} /> Command Center
 				</Link>
 				<div className="text-right">
-					<h2 className="text-sm font-black text-slate-900 leading-none">
+					<h2 className="text-sm font-black text-foreground leading-none">
 						{job.title}
 					</h2>
-					<p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+					<p className="text-[10px] font-bold text-muted uppercase tracking-widest mt-1">
 						Project Hub
 					</p>
 				</div>
@@ -73,13 +73,13 @@ export default async function CrewLensPage({
 				<div className="flex gap-4">
 					<Link
 						href={`/dashboard/jobs/${jobId}`}
-						className="bg-white text-slate-500 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
+						className="bg-white text-muted hover:text-foreground border border-border px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
 					>
 						<ShieldAlert size={16} /> ScopeLock
 					</Link>
 					<Link
 						href={`/dashboard/jobs/${jobId}/payments`}
-						className="bg-white text-slate-500 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
+						className="bg-white text-muted hover:text-foreground border border-border px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
 					>
 						<CreditCard size={16} /> SiteDraft
 					</Link>
@@ -91,10 +91,10 @@ export default async function CrewLensPage({
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 					{/* Left Column: Form */}
 					<div className="md:col-span-1">
-						<h3 className="text-lg font-black text-slate-900 tracking-tight">
+						<h3 className="text-lg font-black text-foreground tracking-tight">
 							New Log
 						</h3>
-						<p className="text-xs text-slate-500 font-medium mt-1">
+						<p className="text-xs text-muted font-medium mt-1">
 							Keep the client updated.
 						</p>
 						<PulseForm jobId={job.id} />
@@ -102,14 +102,14 @@ export default async function CrewLensPage({
 
 					{/* Right Column: Log Feed */}
 					<div className="md:col-span-2">
-						<h3 className="text-lg font-black text-slate-900 tracking-tight mb-6">
+						<h3 className="text-lg font-black text-foreground tracking-tight mb-6">
 							Activity Feed
 						</h3>
 
 						<div className="space-y-6">
 							{logs.length === 0 ? (
-								<div className="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-10 text-center">
-									<p className="text-slate-500 text-sm font-medium">
+								<div className="bg-white border-2 border-dashed border-border rounded-3xl p-10 text-center">
+									<p className="text-muted text-sm font-medium">
 										No site activity recorded yet.
 									</p>
 								</div>
@@ -117,7 +117,7 @@ export default async function CrewLensPage({
 								logs.map((log: DailyLog) => (
 									<div
 										key={log.id}
-										className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+										className="bg-white rounded-2xl shadow-sm border border-border overflow-hidden"
 									>
 										{/* Display the first photo if it exists */}
 										{log.log_photos && log.log_photos.length > 0 && (
@@ -134,16 +134,16 @@ export default async function CrewLensPage({
 
 										<div className="p-6">
 											<div className="flex items-center gap-2 mb-3">
-												<CalendarDays size={14} className="text-slate-400" />
-												<span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+												<CalendarDays size={14} className="text-muted" />
+												<span className="text-[10px] font-bold text-muted uppercase tracking-widest">
 													{new Date(log.created_at).toLocaleDateString()}
 												</span>
 											</div>
 											<p className="text-slate-700 text-sm leading-relaxed font-medium">
 												{log.notes}
 											</p>
-											<div className="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center">
-												<span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+											<div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
+												<span className="text-[10px] font-bold text-muted uppercase tracking-widest">
 													Crew: {log.crew_member_name}
 												</span>
 											</div>

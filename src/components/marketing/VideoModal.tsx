@@ -40,7 +40,7 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
 						{/* The Close Button - Positioned outside the video frame for better UX */}
 						<button
 							onClick={onClose}
-							className="absolute -top-12 right-0 text-slate-400 hover:text-white flex items-center gap-2 transition-colors group"
+							className="absolute -top-12 right-0 text-muted hover:text-white flex items-center gap-2 transition-colors group"
 						>
 							<span className="text-xs font-mono uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
 								Close Esc

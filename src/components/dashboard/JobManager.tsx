@@ -152,7 +152,7 @@ export default function JobManager({
 						<h1 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-2">
 							{job?.title || 'The Coastal Build'}
 						</h1>
-						<p className="text-slate-400 font-medium flex items-center gap-2">
+						<p className="text-muted font-medium flex items-center gap-2">
 							Client:{' '}
 							<span className="text-white font-bold">{job?.client_email}</span>
 						</p>
@@ -161,7 +161,7 @@ export default function JobManager({
 
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800">
 					<div>
-						<div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
+						<div className="text-muted text-xs font-bold uppercase tracking-widest mb-1">
 							Base Contract
 						</div>
 						<div className="text-2xl font-black text-white">
@@ -169,7 +169,7 @@ export default function JobManager({
 						</div>
 					</div>
 					<div>
-						<div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
+						<div className="text-muted text-xs font-bold uppercase tracking-widest mb-1">
 							Invoiced
 						</div>
 						<div className="text-2xl font-black text-slate-300">
@@ -177,7 +177,7 @@ export default function JobManager({
 						</div>
 					</div>
 					<div>
-						<div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
+						<div className="text-muted text-xs font-bold uppercase tracking-widest mb-1">
 							Collected
 						</div>
 						<div className="text-2xl font-black text-emerald-400">
@@ -196,7 +196,7 @@ export default function JobManager({
 						className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all duration-200 ${
 							activeTab === tab.id
 								? 'bg-slate-800 text-white shadow-sm'
-								: 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'
+								: 'text-muted hover:text-slate-300 hover:bg-slate-800/50'
 						}`}
 					>
 						<tab.icon className="w-4 h-4" /> {tab.label}
@@ -219,7 +219,7 @@ export default function JobManager({
 								<h3 className="text-xl font-bold text-white mb-4">
 									Project Notes
 								</h3>
-								<p className="text-slate-400 leading-relaxed">
+								<p className="text-muted leading-relaxed">
 									Use this space to track lockbox codes, permit numbers, and
 									internal crew details.
 								</p>
@@ -258,13 +258,13 @@ export default function JobManager({
 							<h3 className="text-xl font-bold text-white mb-2">
 								BidForge AI Estimator
 							</h3>
-							<p className="text-slate-400 mb-6 max-w-md mx-auto">
+							<p className="text-muted mb-6 max-w-md mx-auto">
 								Generate a 3-tier (Good/Better/Best) proposal from rough truck
 								notes in 15 seconds.
 							</p>
 							<button
 								onClick={() => setIsBidForgeOpen(true)}
-								className="px-6 py-3 bg-amber-500 text-slate-900 font-black rounded-xl hover:bg-amber-400 transition-colors inline-flex items-center gap-2 shadow-lg"
+								className="px-6 py-3 bg-amber-500 text-foreground font-black rounded-xl hover:bg-amber-400 transition-colors inline-flex items-center gap-2 shadow-lg"
 							>
 								Launch BidForge <ArrowUpRight className="w-4 h-4" />
 							</button>
@@ -277,13 +277,13 @@ export default function JobManager({
 							<h3 className="text-xl font-bold text-white mb-2">
 								CrewLens Tracker
 							</h3>
-							<p className="text-slate-400 mb-6 max-w-md mx-auto">
+							<p className="text-muted mb-6 max-w-md mx-auto">
 								Snap photos from the job site. They will automatically sync to
 								the client&quot;s Comm Vault.
 							</p>
 							<button
 								onClick={() => setIsCrewLensOpen(true)}
-								className="px-6 py-3 bg-white text-slate-900 font-black rounded-xl hover:bg-slate-200 transition-colors inline-flex items-center gap-2 shadow-lg"
+								className="px-6 py-3 bg-white text-foreground font-black rounded-xl hover:bg-slate-200 transition-colors inline-flex items-center gap-2 shadow-lg"
 							>
 								Open CrewLens <UploadCloud className="w-4 h-4" />
 							</button>
@@ -291,7 +291,7 @@ export default function JobManager({
 							{/* Render existing logs if any */}
 							{logs.length > 0 && (
 								<div className="mt-12 text-left space-y-4">
-									<h4 className="text-sm font-black text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-2">
+									<h4 className="text-sm font-black text-muted uppercase tracking-widest border-b border-slate-800 pb-2">
 										Recent Logs
 									</h4>
 									{logs.map(log => (
@@ -307,7 +307,7 @@ export default function JobManager({
 												/>
 											)}
 											<div>
-												<div className="text-xs text-slate-500 mb-1">
+												<div className="text-xs text-muted mb-1">
 													{new Date(log.created_at).toLocaleDateString()}
 												</div>
 												<p className="text-sm text-slate-300">{log.notes}</p>
@@ -337,14 +337,14 @@ export default function JobManager({
 								</h2>
 								<button
 									onClick={() => setIsCrewLensOpen(false)}
-									className="text-slate-400 hover:text-white"
+									className="text-muted hover:text-white"
 								>
 									<X className="w-5 h-5" />
 								</button>
 							</div>
 							<form onSubmit={handleCrewLensSubmit} className="p-6 space-y-5">
 								<div>
-									<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+									<label className="block text-xs font-black text-muted uppercase tracking-widest mb-2 ml-1">
 										Site Photo (Required)
 									</label>
 									<input
@@ -356,7 +356,7 @@ export default function JobManager({
 									/>
 								</div>
 								<div>
-									<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+									<label className="block text-xs font-black text-muted uppercase tracking-widest mb-2 ml-1">
 										Daily Notes
 									</label>
 									<textarea
@@ -371,7 +371,7 @@ export default function JobManager({
 								<button
 									type="submit"
 									disabled={isUploading || !photoFile}
-									className="w-full bg-emerald-500 text-slate-900 font-black py-4 rounded-xl hover:bg-emerald-400 transition-all flex justify-center items-center gap-2 disabled:opacity-50"
+									className="w-full bg-emerald-500 text-foreground font-black py-4 rounded-xl hover:bg-emerald-400 transition-all flex justify-center items-center gap-2 disabled:opacity-50"
 								>
 									{isUploading ? (
 										<>
@@ -407,7 +407,7 @@ export default function JobManager({
 										setIsBidForgeOpen(false);
 										setProposalResult(null);
 									}}
-									className="text-slate-400 hover:text-white"
+									className="text-muted hover:text-white"
 								>
 									<X className="w-5 h-5" />
 								</button>
@@ -416,7 +416,7 @@ export default function JobManager({
 							{!proposalResult ? (
 								<form onSubmit={handleBidForgeSubmit} className="p-6 space-y-5">
 									<div>
-										<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+										<label className="block text-xs font-black text-muted uppercase tracking-widest mb-2 ml-1">
 											Rough Notes
 										</label>
 										<textarea
@@ -431,7 +431,7 @@ export default function JobManager({
 									<button
 										type="submit"
 										disabled={isGenerating}
-										className="w-full bg-amber-500 text-slate-900 font-black py-4 rounded-xl hover:bg-amber-400 transition-all flex justify-center items-center gap-2 disabled:opacity-50"
+										className="w-full bg-amber-500 text-foreground font-black py-4 rounded-xl hover:bg-amber-400 transition-all flex justify-center items-center gap-2 disabled:opacity-50"
 									>
 										{isGenerating ? (
 											<>
@@ -455,7 +455,7 @@ export default function JobManager({
 													key={idx}
 													className={`p-5 rounded-2xl border ${idx === 1 ? 'border-amber-500 bg-amber-500/5' : 'border-slate-800 bg-slate-950'}`}
 												>
-													<div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+													<div className="text-xs font-bold text-muted uppercase tracking-widest mb-2">
 														Tier {idx + 1}
 													</div>
 													<h4 className="font-bold text-white text-lg">
@@ -464,7 +464,7 @@ export default function JobManager({
 													<div className="text-2xl font-black text-amber-500 my-3">
 														${tier.price.toLocaleString()}
 													</div>
-													<p className="text-sm text-slate-400 mb-4">
+													<p className="text-sm text-muted mb-4">
 														{tier.description}
 													</p>
 													<ul className="space-y-2">
@@ -491,7 +491,7 @@ export default function JobManager({
 										>
 											Discard & Retry
 										</button>
-										<button className="flex-1 py-3 bg-amber-500 text-slate-900 font-black rounded-xl hover:bg-amber-400">
+										<button className="flex-1 py-3 bg-amber-500 text-foreground font-black rounded-xl hover:bg-amber-400">
 											Save as Official Proposal
 										</button>
 									</div>

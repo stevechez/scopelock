@@ -78,7 +78,7 @@ export default function CommVault({
 					<h1 className="text-3xl md:text-5xl font-black tracking-tight mb-2">
 						{jobData?.title || 'Your Project'}
 					</h1>
-					<p className="text-slate-400 font-medium flex items-center gap-2">
+					<p className="text-muted font-medium flex items-center gap-2">
 						Managed by{' '}
 						<strong className="text-white">
 							{jobData?.tenants?.company_name || 'Your Contractor'}
@@ -88,7 +88,7 @@ export default function CommVault({
 					{/* Quick Stats Grid */}
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
 						<div className="bg-white/10 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-							<div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">
+							<div className="text-muted text-xs font-bold uppercase tracking-wider mb-1">
 								Status
 							</div>
 							<div className="text-white font-black flex items-center gap-2 capitalize">
@@ -99,7 +99,7 @@ export default function CommVault({
 							</div>
 						</div>
 						<div className="bg-white/10 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-							<div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">
+							<div className="text-muted text-xs font-bold uppercase tracking-wider mb-1">
 								Paid to Date
 							</div>
 							<div className="text-emerald-400 font-black">
@@ -107,7 +107,7 @@ export default function CommVault({
 							</div>
 						</div>
 						<div className="hidden md:block bg-white/10 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-							<div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">
+							<div className="text-muted text-xs font-bold uppercase tracking-wider mb-1">
 								Total Contract
 							</div>
 							<div className="text-white font-black">
@@ -124,13 +124,13 @@ export default function CommVault({
 				<div className="flex bg-slate-200/50 p-1 rounded-2xl mb-8">
 					<button
 						onClick={() => setActiveTab('timeline')}
-						className={`flex-1 py-3 text-sm font-black rounded-xl transition-all ${activeTab === 'timeline' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+						className={`flex-1 py-3 text-sm font-black rounded-xl transition-all ${activeTab === 'timeline' ? 'bg-white text-foreground shadow-sm' : 'text-muted hover:text-slate-700'}`}
 					>
 						Project Timeline
 					</button>
 					<button
 						onClick={() => setActiveTab('financials')}
-						className={`flex-1 py-3 text-sm font-black rounded-xl transition-all ${activeTab === 'financials' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+						className={`flex-1 py-3 text-sm font-black rounded-xl transition-all ${activeTab === 'financials' ? 'bg-white text-foreground shadow-sm' : 'text-muted hover:text-slate-700'}`}
 					>
 						Financials & Docs
 					</button>
@@ -144,16 +144,16 @@ export default function CommVault({
 						className="space-y-8"
 					>
 						{timelineLogs.length === 0 && (
-							<div className="text-center py-12 text-slate-500 font-medium">
+							<div className="text-center py-12 text-muted font-medium">
 								No updates yet. Check back once the crew starts!
 							</div>
 						)}
 						{timelineLogs.map(log => (
 							<div key={log.id} className="relative pl-8 md:pl-0">
 								<div className="md:hidden absolute left-[11px] top-8 bottom-[-32px] w-[2px] bg-slate-200" />
-								<div className="bg-white border border-slate-200 rounded-3xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row gap-6">
+								<div className="bg-white border border-border rounded-3xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row gap-6">
 									<div className="md:w-48 shrink-0">
-										<div className="flex items-center gap-2 text-slate-500 text-xs font-bold uppercase tracking-widest mb-2 md:mb-0">
+										<div className="flex items-center gap-2 text-muted text-xs font-bold uppercase tracking-widest mb-2 md:mb-0">
 											<Camera className="w-4 h-4 text-amber-500" />
 											{/* Format date here, e.g., dayjs(log.created_at).format('MMM D, h:mm A') */}
 											{new Date(log.created_at).toLocaleDateString()}
@@ -167,7 +167,7 @@ export default function CommVault({
 											<img
 												src={log.image_url}
 												alt="Project update"
-												className="w-full h-48 md:h-64 object-cover rounded-2xl border border-slate-100"
+												className="w-full h-48 md:h-64 object-cover rounded-2xl border border-border"
 											/>
 										)}
 									</div>
@@ -185,7 +185,7 @@ export default function CommVault({
 						className="space-y-6"
 					>
 						{/* Action Needed Items */}
-						<h3 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-4">
+						<h3 className="text-sm font-black text-muted uppercase tracking-widest mb-4">
 							Requires Attention
 						</h3>
 						{financials
@@ -201,10 +201,10 @@ export default function CommVault({
 											<div className="flex items-center gap-2 text-amber-600 text-xs font-bold uppercase tracking-widest mb-1">
 												<CreditCard className="w-4 h-4" /> Action Required
 											</div>
-											<h4 className="text-xl font-bold text-slate-900">
+											<h4 className="text-xl font-bold text-foreground">
 												{item.title}
 											</h4>
-											<div className="text-2xl font-black text-slate-900 mt-1">
+											<div className="text-2xl font-black text-foreground mt-1">
 												${Number(item.amount).toLocaleString()}
 											</div>
 										</div>
@@ -219,7 +219,7 @@ export default function CommVault({
 							))}
 
 						{/* History */}
-						<h3 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-4 mt-12">
+						<h3 className="text-sm font-black text-muted uppercase tracking-widest mb-4 mt-12">
 							Completed
 						</h3>
 						{financials
@@ -227,17 +227,19 @@ export default function CommVault({
 							.map(item => (
 								<div
 									key={item.id}
-									className="bg-white border border-slate-200 rounded-2xl p-5 flex items-center justify-between opacity-75"
+									className="bg-white border border-border rounded-2xl p-5 flex items-center justify-between opacity-75"
 								>
 									<div className="flex items-center gap-4">
 										<div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center">
 											<CheckCircle2 className="w-5 h-5" />
 										</div>
 										<div>
-											<h4 className="font-bold text-slate-900">{item.title}</h4>
+											<h4 className="font-bold text-foreground">
+												{item.title}
+											</h4>
 										</div>
 									</div>
-									<div className="font-black text-slate-400">
+									<div className="font-black text-muted">
 										${Number(item.amount).toLocaleString()}
 									</div>
 								</div>

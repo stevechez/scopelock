@@ -41,26 +41,26 @@ export default function TestLeadPage() {
 	});
 
 	return (
-		<div className="max-w-md mx-auto mt-20 p-8 bg-white rounded-3xl shadow-xl border border-slate-100">
+		<div className="max-w-md mx-auto mt-20 p-8 bg-white rounded-3xl shadow-xl border border-border">
 			<h1 className="text-xl font-black mb-6 italic uppercase">
 				Lead Submission Test
 			</h1>
 
 			<form action={formAction} className="space-y-4">
 				<div className="space-y-1">
-					<label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+					<label className="text-[10px] font-bold uppercase tracking-wider text-muted">
 						Client Name
 					</label>
 					<input
 						name="name"
 						placeholder="John Doe"
 						required
-						className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:ring-2 focus:ring-slate-900 transition-all"
+						className="w-full p-3 bg-slate-50 border border-border rounded-xl text-foreground outline-none focus:ring-2 focus:ring-slate-900 transition-all"
 					/>
 				</div>
 
 				<div className="space-y-1">
-					<label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+					<label className="text-[10px] font-bold uppercase tracking-wider text-muted">
 						Email Address
 					</label>
 					<input
@@ -68,7 +68,7 @@ export default function TestLeadPage() {
 						type="email"
 						placeholder="john@example.com"
 						required
-						className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:ring-2 focus:ring-slate-900 transition-all"
+						className="w-full p-3 bg-slate-50 border border-border rounded-xl text-foreground outline-none focus:ring-2 focus:ring-slate-900 transition-all"
 					/>
 				</div>
 

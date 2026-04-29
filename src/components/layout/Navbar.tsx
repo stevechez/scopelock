@@ -1,97 +1,180 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Lock, Menu } from 'lucide-react';
-import { useState } from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion'; // <-- Add Variants here
+import { ModeToggle } from '@/components/ModeToggle';
+import { getAppUrl } from '@/utils/urls';
 
 export default function Navbar() {
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const [scrolled, setScrolled] = useState(false);
+
+	// --- Animation Variants ---
+	// Add the ': Variants' type here
+	const menuVariants: Variants = {
+		closed: {
+			opacity: 0,
+			scale: 0.95,
+			y: -10,
+			transition: { duration: 0.2, ease: 'easeInOut' },
+		},
+		open: {
+			opacity: 1,
+			scale: 1,
+			y: 0,
+			transition: {
+				type: 'spring',
+				stiffness: 300,
+				damping: 30,
+				staggerChildren: 0.07,
+				delayChildren: 0.1,
+			},
+		},
+	};
+
+	const itemVariants: Variants = {
+		closed: { opacity: 0, x: -10 },
+		open: { opacity: 1, x: 0 },
+	};
 
 	return (
-		<motion.nav
-			initial={{ y: -20, opacity: 0 }}
-			animate={{ y: 0, opacity: 1 }}
-			className="fixed top-0 inset-x-0 z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5"
+		<header
+			className={`fixed top-0 left-0 right-0 z-[100] border-b transition-all duration-300 ${
+				scrolled
+					? 'bg-white/90 dark:bg-slate-950/90 backdrop-blur-md py-3 shadow-sm'
+					: 'bg-background text-foreground py-5' // Added solid bg here to prevent overlap
+			} border-border dark:border-white/10`}
 		>
-			<div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+			<nav className="max-w-7xl mx-auto px-6 flex justify-between items-center">
 				{/* LOGO */}
-				<Link href="/" className="flex items-center gap-3 group">
-					<div className="w-10 h-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105">
-						<Lock className="w-5 h-5" />
-					</div>
-					<div className="flex flex-col">
-						<span className="font-black text-lg text-slate-900 dark:text-white leading-none tracking-tight uppercase italic">
-							Blueprint <span className="text-amber-500">OS</span>
-						</span>
-						<span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-							By BuildRail HQ
-						</span>
-					</div>
+				<Link
+					href="/"
+					className="text-2xl md:text-3xl font-black tracking-tighter text-foreground text-foreground group flex items-center gap-1"
+				>
+					BUILD
+					<span className="text-amber-500 transition-colors group-hover:text-amber-400">
+						RAIL
+					</span>
 				</Link>
 
-				{/* DESKTOP LINKS */}
-				<div className="hidden md:flex items-center gap-8">
-					<Link
-						href="#blueprint"
-						className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors uppercase tracking-widest"
-					>
-						The System
-					</Link>
-					<Link
-						href="#pricing"
-						className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors uppercase tracking-widest"
-					>
-						Pricing
-					</Link>
-					<div className="w-px h-6 bg-slate-200 dark:bg-slate-800" />{' '}
-					{/* Divider */}
-					<Link
-						href="/login"
-						className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors uppercase tracking-widest"
-					>
-						Client Login
-					</Link>
-					<Link
-						href="#pricing"
-						className="bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-6 py-2.5 rounded-lg font-black text-xs uppercase tracking-widest hover:bg-amber-500 dark:hover:bg-amber-500 dark:hover:text-white transition-all hover:scale-105 active:scale-95"
-					>
-						Get Jumpstart
-					</Link>
+				{/* DESKTOP LINKS - Precision spacing and sizing */}
+				<div className="hidden md:flex items-center gap-10">
+					{['Features', 'Blueprint', 'Pricing'].map(item => (
+						<Link
+							key={item}
+							href={`#${item.toLowerCase()}`}
+							className="text-sm font-bold text-muted dark:text-muted hover:text-foreground dark:hover:text-white transition-colors"
+						>
+							{item}
+						</Link>
+					))}
 				</div>
 
-				{/* MOBILE TOGGLE */}
-				<button
-					className="md:hidden p-2 text-slate-600 dark:text-slate-400"
-					onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-				>
-					<Menu className="w-6 h-6" />
-				</button>
-			</div>
+				{/* RIGHT SECTION */}
+				<div className="flex items-center gap-4">
+					<div className="hidden sm:flex items-center gap-6 mr-2">
+						{/* <ModeToggle /> */}
+						<Link
+							href={getAppUrl('/login')}
+							className="text-sm font-bold text-muted dark:text-muted hover:text-foreground dark:hover:text-white transition-colors"
+						>
+							Log in
+						</Link>
+					</div>
 
-			{/* MOBILE MENU (Simplified) */}
-			{isMobileMenuOpen && (
-				<div className="md:hidden bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-white/5 p-6 flex flex-col gap-4 shadow-2xl">
 					<Link
-						href="#blueprint"
-						className="font-bold text-slate-900 dark:text-white uppercase tracking-widest"
+						href={getAppUrl('#pricing')}
+						className="hidden sm:block px-5 py-2.5 bg-slate-900 dark:bg-amber-500 text-white dark:text-foreground text-sm font-black rounded-xl hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all active:scale-95"
 					>
-						The System
+						Start Free Trial
 					</Link>
-					<Link
-						href="#pricing"
-						className="font-bold text-slate-900 dark:text-white uppercase tracking-widest"
-					>
-						Pricing
-					</Link>
-					<Link
-						href="/login"
-						className="font-bold text-slate-900 dark:text-white uppercase tracking-widest"
-					>
-						Client Login
-					</Link>
+
+					{/* MOBILE TOGGLE (Includes ModeToggle for mobile users) */}
+					<div className="flex md:hidden items-center gap-2">
+						<ModeToggle />
+
+						<button
+							onClick={() => setIsOpen(!isOpen)}
+							className="p-2 text-foreground text-foreground focus:outline-none"
+							aria-label="Toggle Menu"
+						>
+							<div className="w-6 h-5 relative flex flex-col justify-between">
+								<motion.span
+									animate={isOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
+									className="w-full h-0.5 bg-current rounded-full origin-center transition-all"
+								/>
+								<motion.span
+									animate={
+										isOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }
+									}
+									className="w-full h-0.5 bg-current rounded-full transition-all"
+								/>
+								<motion.span
+									animate={
+										isOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }
+									}
+									className="w-full h-0.5 bg-current rounded-full origin-center transition-all"
+								/>
+							</div>
+						</button>
+					</div>
 				</div>
-			)}
-		</motion.nav>
+
+				{/* MOBILE DROPDOWN */}
+				<AnimatePresence>
+					{isOpen && (
+						<>
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								onClick={() => setIsOpen(false)}
+								className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[-1]"
+							/>
+
+							<motion.div
+								variants={menuVariants}
+								initial="closed"
+								animate="open"
+								exit="closed"
+								className="absolute top-full left-4 right-4 mt-3 bg-background text-foreground border border-border dark:border-white/10 rounded-3xl shadow-2xl p-8 md:hidden"
+							>
+								<div className="flex flex-col gap-8">
+									{['Features', 'Blueprint', 'Pricing'].map(item => (
+										<motion.div key={item} variants={itemVariants}>
+											<Link
+												href={`#${item.toLowerCase()}`}
+												onClick={() => setIsOpen(false)}
+												className="text-2xl font-black text-foreground text-foreground flex items-center justify-between"
+											>
+												{item}
+												<span className="text-amber-500 text-sm">→</span>
+											</Link>
+										</motion.div>
+									))}
+									<hr className="border-border dark:border-white/5" />
+									<motion.div variants={itemVariants} className="space-y-4">
+										<Link
+											href={getAppUrl('/login')}
+											className="block text-center font-bold text-muted py-2"
+										>
+											Log in to Dashboard
+										</Link>
+										<Link
+											href={getAppUrl('/signup')}
+											onClick={() => setIsOpen(false)}
+											className="block w-full py-5 bg-amber-500 text-foreground font-black rounded-2xl text-center shadow-xl shadow-amber-500/20 text-lg"
+										>
+											Start Free Trial
+										</Link>
+									</motion.div>
+								</div>
+							</motion.div>
+						</>
+					)}
+				</AnimatePresence>
+			</nav>
+		</header>
 	);
 }

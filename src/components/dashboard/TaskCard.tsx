@@ -54,18 +54,18 @@ export function TaskCard({ task }: { task: Task }) {
 					<p
 						className={`text-lg font-bold tracking-tight transition-all ${
 							isDone
-								? 'text-slate-500 line-through decoration-amber-500/50'
+								? 'text-muted line-through decoration-amber-500/50'
 								: 'text-white'
 						}`}
 					>
 						{task.title}
 					</p>
 					<div className="flex gap-3 mt-1">
-						<span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
+						<span className="text-[9px] font-black uppercase tracking-widest text-muted">
 							Priority:{' '}
 							<span
 								className={
-									task.priority === 'URGENT' ? 'text-red-500' : 'text-slate-400'
+									task.priority === 'URGENT' ? 'text-red-500' : 'text-muted'
 								}
 							>
 								{task.priority}
@@ -76,7 +76,7 @@ export function TaskCard({ task }: { task: Task }) {
 			</div>
 
 			<div
-				className={`transition-colors ${isDone ? 'text-slate-800' : 'text-slate-600 group-hover:text-white'}`}
+				className={`transition-colors ${isDone ? 'text-foreground' : 'text-slate-600 group-hover:text-white'}`}
 			>
 				<ArrowRight size={16} />
 			</div>

@@ -103,7 +103,7 @@ export default function LeadFilterPage() {
 			</div>
 
 			{/* Form Container */}
-			<div className="w-full max-w-2xl bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden relative min-h-[400px] p-8 md:p-12">
+			<div className="w-full max-w-2xl bg-white rounded-[2.5rem] shadow-xl border border-border overflow-hidden relative min-h-[400px] p-8 md:p-12">
 				<AnimatePresence mode="wait">
 					{/* STEP 1: PROJECT TYPE */}
 					{step === 1 && (
@@ -114,10 +114,10 @@ export default function LeadFilterPage() {
 							exit={{ opacity: 0, x: -20 }}
 							className="space-y-6"
 						>
-							<h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+							<h2 className="text-xs font-bold text-muted uppercase tracking-widest">
 								Question 1 of 4
 							</h2>
-							<h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+							<h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">
 								What type of project are you planning?
 							</h1>
 							<div className="grid sm:grid-cols-2 gap-4 mt-8">
@@ -125,9 +125,9 @@ export default function LeadFilterPage() {
 									<button
 										key={type}
 										onClick={() => updateForm('projectType', type)}
-										className={`p-6 rounded-2xl border-2 text-left transition-all active:scale-95 ${formData.projectType === type ? 'border-slate-900 bg-slate-50' : 'border-slate-100 hover:border-slate-300'}`}
+										className={`p-6 rounded-2xl border-2 text-left transition-all active:scale-95 ${formData.projectType === type ? 'border-slate-900 bg-slate-50' : 'border-border hover:border-slate-300'}`}
 									>
-										<span className="font-bold text-slate-900">{type}</span>
+										<span className="font-bold text-foreground">{type}</span>
 									</button>
 								))}
 							</div>
@@ -143,10 +143,10 @@ export default function LeadFilterPage() {
 							exit={{ opacity: 0, x: -20 }}
 							className="space-y-6"
 						>
-							<h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+							<h2 className="text-xs font-bold text-muted uppercase tracking-widest">
 								Question 2 of 4
 							</h2>
-							<h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+							<h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">
 								What is your anticipated budget?
 							</h1>
 							<div className="grid sm:grid-cols-2 gap-4 mt-8">
@@ -154,9 +154,9 @@ export default function LeadFilterPage() {
 									<button
 										key={budget}
 										onClick={() => updateForm('budget', budget)}
-										className={`p-6 rounded-2xl border-2 text-left transition-all active:scale-95 ${formData.budget === budget ? 'border-slate-900 bg-slate-50' : 'border-slate-100 hover:border-slate-300'}`}
+										className={`p-6 rounded-2xl border-2 text-left transition-all active:scale-95 ${formData.budget === budget ? 'border-slate-900 bg-slate-50' : 'border-border hover:border-slate-300'}`}
 									>
-										<span className="font-bold text-slate-900">{budget}</span>
+										<span className="font-bold text-foreground">{budget}</span>
 									</button>
 								))}
 							</div>
@@ -172,10 +172,10 @@ export default function LeadFilterPage() {
 							exit={{ opacity: 0, x: -20 }}
 							className="space-y-6"
 						>
-							<h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+							<h2 className="text-xs font-bold text-muted uppercase tracking-widest">
 								Question 3 of 4
 							</h2>
-							<h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+							<h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">
 								When do you want to break ground?
 							</h1>
 							<div className="grid sm:grid-cols-2 gap-4 mt-8">
@@ -183,9 +183,11 @@ export default function LeadFilterPage() {
 									<button
 										key={timeline}
 										onClick={() => updateForm('timeline', timeline)}
-										className={`p-6 rounded-2xl border-2 text-left transition-all active:scale-95 ${formData.timeline === timeline ? 'border-slate-900 bg-slate-50' : 'border-slate-100 hover:border-slate-300'}`}
+										className={`p-6 rounded-2xl border-2 text-left transition-all active:scale-95 ${formData.timeline === timeline ? 'border-slate-900 bg-slate-50' : 'border-border hover:border-slate-300'}`}
 									>
-										<span className="font-bold text-slate-900">{timeline}</span>
+										<span className="font-bold text-foreground">
+											{timeline}
+										</span>
 									</button>
 								))}
 							</div>
@@ -202,16 +204,16 @@ export default function LeadFilterPage() {
 							onSubmit={handleSubmit}
 							className="space-y-6"
 						>
-							<h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+							<h2 className="text-xs font-bold text-muted uppercase tracking-widest">
 								Final Step
 							</h2>
-							<h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+							<h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">
 								Where should we send your project brief?
 							</h1>
 
 							<div className="space-y-4 mt-8">
 								<div>
-									<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+									<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 										Full Name
 									</label>
 									<input
@@ -221,11 +223,11 @@ export default function LeadFilterPage() {
 										onChange={e =>
 											setFormData({ ...formData, name: e.target.value })
 										}
-										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
+										className="w-full bg-slate-50 text-black border border-border rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
 								<div>
-									<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+									<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 										Email Address
 									</label>
 									<input
@@ -235,11 +237,11 @@ export default function LeadFilterPage() {
 										onChange={e =>
 											setFormData({ ...formData, email: e.target.value })
 										}
-										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
+										className="w-full bg-slate-50 text-black border border-border rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
 								<div>
-									<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+									<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 										Mobile Phone (For Text Updates)
 									</label>
 									<input
@@ -249,7 +251,7 @@ export default function LeadFilterPage() {
 										onChange={e =>
 											setFormData({ ...formData, phone: e.target.value })
 										}
-										className="w-full bg-slate-50 text-black border border-slate-100 rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
+										className="w-full bg-slate-50 text-black border border-border rounded-2xl p-4 text-lg mt-1 focus:ring-2 focus:ring-slate-900 outline-none transition-all"
 									/>
 								</div>
 							</div>
@@ -283,16 +285,16 @@ export default function LeadFilterPage() {
 							<div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
 								<CheckCircle2 size={40} className="text-emerald-600" />
 							</div>
-							<h1 className="text-3xl font-black text-slate-900 tracking-tight mb-4">
+							<h1 className="text-3xl font-black text-foreground tracking-tight mb-4">
 								Application Received
 							</h1>
-							<p className="text-slate-500 font-medium max-w-sm leading-relaxed mb-8">
+							<p className="text-muted font-medium max-w-sm leading-relaxed mb-8">
 								Our team is reviewing your project details. We will text you
 								shortly to discuss the next steps.
 							</p>
 							<Link
 								href="/"
-								className="text-slate-400 font-bold text-sm uppercase tracking-widest hover:text-slate-900 transition-colors"
+								className="text-muted font-bold text-sm uppercase tracking-widest hover:text-foreground transition-colors"
 							>
 								Return Home
 							</Link>
@@ -305,7 +307,7 @@ export default function LeadFilterPage() {
 					<button
 						onClick={handleBack}
 						disabled={isSubmitting}
-						className="absolute bottom-8 left-8 text-slate-400 hover:text-slate-900 disabled:opacity-50 flex items-center gap-1 text-xs font-bold uppercase tracking-widest transition-colors"
+						className="absolute bottom-8 left-8 text-muted hover:text-foreground disabled:opacity-50 flex items-center gap-1 text-xs font-bold uppercase tracking-widest transition-colors"
 					>
 						<ArrowLeft size={14} /> Back
 					</button>

@@ -46,7 +46,7 @@ export default function BrandingForm({ tenant }: { tenant: Tenant }) {
 					{/* Logo Section */}
 					<section className="relative group">
 						<div className="flex items-center gap-4 mb-6">
-							<span className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">
+							<span className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted">
 								01 / Visual Brand
 							</span>
 							<div className="h-px flex-1 bg-gradient-to-r from-slate-800 to-transparent" />
@@ -80,7 +80,7 @@ export default function BrandingForm({ tenant }: { tenant: Tenant }) {
 											onChange={handleLogoChange}
 										/>
 									</label>
-									<p className="text-[11px] text-slate-500 mt-4 leading-relaxed font-medium">
+									<p className="text-[11px] text-muted mt-4 leading-relaxed font-medium">
 										Recommend: High-res SVG or transparent PNG.
 										<br />
 										Will be displayed in the top-left of the client vault.
@@ -93,7 +93,7 @@ export default function BrandingForm({ tenant }: { tenant: Tenant }) {
 					{/* Color Section */}
 					<section>
 						<div className="flex items-center gap-4 mb-6">
-							<span className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">
+							<span className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted">
 								02 / Color Signature
 							</span>
 							<div className="h-px flex-1 bg-gradient-to-r from-slate-800 to-transparent" />
@@ -115,7 +115,7 @@ export default function BrandingForm({ tenant }: { tenant: Tenant }) {
 								<div className="flex-1">
 									<div className="bg-black/40 rounded-2xl border border-white/5 p-6 flex items-center justify-between">
 										<div>
-											<p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">
+											<p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-1">
 												Active Hex
 											</p>
 											<code className="text-2xl font-mono font-black text-white">
@@ -189,7 +189,7 @@ export default function BrandingForm({ tenant }: { tenant: Tenant }) {
 							<h3 className="text-white font-black text-3xl tracking-tight mb-4">
 								Vault Identity
 							</h3>
-							<p className="text-slate-500 text-sm max-w-[220px] leading-relaxed font-medium">
+							<p className="text-muted text-sm max-w-[220px] leading-relaxed font-medium">
 								Real-time preview of how your brand translates to the homeowner
 								experience.
 							</p>

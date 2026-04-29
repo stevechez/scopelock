@@ -57,17 +57,17 @@ export function AddMilestoneForm({
 	}
 
 	return (
-		<div className="bg-white p-5 rounded-2xl shadow-xl border border-slate-200 flex flex-col gap-4">
-			<h3 className="font-bold text-slate-900">New Milestone</h3>
+		<div className="bg-white p-5 rounded-2xl shadow-xl border border-border flex flex-col gap-4">
+			<h3 className="font-bold text-foreground">New Milestone</h3>
 			<input
 				type="text"
 				placeholder="e.g. Foundation Poured"
 				value={title}
 				onChange={e => setTitle(e.target.value)}
-				className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-slate-900"
+				className="w-full bg-slate-50 border border-border rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-slate-900"
 			/>
 			<div className="relative">
-				<span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">
+				<span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-bold">
 					$
 				</span>
 				<input
@@ -76,14 +76,14 @@ export function AddMilestoneForm({
 					max={remaining}
 					value={amount}
 					onChange={e => setAmount(Number(e.target.value))}
-					className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-8 pr-4 focus:outline-none focus:ring-2 focus:ring-slate-900"
+					className="w-full bg-slate-50 border border-border rounded-xl py-3 pl-8 pr-4 focus:outline-none focus:ring-2 focus:ring-slate-900"
 				/>
 			</div>
 			<div className="flex gap-2 mt-2">
 				<button
 					type="button"
 					onClick={() => setIsOpen(false)}
-					className="flex-1 py-3 text-slate-500 font-semibold active:bg-slate-100 rounded-xl"
+					className="flex-1 py-3 text-muted font-semibold active:bg-slate-100 rounded-xl"
 				>
 					Cancel
 				</button>

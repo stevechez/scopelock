@@ -27,7 +27,7 @@ export default async function VaultGallery({ tenantId }: { tenantId: string }) {
 				<h3 className="text-xl font-bold text-white mb-1 uppercase tracking-tight italic">
 					Your Vault is Empty
 				</h3>
-				<p className="text-slate-500 text-sm max-w-xs text-center">
+				<p className="text-muted text-sm max-w-xs text-center">
 					Your contractor hasn&quot;t uploaded any documents or photos yet.
 					They&quot;ll appear here once ready.
 				</p>
@@ -58,7 +58,7 @@ export default async function VaultGallery({ tenantId }: { tenantId: string }) {
 					</div>
 
 					<h4 className="text-white font-bold truncate pr-4">{file.name}</h4>
-					<p className="text-slate-500 text-xs mt-1 uppercase tracking-tighter font-medium">
+					<p className="text-muted text-xs mt-1 uppercase tracking-tighter font-medium">
 						{(file.size_bytes / 1024 / 1024).toFixed(2)} MB • {file.category}
 					</p>
 

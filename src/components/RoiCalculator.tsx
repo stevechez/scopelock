@@ -22,7 +22,7 @@ export default function ROICalculator() {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 					<div className="space-y-8">
 						<div>
-							<label className="block text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">
+							<label className="block text-sm font-bold uppercase tracking-widest text-muted mb-4">
 								Average Jobs Per Month: {jobs}
 							</label>
 							<input
@@ -35,7 +35,7 @@ export default function ROICalculator() {
 							/>
 						</div>
 						<div>
-							<label className="block text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">
+							<label className="block text-sm font-bold uppercase tracking-widest text-muted mb-4">
 								Average Job Size: ${avgTicket.toLocaleString()}
 							</label>
 							<input
@@ -51,7 +51,7 @@ export default function ROICalculator() {
 					</div>
 
 					<div className="bg-slate-800 p-8 rounded-3xl border border-slate-700 text-center">
-						<p className="text-slate-400 font-bold uppercase text-xs mb-2">
+						<p className="text-muted font-bold uppercase text-xs mb-2">
 							Estimated Annual Revenue Leakage
 						</p>
 						<motion.p
@@ -62,7 +62,7 @@ export default function ROICalculator() {
 						>
 							${annualLeakage.toLocaleString()}
 						</motion.p>
-						<p className="text-sm text-slate-400 italic">
+						<p className="text-sm text-muted italic">
 							*Based on industry average of 15% slippage in change orders and
 							underpriced bids.
 						</p>

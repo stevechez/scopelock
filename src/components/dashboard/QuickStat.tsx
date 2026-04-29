@@ -31,7 +31,7 @@ export function QuickStat({
 
 			<div className="relative z-10 flex flex-col h-full justify-between">
 				<div className="flex justify-between items-start mb-6">
-					<div className="p-3 bg-white/5 rounded-2xl border border-white/5 text-slate-400 group-hover:text-amber-500 group-hover:bg-amber-500/10 transition-all duration-500">
+					<div className="p-3 bg-white/5 rounded-2xl border border-white/5 text-muted group-hover:text-amber-500 group-hover:bg-amber-500/10 transition-all duration-500">
 						{Icon && <Icon size={24} strokeWidth={1.5} />}
 					</div>
 					{trend && (
@@ -46,7 +46,7 @@ export function QuickStat({
 						{value}
 					</div>
 					<div className="flex flex-col mt-2">
-						<span className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500">
+						<span className="text-[10px] font-black uppercase tracking-[0.25em] text-muted">
 							{title}
 						</span>
 						{description && (

@@ -16,7 +16,7 @@ export default function InvoiceForm({ tenantId }: { tenantId: string }) {
 			<input type="hidden" name="tenantId" value={tenantId} />
 
 			<div>
-				<label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+				<label className="block text-xs font-bold uppercase tracking-widest text-muted mb-2">
 					Invoice Description
 				</label>
 				<input
@@ -28,7 +28,7 @@ export default function InvoiceForm({ tenantId }: { tenantId: string }) {
 			</div>
 
 			<div>
-				<label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+				<label className="block text-xs font-bold uppercase tracking-widest text-muted mb-2">
 					Amount Due ($)
 				</label>
 				<input

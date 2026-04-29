@@ -74,7 +74,7 @@ export default function ChatWidget({
 	};
 
 	return (
-		<div className="flex flex-col h-screen max-h-screen bg-white shadow-2xl border border-slate-200">
+		<div className="flex flex-col h-screen max-h-screen bg-white shadow-2xl border border-border">
 			{/* Header */}
 			<div
 				className="p-4 flex items-center justify-between text-white shadow-sm"
@@ -118,7 +118,7 @@ export default function ChatWidget({
 									'p-3 rounded-2xl text-sm leading-relaxed',
 									m.role === 'user'
 										? 'bg-slate-900 text-white rounded-br-none'
-										: 'bg-slate-100 text-slate-800 rounded-bl-none border border-slate-200',
+										: 'bg-slate-100 text-foreground rounded-bl-none border border-border',
 								)}
 							>
 								{m.parts[0].text}
@@ -132,7 +132,7 @@ export default function ChatWidget({
 							<div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center">
 								<Loader2 size={14} className="animate-spin text-slate-600" />
 							</div>
-							<div className="bg-slate-100 p-3 rounded-2xl rounded-bl-none border border-slate-200">
+							<div className="bg-slate-100 p-3 rounded-2xl rounded-bl-none border border-border">
 								<div className="flex gap-1">
 									<span className="w-1 h-1 bg-slate-400 rounded-full animate-bounce" />
 									<span className="w-1 h-1 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]" />
@@ -146,11 +146,11 @@ export default function ChatWidget({
 			</ScrollArea>
 
 			{/* Input Area */}
-			<div className="p-4 border-t border-slate-100 bg-white">
+			<div className="p-4 border-t border-border bg-white">
 				<div className="relative flex items-center">
 					<Input
 						placeholder="Type your message..."
-						className="pr-12 py-6 rounded-xl border-slate-200 focus-visible:ring-slate-400"
+						className="pr-12 py-6 rounded-xl border-border focus-visible:ring-slate-400"
 						value={input}
 						onChange={e => setInput(e.target.value)}
 						onKeyDown={e => e.key === 'Enter' && handleSend()}
@@ -165,7 +165,7 @@ export default function ChatWidget({
 						<Send size={18} />
 					</Button>
 				</div>
-				<p className="text-[10px] text-center text-slate-400 mt-2 tracking-wide uppercase font-medium">
+				<p className="text-[10px] text-center text-muted mt-2 tracking-wide uppercase font-medium">
 					Powered by BUILDRAIL
 				</p>
 			</div>

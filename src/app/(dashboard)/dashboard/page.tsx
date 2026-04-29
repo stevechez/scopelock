@@ -68,7 +68,7 @@ export default async function DashboardPage() {
 					<h1 className="text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
 						Command <span className="text-white/40">Center</span>
 					</h1>
-					<p className="text-slate-500 font-medium text-lg mt-4">
+					<p className="text-muted font-medium text-lg mt-4">
 						Provisioning engine for{' '}
 						<span className="text-white font-bold tracking-tight">
 							{tenant.name}
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
 
 				<div className="bg-white/5 border border-white/10 backdrop-blur-md px-6 py-4 rounded-3xl flex items-center gap-4">
 					<div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-					<span className="text-xs font-black uppercase tracking-widest text-slate-400">
+					<span className="text-xs font-black uppercase tracking-widest text-muted">
 						Node: {tenant.id.slice(0, 8)}
 					</span>
 				</div>
@@ -125,7 +125,7 @@ export default async function DashboardPage() {
 				<div className="overflow-x-auto px-4 pb-4">
 					<table className="w-full text-left border-separate border-spacing-y-2">
 						<thead>
-							<tr className="text-slate-500 font-black uppercase text-[10px] tracking-[0.2em]">
+							<tr className="text-muted font-black uppercase text-[10px] tracking-[0.2em]">
 								<th className="px-6 py-4">Origin</th>
 								<th className="px-6 py-4">Scope</th>
 								<th className="px-6 py-4 text-right pr-10">Action</th>
@@ -141,7 +141,7 @@ export default async function DashboardPage() {
 										<div className="font-bold text-white group-hover:text-amber-500 transition-colors">
 											{lead.client_name}
 										</div>
-										<div className="text-slate-500 text-xs mt-1 uppercase tracking-tight font-medium">
+										<div className="text-muted text-xs mt-1 uppercase tracking-tight font-medium">
 											{lead.client_email}
 										</div>
 									</td>
@@ -149,14 +149,14 @@ export default async function DashboardPage() {
 										<div className="text-slate-300 font-bold text-sm uppercase tracking-wide">
 											{lead.project_type || 'General'}
 										</div>
-										<div className="text-slate-500 text-[10px] mt-1 font-black uppercase tracking-widest">
+										<div className="text-muted text-[10px] mt-1 font-black uppercase tracking-widest">
 											{lead.budget || 'TBD'}
 										</div>
 									</td>
 									<td className="px-6 py-6 text-right rounded-r-2xl pr-10">
 										<Link
 											href="/leads"
-											className="inline-flex p-3 bg-white/5 rounded-xl text-slate-400 hover:bg-amber-500 hover:text-slate-950 transition-all"
+											className="inline-flex p-3 bg-white/5 rounded-xl text-muted hover:bg-amber-500 hover:text-slate-950 transition-all"
 										>
 											<ArrowRight size={16} />
 										</Link>

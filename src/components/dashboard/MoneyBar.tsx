@@ -30,7 +30,7 @@ export function MoneyBar({ budget, spend }: MoneyBarProps) {
 
 				<div className="flex gap-8">
 					<div className="text-right">
-						<div className="text-slate-500 font-black uppercase text-[9px] tracking-[0.2em] mb-1">
+						<div className="text-muted font-black uppercase text-[9px] tracking-[0.2em] mb-1">
 							Total Budget
 						</div>
 						<div className="text-xl font-bold text-white">
@@ -38,7 +38,7 @@ export function MoneyBar({ budget, spend }: MoneyBarProps) {
 						</div>
 					</div>
 					<div className="text-right">
-						<div className="text-slate-500 font-black uppercase text-[9px] tracking-[0.2em] mb-1">
+						<div className="text-muted font-black uppercase text-[9px] tracking-[0.2em] mb-1">
 							Capital Remaining
 						</div>
 						<div

@@ -25,15 +25,15 @@ function SuccessContent() {
 				Platform Provisioned.
 			</h1>
 
-			<p className="text-slate-400 mb-8 leading-relaxed">
+			<p className="text-muted mb-8 leading-relaxed">
 				Your &ldquo;Financial Control System&rdquo; is live at: <br />
 				<span className="text-amber-500 font-bold">
 					{subdomain}.buildrailhq.com
 				</span>
 			</p>
 
-			<div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 text-left text-xs text-slate-500">
-				<p className="font-bold uppercase tracking-widest mb-2 text-slate-400">
+			<div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 text-left text-xs text-muted">
+				<p className="font-bold uppercase tracking-widest mb-2 text-muted">
 					Session ID: {sessionId}
 				</p>
 				<p className="text-sm text-slate-300">
@@ -44,7 +44,7 @@ function SuccessContent() {
 
 			<Link
 				href="/dashboard"
-				className="block w-full bg-white text-slate-900 font-black py-4 rounded-xl hover:bg-slate-200 transition-all uppercase italic"
+				className="block w-full bg-white text-foreground font-black py-4 rounded-xl hover:bg-slate-200 transition-all uppercase italic"
 			>
 				Go to Command Center
 			</Link>
@@ -60,7 +60,7 @@ export default function OnboardingSuccessPage() {
 				fallback={
 					<div className="flex flex-col items-center">
 						<div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-						<p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest animate-pulse">
+						<p className="text-muted font-mono text-[10px] uppercase tracking-widest animate-pulse">
 							Provisioning Blueprint OS...
 						</p>
 					</div>

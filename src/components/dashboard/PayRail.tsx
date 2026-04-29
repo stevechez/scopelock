@@ -30,23 +30,23 @@ export default function PayRailSandbox() {
 			{/* HEADER */}
 			<div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
 				<div>
-					<div className="flex items-center gap-2 text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">
+					<div className="flex items-center gap-2 text-sm font-bold text-muted mb-2 uppercase tracking-widest">
 						<span>Projects</span>{' '}
 						<span className="text-slate-300 dark:text-slate-700">/</span>
 						<span>The Coastal Build</span>{' '}
 						<span className="text-slate-300 dark:text-slate-700">/</span>
 						<span className="text-amber-500">PayRail™</span>
 					</div>
-					<h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-						<CreditCard className="w-8 h-8 text-slate-400" />
+					<h2 className="text-3xl md:text-4xl font-black text-foreground text-foreground tracking-tight flex items-center gap-3">
+						<CreditCard className="w-8 h-8 text-muted" />
 						Instant Draw Request
 					</h2>
 				</div>
 
 				{/* TRUST BADGE */}
-				<div className="hidden md:flex items-center gap-3 px-4 py-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full">
-					<Landmark className="w-4 h-4 text-slate-500" />
-					<span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+				<div className="hidden md:flex items-center gap-3 px-4 py-2 bg-slate-100 dark:bg-slate-900 border border-border border-border rounded-full">
+					<Landmark className="w-4 h-4 text-muted" />
+					<span className="text-[10px] font-black text-muted uppercase tracking-widest">
 						ACH & Card Processing Enabled
 					</span>
 				</div>
@@ -62,33 +62,33 @@ export default function PayRailSandbox() {
 								initial={{ opacity: 0, x: -20 }}
 								animate={{ opacity: 1, x: 0 }}
 								exit={{ opacity: 0, scale: 0.95 }}
-								className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-8 shadow-sm"
+								className="bg-background text-foreground border border-border border-border rounded-[2rem] p-8 shadow-sm"
 							>
-								<h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6">
+								<h3 className="text-lg font-black text-foreground text-foreground uppercase tracking-tight mb-6">
 									Configure Payment Link
 								</h3>
 
 								<form onSubmit={handleSend} className="space-y-6">
 									{/* AMOUNT INPUT (Massive) */}
 									<div>
-										<label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">
+										<label className="text-[10px] font-black text-muted uppercase tracking-widest px-1">
 											Draw Amount
 										</label>
 										<div className="relative mt-1">
-											<DollarSign className="w-8 h-8 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+											<DollarSign className="w-8 h-8 text-muted absolute left-4 top-1/2 -translate-y-1/2" />
 											<input
 												type="text"
 												required
 												value={amount}
 												onChange={e => setAmount(e.target.value)}
-												className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl pl-14 pr-6 py-4 text-4xl font-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all tracking-tighter"
+												className="w-full bg-slate-50 dark:bg-slate-950 border border-border border-border rounded-2xl pl-14 pr-6 py-4 text-4xl font-black text-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all tracking-tighter"
 											/>
 										</div>
 									</div>
 
 									{/* MILESTONE */}
 									<div>
-										<label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">
+										<label className="text-[10px] font-black text-muted uppercase tracking-widest px-1">
 											Milestone / Description
 										</label>
 										<input
@@ -96,26 +96,26 @@ export default function PayRailSandbox() {
 											required
 											value={milestone}
 											onChange={e => setMilestone(e.target.value)}
-											className="w-full mt-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-sm"
+											className="w-full mt-1 bg-slate-50 dark:bg-slate-950 border border-border border-border rounded-xl px-4 py-3.5 text-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-sm"
 										/>
 									</div>
 
 									{/* PHONE NUMBER */}
 									<div>
-										<label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1 flex justify-between">
+										<label className="text-[10px] font-black text-muted uppercase tracking-widest px-1 flex justify-between">
 											<span>Client Mobile Number</span>
 											<span className="text-emerald-500 flex items-center gap-1">
 												<CheckCircle2 className="w-3 h-3" /> Verified
 											</span>
 										</label>
 										<div className="relative mt-1">
-											<Smartphone className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+											<Smartphone className="w-5 h-5 text-muted absolute left-4 top-1/2 -translate-y-1/2" />
 											<input
 												type="text"
 												required
 												value={phone}
 												onChange={e => setPhone(e.target.value)}
-												className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-12 pr-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-sm"
+												className="w-full bg-slate-50 dark:bg-slate-950 border border-border border-border rounded-xl pl-12 pr-4 py-3.5 text-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-sm"
 											/>
 										</div>
 									</div>
@@ -141,7 +141,7 @@ export default function PayRailSandbox() {
 								<h3 className="text-2xl font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-tight mb-2">
 									Transmission Sent
 								</h3>
-								<p className="text-slate-500 dark:text-slate-400 font-medium">
+								<p className="text-muted dark:text-muted font-medium">
 									Secure link dispatched to {phone}. You will be notified when
 									the funds clear.
 								</p>
@@ -177,15 +177,13 @@ export default function PayRailSandbox() {
 								<span className="text-xs font-black text-white tracking-widest uppercase">
 									PayRail
 								</span>
-								<span className="text-[9px] text-slate-400">
-									Verified Sender
-								</span>
+								<span className="text-[9px] text-muted">Verified Sender</span>
 							</div>
 						</div>
 
 						{/* Text Message Canvas */}
 						<div className="flex-1 bg-slate-950 p-4 flex flex-col justify-end gap-2">
-							<p className="text-[10px] text-slate-500 text-center font-medium mb-2">
+							<p className="text-[10px] text-muted text-center font-medium mb-2">
 								Today{' '}
 								{new Date().toLocaleTimeString([], {
 									hour: '2-digit',
@@ -200,7 +198,7 @@ export default function PayRailSandbox() {
 							>
 								<div className="flex items-center gap-1.5 mb-2 pb-2 border-b border-slate-700">
 									<MessageSquare className="w-3 h-3 text-amber-500" />
-									<span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+									<span className="text-[10px] font-black uppercase tracking-widest text-muted">
 										Secure Request
 									</span>
 								</div>

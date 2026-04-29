@@ -22,15 +22,15 @@ export default function BillingFaq() {
 
 	return (
 		<div className="max-w-3xl mx-auto py-24 px-6">
-			<h1 className="text-4xl font-black text-slate-900 mb-12 tracking-tight underline decoration-amber-500 underline-offset-8 decoration-4">
+			<h1 className="text-4xl font-black text-foreground mb-12 tracking-tight underline decoration-amber-500 underline-offset-8 decoration-4">
 				Billing & Refunds
 			</h1>
 
 			<div className="space-y-12">
 				{faqs.map(faq => (
 					<div key={faq.q}>
-						<h3 className="text-xl font-black text-slate-900 mb-4">{faq.q}</h3>
-						<p className="text-lg text-slate-500 font-medium leading-relaxed">
+						<h3 className="text-xl font-black text-foreground mb-4">{faq.q}</h3>
+						<p className="text-lg text-muted font-medium leading-relaxed">
 							{faq.a}
 						</p>
 					</div>

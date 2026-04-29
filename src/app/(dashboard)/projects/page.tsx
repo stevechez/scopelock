@@ -36,7 +36,7 @@ export default async function ProjectsPage() {
 					<h1 className="text-5xl font-black italic uppercase tracking-tighter text-white">
 						Active Builds
 					</h1>
-					<p className="text-slate-500 font-medium text-lg mt-2">
+					<p className="text-muted font-medium text-lg mt-2">
 						Real-time status of your current portfolio.
 					</p>
 				</div>
@@ -49,7 +49,7 @@ export default async function ProjectsPage() {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{projects?.length === 0 ? (
 					<div className="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-[3rem]">
-						<p className="text-slate-500 italic">
+						<p className="text-muted italic">
 							No active builds. Convert a lead to get started.
 						</p>
 					</div>
@@ -83,7 +83,7 @@ function ProjectCard({ project }: { project: Project }) {
 					<h3 className="text-2xl font-black text-white group-hover:text-amber-500 transition-colors">
 						{project.name}
 					</h3>
-					<div className="flex items-center gap-2 text-slate-500 text-xs font-bold mt-1 uppercase tracking-widest">
+					<div className="flex items-center gap-2 text-muted text-xs font-bold mt-1 uppercase tracking-widest">
 						<Calendar size={12} />
 						Est. Completion: June 2026
 					</div>
@@ -91,7 +91,7 @@ function ProjectCard({ project }: { project: Project }) {
 
 				{/* Progress Bar - Apple Style */}
 				<div className="space-y-2">
-					<div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
+					<div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted">
 						<span>Phase: Rough-in</span>
 						<span>65%</span>
 					</div>

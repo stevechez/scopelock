@@ -38,26 +38,26 @@ export default async function SettingsPage() {
 		<AppShell>
 			<div className="max-w-4xl mx-auto space-y-10 pb-20">
 				<div>
-					<h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+					<h1 className="text-3xl font-black text-foreground text-foreground tracking-tight">
 						Settings
 					</h1>
-					<p className="text-slate-500 font-medium">
+					<p className="text-muted font-medium">
 						Manage your business profile and payment integrations.
 					</p>
 				</div>
 
 				{/* SECTION 1: PAYMENTS (STRIPE CONNECT) */}
-				<section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
-					<div className="p-8 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+				<section className="bg-background text-foreground border border-border border-border rounded-3xl overflow-hidden shadow-sm">
+					<div className="p-8 border-b border-border border-border flex items-center justify-between">
 						<div className="flex items-center gap-4">
 							<div className="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center">
 								<CreditCard className="w-6 h-6" />
 							</div>
 							<div>
-								<h2 className="text-xl font-bold text-slate-900 dark:text-white">
+								<h2 className="text-xl font-bold text-foreground text-foreground">
 									PayRail Gateway
 								</h2>
-								<p className="text-sm text-slate-500">
+								<p className="text-sm text-muted">
 									Powering your client invoices and payouts via Stripe.
 								</p>
 							</div>
@@ -76,7 +76,7 @@ export default async function SettingsPage() {
 					<div className="p-8 bg-slate-50/50 dark:bg-slate-950/20">
 						{isStripeVerified ? (
 							<div className="space-y-4">
-								<p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-2xl">
+								<p className="text-slate-600 dark:text-muted text-sm leading-relaxed max-w-2xl">
 									Your Stripe account is fully linked. You can now request
 									milestone payments from clients and receive direct deposits to
 									your bank account.
@@ -87,7 +87,7 @@ export default async function SettingsPage() {
 							</div>
 						) : (
 							<div className="space-y-6">
-								<p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-2xl">
+								<p className="text-slate-600 dark:text-muted text-sm leading-relaxed max-w-2xl">
 									To begin accepting payments through BUILDRAIL, you must link
 									your business bank account. We use Stripe to ensure your
 									financial data is secure and compliant.
@@ -114,16 +114,16 @@ export default async function SettingsPage() {
 				</section>
 
 				{/* SECTION 2: COMPANY PROFILE */}
-				<section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
-					<div className="p-8 border-b border-slate-100 dark:border-slate-800 flex items-center gap-4">
-						<div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-2xl flex items-center justify-center">
+				<section className="bg-background text-foreground border border-border border-border rounded-3xl overflow-hidden shadow-sm">
+					<div className="p-8 border-b border-border border-border flex items-center gap-4">
+						<div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-muted rounded-2xl flex items-center justify-center">
 							<Building2 className="w-6 h-6" />
 						</div>
 						<div>
-							<h2 className="text-xl font-bold text-slate-900 dark:text-white">
+							<h2 className="text-xl font-bold text-foreground text-foreground">
 								Company Profile
 							</h2>
-							<p className="text-sm text-slate-500">
+							<p className="text-sm text-muted">
 								This information appears on your public Site Engine.
 							</p>
 						</div>
@@ -132,31 +132,31 @@ export default async function SettingsPage() {
 					<div className="p-8 space-y-6">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 							<div>
-								<label className="block text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
+								<label className="block text-xs font-black text-muted dark:text-muted uppercase tracking-widest mb-2 ml-1">
 									Company Name
 								</label>
 								<input
 									readOnly
 									value={tenant.name || ''}
-									className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500 outline-none"
+									className="w-full bg-slate-50 dark:bg-slate-950 border border-border border-border rounded-xl px-4 py-3 text-foreground text-foreground font-medium focus:ring-2 focus:ring-blue-500 outline-none"
 								/>
 							</div>
 							<div>
-								<label className="block text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
+								<label className="block text-xs font-black text-muted dark:text-muted uppercase tracking-widest mb-2 ml-1">
 									Public Site URL
 								</label>
-								<div className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-400 font-medium overflow-hidden text-ellipsis whitespace-nowrap">
+								<div className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-border border-border rounded-xl text-muted font-medium overflow-hidden text-ellipsis whitespace-nowrap">
 									<Globe className="w-4 h-4 shrink-0" /> buildrail.com/site/
 									{tenant.slug || 'your-slug'}
 								</div>
 							</div>
 						</div>
 
-						<div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+						<div className="pt-4 border-t border-border border-border">
 							{/* NOTE: You previously built an active SettingsForm component for this. 
                                 Right now it is just a static layout. Whenever you want to make this functional, 
                                 you can swap this section out for the <SettingsForm /> we built! */}
-							<button className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-xl hover:opacity-90 transition-all">
+							<button className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-foreground font-black rounded-xl hover:opacity-90 transition-all">
 								Save Changes
 							</button>
 						</div>

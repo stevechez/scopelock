@@ -63,10 +63,10 @@ const defaultReviews: ReviewItem[] = [
 
 const ReviewCard = ({ review }: { review: ReviewItem }) => (
 	// Card background flips from solid white to translucent white
-	<div className="relative w-[350px] md:w-[450px] shrink-0 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 backdrop-blur-md transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/10 shadow-sm dark:shadow-none">
+	<div className="relative w-[350px] md:w-[450px] shrink-0 rounded-3xl border border-border dark:border-white/10 bg-white dark:bg-white/5 p-8 backdrop-blur-md transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/10 shadow-sm dark:shadow-none">
 		<div className="flex items-center gap-4 mb-6">
 			{/* Avatar border flips from light gray to dark slate */}
-			<div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-slate-100 dark:border-slate-800 transition-colors duration-300">
+			<div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-border border-border transition-colors duration-300">
 				<Image
 					src={review.image}
 					alt={review.name}
@@ -77,13 +77,13 @@ const ReviewCard = ({ review }: { review: ReviewItem }) => (
 			<div>
 				<div className="flex items-center gap-2">
 					{/* Name text flips from slate-900 to white */}
-					<h3 className="font-bold text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
+					<h3 className="font-bold text-foreground text-foreground tracking-tight transition-colors duration-300">
 						{review.name}
 					</h3>
 					<CheckCircle2 className="w-4 h-4 text-amber-500" />
 				</div>
 				{/* Role text flips from slate-600 to slate-400 */}
-				<p className="text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
+				<p className="text-sm font-medium text-slate-600 dark:text-muted transition-colors duration-300">
 					{review.role}
 				</p>
 			</div>
@@ -122,14 +122,14 @@ export function Testimonials({ reviews = defaultReviews }: TestimonialsProps) {
 					transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
 				>
 					{/* Main heading flips from slate-900 to white */}
-					<h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-slate-900 dark:text-white mb-6 transition-colors duration-300">
+					<h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-foreground text-foreground mb-6 transition-colors duration-300">
 						Loved by thousands of <br className="hidden md:block" />
 						<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-400 dark:to-orange-500">
 							happy homeowners.
 						</span>
 					</h2>
 					{/* Subtext flips from slate-600 to slate-400 */}
-					<p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto transition-colors duration-300">
+					<p className="text-xl text-slate-600 dark:text-muted font-light max-w-2xl mx-auto transition-colors duration-300">
 						We let our work and our clients speak for us.
 					</p>
 				</motion.div>

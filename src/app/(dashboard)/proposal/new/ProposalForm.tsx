@@ -59,7 +59,7 @@ export default function ProposalForm({
 
 				<div className="bg-slate-900 border border-slate-700 p-8 rounded-3xl shadow-xl space-y-6">
 					<div className="space-y-2">
-						<label className="text-xs font-bold uppercase tracking-widest text-slate-400">
+						<label className="text-xs font-bold uppercase tracking-widest text-muted">
 							01 / Project Name
 						</label>
 						<input
@@ -71,7 +71,7 @@ export default function ProposalForm({
 					</div>
 
 					<div className="space-y-2">
-						<label className="text-xs font-bold uppercase tracking-widest text-slate-400">
+						<label className="text-xs font-bold uppercase tracking-widest text-muted">
 							02 / Total Investment ($)
 						</label>
 						<input
@@ -85,7 +85,7 @@ export default function ProposalForm({
 					</div>
 
 					<div className="space-y-2">
-						<label className="text-xs font-bold uppercase tracking-widest text-slate-400">
+						<label className="text-xs font-bold uppercase tracking-widest text-muted">
 							03 / Scope of Work
 						</label>
 						<textarea

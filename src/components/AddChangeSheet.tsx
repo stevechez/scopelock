@@ -81,12 +81,12 @@ export function AddChangeSheet({
 						className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 p-6 shadow-2xl flex flex-col gap-6 max-h-[85vh] overflow-y-auto"
 					>
 						<div className="flex justify-between items-center">
-							<h3 className="text-xl font-bold text-slate-900">
+							<h3 className="text-xl font-bold text-foreground">
 								Add Quick Change
 							</h3>
 							<button
 								onClick={onClose}
-								className="p-2 bg-slate-100 rounded-full text-slate-500 active:bg-slate-200"
+								className="p-2 bg-slate-100 rounded-full text-muted active:bg-slate-200"
 							>
 								<X size={20} />
 							</button>
@@ -100,16 +100,16 @@ export function AddChangeSheet({
 								value={description}
 								onChange={e => setDescription(e.target.value)}
 								placeholder="What changed? (e.g. Premium tile)"
-								className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-4 pr-12 text-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
+								className="w-full bg-slate-50 border border-border rounded-2xl py-4 pl-4 pr-12 text-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
 							/>
-							<button className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-2 hover:text-slate-900 transition-colors">
+							<button className="absolute right-3 top-1/2 -translate-y-1/2 text-muted p-2 hover:text-foreground transition-colors">
 								<Mic size={24} />
 							</button>
 						</div>
 
 						{/* Step 2: Quick Pricing Chips */}
 						<div>
-							<p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">
+							<p className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">
 								Estimated Cost
 							</p>
 							<div className="flex flex-wrap gap-3">
@@ -121,14 +121,14 @@ export function AddChangeSheet({
 											'flex-1 py-3 rounded-xl font-bold text-lg border-2 transition-all active:scale-95',
 											price === p
 												? 'bg-slate-900 border-slate-900 text-white shadow-md'
-												: 'bg-white border-slate-200 text-slate-700',
+												: 'bg-white border-border text-slate-700',
 										)}
 									>
 										${p}
 									</button>
 								))}
 								<div className="flex-1 relative">
-									<span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">
+									<span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-bold">
 										$
 									</span>
 									<input
@@ -146,7 +146,7 @@ export function AddChangeSheet({
 											'w-full py-3 pl-8 pr-4 rounded-xl font-bold text-lg border-2 transition-all focus:outline-none placeholder:font-normal',
 											price !== '' && !QUICK_PRICES.includes(price as number)
 												? 'bg-slate-900 border-slate-900 text-white shadow-md'
-												: 'bg-white border-slate-200 text-slate-700 focus:border-slate-400',
+												: 'bg-white border-border text-slate-700 focus:border-slate-400',
 										)}
 									/>
 								</div>

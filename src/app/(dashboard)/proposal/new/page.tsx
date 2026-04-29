@@ -45,7 +45,7 @@ export default async function NewProposalPage({
 				<h1 className="text-4xl font-black tracking-tight text-white italic">
 					Draft New Proposal
 				</h1>
-				<p className="text-slate-500 mt-2 font-medium">
+				<p className="text-muted mt-2 font-medium">
 					Create a high-end project scope for {lead.client_name}.
 				</p>
 			</div>

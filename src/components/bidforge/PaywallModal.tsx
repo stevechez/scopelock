@@ -34,7 +34,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
 							animate={{ opacity: 1, scale: 1, y: 0 }}
 							exit={{ opacity: 0, scale: 0.95, y: 20 }}
 							transition={{ type: 'spring', duration: 0.5, bounce: 0.3 }}
-							className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden pointer-events-auto border border-slate-100"
+							className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden pointer-events-auto border border-border"
 						>
 							{/* Premium Header/Banner */}
 							<div className="bg-gradient-to-r from-amber-500 to-orange-500 p-6 text-center">
@@ -63,7 +63,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
 								<p className="text-slate-600 font-medium text-lg">
 									You&amp;ve used your 3 free scripts!
 								</p>
-								<p className="text-slate-500 text-sm">
+								<p className="text-muted text-sm">
 									Upgrade to Pro to get unlimited generations, save your entire
 									client history in the Vault, and never write another awkward
 									email from scratch.
@@ -80,7 +80,7 @@ export default function PaywallModal({ isOpen, onClose }: PaywallModalProps) {
 								{/* Subtle Close Option */}
 								<button
 									onClick={onClose}
-									className="mt-4 text-sm text-slate-400 hover:text-slate-600 transition-colors"
+									className="mt-4 text-sm text-muted hover:text-slate-600 transition-colors"
 								>
 									Maybe later
 								</button>

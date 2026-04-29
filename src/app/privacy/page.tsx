@@ -4,7 +4,7 @@ import { ArrowLeft, Zap } from 'lucide-react';
 export default function PrivacyPage() {
 	return (
 		<div className="min-h-screen bg-slate-50 selection:bg-slate-900 selection:text-white pb-32">
-			<nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+			<nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-border px-6 py-4">
 				<div className="max-w-3xl mx-auto flex justify-between items-center">
 					<Link
 						href="/"
@@ -15,12 +15,12 @@ export default function PrivacyPage() {
 						</div>
 						<span className="font-black text-xl tracking-tight italic">
 							BuildRail
-							<span className="text-slate-400 font-medium not-italic">OS</span>
+							<span className="text-muted font-medium not-italic">OS</span>
 						</span>
 					</Link>
 					<Link
 						href="/"
-						className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-colors"
+						className="flex items-center gap-2 text-[10px] font-bold text-muted uppercase tracking-widest hover:text-foreground transition-colors"
 					>
 						<ArrowLeft size={14} /> Back to Site
 					</Link>
@@ -28,14 +28,14 @@ export default function PrivacyPage() {
 			</nav>
 
 			<main className="max-w-3xl mx-auto px-6 pt-32">
-				<h1 className="text-4xl font-black text-slate-900 tracking-tight mb-4">
+				<h1 className="text-4xl font-black text-foreground tracking-tight mb-4">
 					Privacy Policy
 				</h1>
-				<p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-12">
+				<p className="text-sm font-bold text-muted uppercase tracking-widest mb-12">
 					Last Updated: April 2026
 				</p>
 
-				<article className="prose prose-slate prose-p:text-slate-600 prose-headings:font-black prose-headings:text-slate-900 prose-a:text-emerald-600 max-w-none space-y-8">
+				<article className="prose prose-slate prose-p:text-slate-600 prose-headings:font-black prose-headings:text-foreground prose-a:text-emerald-600 max-w-none space-y-8">
 					<section>
 						<h2 className="text-2xl mb-4">1. Data Collection & Usage</h2>
 						<p className="leading-relaxed">

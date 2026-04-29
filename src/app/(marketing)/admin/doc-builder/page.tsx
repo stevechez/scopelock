@@ -36,12 +36,12 @@ export default function DocBuilder() {
 
 	return (
 		<div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 px-6 pb-24">
-			<div className="max-w-2xl mx-auto bg-white dark:bg-slate-900 p-10 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800">
+			<div className="max-w-2xl mx-auto bg-background text-foreground p-10 rounded-3xl shadow-xl border border-border border-border">
 				<div className="flex items-center gap-3 mb-8">
 					<div className="p-3 bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500 rounded-xl">
 						<Wand2 />
 					</div>
-					<h1 className="text-3xl font-black text-slate-900 dark:text-white">
+					<h1 className="text-3xl font-black text-foreground text-foreground">
 						AI Doc Builder
 					</h1>
 				</div>
@@ -59,7 +59,7 @@ export default function DocBuilder() {
 									e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
 								)
 							}
-							className="w-full p-4 border border-slate-300 dark:border-slate-700 rounded-xl bg-transparent text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+							className="w-full p-4 border border-slate-300 border-border rounded-xl bg-transparent text-foreground text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-amber-500"
 							placeholder="my-article-slug"
 						/>
 					</div>
@@ -72,7 +72,7 @@ export default function DocBuilder() {
 							required
 							value={topic}
 							onChange={e => setTopic(e.target.value)}
-							className="w-full p-4 border border-slate-300 dark:border-slate-700 rounded-xl h-32 bg-transparent text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+							className="w-full p-4 border border-slate-300 border-border rounded-xl h-32 bg-transparent text-foreground text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-amber-500"
 							placeholder="Explain how to manage scope creep using ScopeLock..."
 						/>
 					</div>
@@ -80,7 +80,7 @@ export default function DocBuilder() {
 					<button
 						type="submit"
 						disabled={isGenerating}
-						className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-50 transition-colors"
+						className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-foreground rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-50 transition-colors"
 					>
 						{isGenerating ? (
 							<Loader2 className="animate-spin" />

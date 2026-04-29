@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button'; // Assuming you're using shadcn
 
 export function QuickBooksConnect() {
 	return (
-		<div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-			<h3 className="text-lg font-bold text-slate-900 mb-2">Accounting Sync</h3>
-			<p className="text-slate-500 text-sm mb-6">
+		<div className="p-6 bg-white rounded-3xl border border-border shadow-sm">
+			<h3 className="text-lg font-bold text-foreground mb-2">
+				Accounting Sync
+			</h3>
+			<p className="text-muted text-sm mb-6">
 				Connect BUILDRAIL to QuickBooks to sync invoices, expenses, and
 				milestone payments.
 			</p>

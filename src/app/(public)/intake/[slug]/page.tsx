@@ -32,7 +32,7 @@ export default async function IntakePage({ params }: PageProps) {
 					<h1 className="text-sm font-bold tracking-[0.2em] text-amber-600 uppercase mb-2">
 						Project Inquiry
 					</h1>
-					<p className="text-slate-400 text-sm font-medium uppercase tracking-tighter">
+					<p className="text-muted text-sm font-medium uppercase tracking-tighter">
 						BuildRail
 					</p>
 				</div>

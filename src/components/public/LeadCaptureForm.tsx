@@ -82,14 +82,14 @@ export default function LeadCaptureForm({
 
 	if (submitted) {
 		return (
-			<div className="bg-white p-12 rounded-[2.5rem] shadow-2xl border border-slate-100 text-center">
+			<div className="bg-white p-12 rounded-[2.5rem] shadow-2xl border border-border text-center">
 				<div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
 					<CheckCircle2 className="w-10 h-10 text-emerald-600" />
 				</div>
-				<h3 className="text-3xl font-black text-slate-900 mb-2 italic uppercase">
+				<h3 className="text-3xl font-black text-foreground mb-2 italic uppercase">
 					Success
 				</h3>
-				<p className="text-slate-500 font-medium">
+				<p className="text-muted font-medium">
 					We&apos;ve received your brief,{' '}
 					{formData.name.split(' ')[0] || 'friend'}.
 				</p>
@@ -98,7 +98,7 @@ export default function LeadCaptureForm({
 	}
 
 	return (
-		<div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-slate-100 min-h-[450px] flex flex-col justify-center relative">
+		<div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-border min-h-[450px] flex flex-col justify-center relative">
 			{/* Progress Bar */}
 			{step < 5 && (
 				<div className="absolute top-8 left-10 right-10 flex gap-2">
@@ -120,7 +120,7 @@ export default function LeadCaptureForm({
 						exit={{ opacity: 0, x: -10 }}
 						className="space-y-6"
 					>
-						<h2 className="text-2xl font-black text-slate-900 italic uppercase">
+						<h2 className="text-2xl font-black text-foreground italic uppercase">
 							Project Type
 						</h2>
 						<div className="grid grid-cols-1 gap-3">
@@ -128,7 +128,7 @@ export default function LeadCaptureForm({
 								<button
 									key={t}
 									onClick={() => updateField('projectType', t)}
-									className={`p-4 rounded-2xl border-2 text-left font-bold transition-all ${formData.projectType === t ? 'border-slate-900 bg-slate-50 text-slate-900' : 'border-slate-100 text-slate-500 hover:border-slate-300'}`}
+									className={`p-4 rounded-2xl border-2 text-left font-bold transition-all ${formData.projectType === t ? 'border-slate-900 bg-slate-50 text-foreground' : 'border-border text-muted hover:border-slate-300'}`}
 								>
 									{t}
 								</button>
@@ -145,7 +145,7 @@ export default function LeadCaptureForm({
 						exit={{ opacity: 0, x: -10 }}
 						className="space-y-6"
 					>
-						<h2 className="text-2xl font-black text-slate-900 italic uppercase">
+						<h2 className="text-2xl font-black text-foreground italic uppercase">
 							Budget Range
 						</h2>
 						<div className="grid grid-cols-1 gap-3">
@@ -153,7 +153,7 @@ export default function LeadCaptureForm({
 								<button
 									key={b}
 									onClick={() => updateField('budget', b)}
-									className={`p-4 rounded-2xl border-2 text-left font-bold transition-all ${formData.budget === b ? 'border-slate-900 bg-slate-50 text-slate-900' : 'border-slate-100 text-slate-500 hover:border-slate-300'}`}
+									className={`p-4 rounded-2xl border-2 text-left font-bold transition-all ${formData.budget === b ? 'border-slate-900 bg-slate-50 text-foreground' : 'border-border text-muted hover:border-slate-300'}`}
 								>
 									{b}
 								</button>
@@ -170,7 +170,7 @@ export default function LeadCaptureForm({
 						exit={{ opacity: 0, x: -10 }}
 						className="space-y-6"
 					>
-						<h2 className="text-2xl font-black text-slate-900 italic uppercase">
+						<h2 className="text-2xl font-black text-foreground italic uppercase">
 							Timeline
 						</h2>
 						<div className="grid grid-cols-1 gap-3">
@@ -178,7 +178,7 @@ export default function LeadCaptureForm({
 								<button
 									key={tl}
 									onClick={() => updateField('timeline', tl)}
-									className={`p-4 rounded-2xl border-2 text-left font-bold transition-all ${formData.timeline === tl ? 'border-slate-900 bg-slate-50 text-slate-900' : 'border-slate-100 text-slate-500 hover:border-slate-300'}`}
+									className={`p-4 rounded-2xl border-2 text-left font-bold transition-all ${formData.timeline === tl ? 'border-slate-900 bg-slate-50 text-foreground' : 'border-border text-muted hover:border-slate-300'}`}
 								>
 									{tl}
 								</button>
@@ -189,7 +189,7 @@ export default function LeadCaptureForm({
 
 				{step === 4 && (
 					<motion.form key="s4" onSubmit={handleSubmit} className="space-y-4">
-						<h2 className="text-2xl font-black text-slate-900 italic uppercase mb-6">
+						<h2 className="text-2xl font-black text-foreground italic uppercase mb-6">
 							Contact Info
 						</h2>
 						<input
@@ -197,7 +197,7 @@ export default function LeadCaptureForm({
 							placeholder="Full Name"
 							value={formData.name}
 							onChange={e => setFormData({ ...formData, name: e.target.value })}
-							className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-bold outline-none focus:ring-2 focus:ring-amber-500"
+							className="w-full p-4 bg-slate-50 border border-border rounded-2xl text-foreground font-bold outline-none focus:ring-2 focus:ring-amber-500"
 						/>
 						<input
 							required
@@ -207,7 +207,7 @@ export default function LeadCaptureForm({
 							onChange={e =>
 								setFormData({ ...formData, email: e.target.value })
 							}
-							className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-bold outline-none focus:ring-2 focus:ring-amber-500"
+							className="w-full p-4 bg-slate-50 border border-border rounded-2xl text-foreground font-bold outline-none focus:ring-2 focus:ring-amber-500"
 						/>
 						<input
 							required
@@ -217,7 +217,7 @@ export default function LeadCaptureForm({
 							onChange={e =>
 								setFormData({ ...formData, phone: e.target.value })
 							}
-							className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-bold outline-none focus:ring-2 focus:ring-amber-500"
+							className="w-full p-4 bg-slate-50 border border-border rounded-2xl text-foreground font-bold outline-none focus:ring-2 focus:ring-amber-500"
 						/>
 
 						<button
@@ -241,7 +241,7 @@ export default function LeadCaptureForm({
 				<button
 					type="button"
 					onClick={handleBack}
-					className="absolute bottom-6 left-10 text-slate-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 hover:text-slate-900 transition-colors"
+					className="absolute bottom-6 left-10 text-muted font-bold text-xs uppercase tracking-widest flex items-center gap-1 hover:text-foreground transition-colors"
 				>
 					<ArrowLeft size={14} /> Back
 				</button>

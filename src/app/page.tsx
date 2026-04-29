@@ -15,9 +15,6 @@ import { Pricing } from '@/components/marketing/Pricing';
 import { Testimonials } from '@/components/marketing/Testimonials';
 import CTA from '@/components/marketing/CTA';
 import Footer from '@/components/marketing/Footer';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ModeToggle } from '@/components/ModeToggle';
 import { getSubscriptionCheckoutURL } from '@/app/actions'; // 👈 Add this import
 
 export default function BlueprintMarketingPage() {
@@ -41,7 +38,7 @@ export default function BlueprintMarketingPage() {
 		}
 	};
 	return (
-		<div className="bg-white dark:bg-slate-950 min-h-screen font-sans selection:bg-amber-100 transition-colors duration-300 relative pb-24 md:pb-0">
+		<div className="min-h-screen bg-background text-primary font-sans selection:bg-amber-100 transition-colors duration-300 relative pb-24 md:pb-0">
 			<StickyCTA />
 			<VideoModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
 
@@ -53,7 +50,6 @@ export default function BlueprintMarketingPage() {
 			<PathToSystem />
 			<Testimonials />
 			<Pricing onCheckout={handleCheckout} isLoading={isCheckoutLoading} />
-			{/* <JumpstartBanner /> */}
 			<CTA />
 			<Footer />
 		</div>

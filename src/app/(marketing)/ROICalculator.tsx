@@ -25,7 +25,7 @@ export default function ROICalculator() {
 
 			<div className="space-y-6">
 				<div>
-					<label className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+					<label className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted mb-2">
 						<span>Leads per Month</span>
 						<span className="text-amber-500">{projects}</span>
 					</label>
@@ -40,7 +40,7 @@ export default function ROICalculator() {
 				</div>
 
 				<div>
-					<label className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+					<label className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted mb-2">
 						<span>Avg Project Value</span>
 						<span className="text-amber-500">${avgValue.toLocaleString()}</span>
 					</label>
@@ -56,7 +56,7 @@ export default function ROICalculator() {
 				</div>
 
 				<div>
-					<label className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+					<label className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted mb-2">
 						<span>Current Close Rate</span>
 						<span className="text-amber-500">{closeRate}%</span>
 					</label>
@@ -73,7 +73,7 @@ export default function ROICalculator() {
 
 			<div className="mt-8 pt-8 border-t border-slate-800 space-y-4">
 				<div className="flex justify-between items-end">
-					<span className="text-sm font-bold text-slate-400">
+					<span className="text-sm font-bold text-muted">
 						Current Monthly Revenue
 					</span>
 					<span className="text-xl font-bold">
@@ -81,7 +81,7 @@ export default function ROICalculator() {
 					</span>
 				</div>
 				<div className="flex justify-between items-end">
-					<span className="text-sm font-bold text-slate-400">
+					<span className="text-sm font-bold text-muted">
 						With BuildRale Portal
 					</span>
 					<span className="text-xl font-bold text-emerald-400">

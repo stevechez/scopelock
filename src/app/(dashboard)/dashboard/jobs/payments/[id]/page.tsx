@@ -48,9 +48,9 @@ export default async function JobPaymentsPage({
 	return (
 		<div className="flex-1 flex flex-col h-full bg-slate-50 relative pb-32">
 			{/* Header */}
-			<header className="px-6 py-5 bg-white border-b border-slate-100 shadow-sm">
-				<h1 className="text-2xl font-bold text-slate-900">Payment Schedule</h1>
-				<p className="text-slate-500 font-medium">
+			<header className="px-6 py-5 bg-white border-b border-border shadow-sm">
+				<h1 className="text-2xl font-bold text-foreground">Payment Schedule</h1>
+				<p className="text-muted font-medium">
 					Total Value: $
 					{trueContractValue.toLocaleString(undefined, {
 						minimumFractionDigits: 2,
@@ -66,18 +66,18 @@ export default async function JobPaymentsPage({
 			{/* Milestones List */}
 			<div className="p-6 space-y-4 overflow-y-auto">
 				{milestones?.length === 0 ? (
-					<div className="text-center p-8 text-slate-400 border-2 border-dashed border-slate-200 rounded-2xl bg-white">
+					<div className="text-center p-8 text-muted border-2 border-dashed border-border rounded-2xl bg-white">
 						No payment milestones set up yet.
 					</div>
 				) : (
 					milestones?.map(milestone => (
 						<div
 							key={milestone.id}
-							className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-3"
+							className="bg-white p-5 rounded-2xl border border-border shadow-sm flex flex-col gap-3"
 						>
 							<div className="flex justify-between items-start">
 								<div>
-									<h3 className="font-bold text-slate-900">
+									<h3 className="font-bold text-foreground">
 										{milestone.title}
 									</h3>
 									<p className="text-xl font-black text-slate-700 mt-1">

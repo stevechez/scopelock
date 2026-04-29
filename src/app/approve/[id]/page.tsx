@@ -39,10 +39,10 @@ export default function ClientApprovalPage({
 				<div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
 					<CheckCircle2 size={40} className="text-emerald-500" />
 				</div>
-				<h1 className="text-2xl font-bold text-slate-900 mb-2">
+				<h1 className="text-2xl font-bold text-foreground mb-2">
 					Change Approved!
 				</h1>
-				<p className="text-slate-500 mb-8">
+				<p className="text-muted mb-8">
 					Thank you. {CHANGE_ORDER.contractorName} has been notified and the
 					contract has been updated.
 				</p>
@@ -53,32 +53,30 @@ export default function ClientApprovalPage({
 	return (
 		<div className="flex-1 flex flex-col bg-slate-50 min-h-screen pb-24">
 			{/* Clean, unbranded header */}
-			<header className="bg-white px-6 py-6 border-b border-slate-200 text-center shadow-sm">
-				<h1 className="text-xl font-bold text-slate-900">
+			<header className="bg-white px-6 py-6 border-b border-border text-center shadow-sm">
+				<h1 className="text-xl font-bold text-foreground">
 					{CHANGE_ORDER.contractorName}
 				</h1>
-				<p className="text-sm text-slate-500 font-medium">
-					Change Order Request
-				</p>
+				<p className="text-sm text-muted font-medium">Change Order Request</p>
 			</header>
 
 			<div className="p-6 space-y-6 flex-1">
 				{/* Project Context */}
 				<div>
-					<h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">
+					<h2 className="text-sm font-semibold text-muted uppercase tracking-wider mb-2">
 						Project
 					</h2>
-					<p className="text-lg font-medium text-slate-900">
+					<p className="text-lg font-medium text-foreground">
 						{CHANGE_ORDER.jobName}
 					</p>
 				</div>
 
 				{/* The Change */}
-				<div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-					<h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">
+				<div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+					<h2 className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">
 						Requested Change
 					</h2>
-					<p className="text-slate-800 text-lg leading-relaxed">
+					<p className="text-foreground text-lg leading-relaxed">
 						&ldquo;{CHANGE_ORDER.description}&rdquo;
 					</p>
 				</div>
@@ -113,8 +111,8 @@ export default function ClientApprovalPage({
 				</div>
 
 				{/* Legal/Trust text */}
-				<div className="flex items-start gap-3 text-slate-500 text-sm bg-slate-100 p-4 rounded-xl">
-					<ShieldCheck size={20} className="shrink-0 text-slate-400" />
+				<div className="flex items-start gap-3 text-muted text-sm bg-slate-100 p-4 rounded-xl">
+					<ShieldCheck size={20} className="shrink-0 text-muted" />
 					<p>
 						By tapping approve, you authorize this change to the scope of work
 						and agree to the updated contract total.
@@ -138,7 +136,7 @@ export default function ClientApprovalPage({
 						</>
 					)}
 				</button>
-				<button className="w-full mt-4 text-slate-500 font-medium py-2 active:text-slate-700">
+				<button className="w-full mt-4 text-muted font-medium py-2 active:text-slate-700">
 					I have a question about this
 				</button>
 			</div>

@@ -51,8 +51,8 @@ export default function PaymentManager({
 	return (
 		<div className="space-y-8">
 			{/* 1. NEW REQUEST FORM */}
-			<div className="bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-[2rem] p-8">
-				<h3 className="text-xl font-black text-slate-900 dark:text-white italic uppercase mb-6 flex items-center gap-3">
+			<div className="bg-slate-50 dark:bg-white/[0.02] border border-border dark:border-white/5 rounded-[2rem] p-8">
+				<h3 className="text-xl font-black text-foreground text-foreground italic uppercase mb-6 flex items-center gap-3">
 					<Plus className="text-emerald-500" />
 					New Milestone Request
 				</h3>
@@ -62,7 +62,7 @@ export default function PaymentManager({
 					className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"
 				>
 					<div className="md:col-span-1">
-						<label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+						<label className="block text-[10px] font-black text-muted uppercase tracking-widest mb-2 ml-1">
 							Description
 						</label>
 						<input
@@ -70,16 +70,16 @@ export default function PaymentManager({
 							placeholder="e.g. Deposit / Framing"
 							value={description}
 							onChange={e => setDescription(e.target.value)}
-							className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
+							className="w-full bg-background text-foreground border border-border border-border rounded-xl px-4 py-3 text-sm text-foreground text-foreground font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
 							required
 						/>
 					</div>
 					<div>
-						<label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+						<label className="block text-[10px] font-black text-muted uppercase tracking-widest mb-2 ml-1">
 							Amount (USD)
 						</label>
 						<div className="relative">
-							<span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">
+							<span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-bold">
 								$
 							</span>
 							<input
@@ -87,7 +87,7 @@ export default function PaymentManager({
 								placeholder="5000"
 								value={amount}
 								onChange={e => setAmount(e.target.value)}
-								className="w-all bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-8 pr-4 text-sm text-slate-900 dark:text-white font-black focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
+								className="w-all bg-background text-foreground border border-border border-border rounded-xl py-3 pl-8 pr-4 text-sm text-foreground text-foreground font-black focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
 								required
 							/>
 						</div>
@@ -109,14 +109,14 @@ export default function PaymentManager({
 
 			{/* 2. PAYMENT HISTORY */}
 			<div className="space-y-4">
-				<h3 className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">
+				<h3 className="text-xs font-black text-muted uppercase tracking-widest ml-1">
 					Payment Ledger
 				</h3>
 
 				{existingPayments.length === 0 ? (
-					<div className="text-center py-12 bg-white dark:bg-[#0B101E] rounded-[2rem] border border-dashed border-slate-200 dark:border-white/10">
+					<div className="text-center py-12 bg-white dark:bg-[#0B101E] rounded-[2rem] border border-dashed border-border dark:border-white/10">
 						<Receipt className="mx-auto text-slate-300 mb-2" size={32} />
-						<p className="text-slate-400 font-bold text-sm uppercase">
+						<p className="text-muted font-bold text-sm uppercase">
 							No payments issued yet
 						</p>
 					</div>
@@ -125,7 +125,7 @@ export default function PaymentManager({
 						{existingPayments.map(p => (
 							<div
 								key={p.id}
-								className="bg-white dark:bg-[#0B101E] border border-slate-100 dark:border-white/5 p-5 rounded-2xl flex items-center justify-between group transition-all hover:border-emerald-500/30"
+								className="bg-white dark:bg-[#0B101E] border border-border dark:border-white/5 p-5 rounded-2xl flex items-center justify-between group transition-all hover:border-emerald-500/30"
 							>
 								<div className="flex items-center gap-4">
 									<div
@@ -134,10 +134,10 @@ export default function PaymentManager({
 										<DollarSign size={20} />
 									</div>
 									<div>
-										<p className="font-black text-slate-900 dark:text-white uppercase text-xs italic">
+										<p className="font-black text-foreground text-foreground uppercase text-xs italic">
 											{p.description}
 										</p>
-										<p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+										<p className="text-[10px] text-muted font-bold uppercase tracking-widest">
 											{new Date(p.created_at).toLocaleDateString()}
 										</p>
 									</div>
@@ -145,7 +145,7 @@ export default function PaymentManager({
 
 								<div className="flex items-center gap-6">
 									<div className="text-right">
-										<p className="font-black text-slate-900 dark:text-white">
+										<p className="font-black text-foreground text-foreground">
 											${p.amount.toLocaleString()}
 										</p>
 										<span
@@ -159,7 +159,7 @@ export default function PaymentManager({
 										<a
 											href={p.stripe_url}
 											target="_blank"
-											className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-emerald-500 transition-colors"
+											className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-muted hover:text-emerald-500 transition-colors"
 										>
 											<ExternalLink size={16} />
 										</a>

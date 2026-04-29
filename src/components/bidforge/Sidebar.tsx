@@ -74,7 +74,7 @@ export default function Sidebar() {
 								</h2>
 								<button
 									onClick={() => setIsOpen(false)}
-									className="text-slate-400 hover:text-white p-1"
+									className="text-muted hover:text-white p-1"
 								>
 									<svg
 										className="w-6 h-6"
@@ -93,7 +93,7 @@ export default function Sidebar() {
 							</div>
 
 							<div className="flex-1 px-4 py-6">
-								<div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 px-2">
+								<div className="text-xs font-bold text-muted uppercase tracking-wider mb-4 px-2">
 									Your Toolkit
 								</div>
 								<nav className="space-y-2">
@@ -104,7 +104,7 @@ export default function Sidebar() {
 											onClick={() => setIsOpen(false)}
 											className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all ${
 												pathname === tool.href
-													? 'bg-amber-500 text-slate-900 font-bold shadow-md'
+													? 'bg-amber-500 text-foreground font-bold shadow-md'
 													: 'text-slate-300 hover:bg-slate-800 hover:text-white font-medium'
 											}`}
 										>
@@ -139,7 +139,7 @@ export default function Sidebar() {
 				</div>
 
 				<div className="flex-1 overflow-y-auto py-4 custom-scrollbar">
-					<div className="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+					<div className="px-4 text-xs font-bold text-muted uppercase tracking-wider mb-2">
 						Your Toolkit
 					</div>
 					<nav className="space-y-1 mt-2">
@@ -149,7 +149,7 @@ export default function Sidebar() {
 								href={tool.href}
 								className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
 									pathname === tool.href
-										? 'bg-amber-500 text-slate-900 font-bold shadow-md'
+										? 'bg-amber-500 text-foreground font-bold shadow-md'
 										: 'text-slate-300 hover:bg-slate-800 hover:text-white font-medium'
 								}`}
 							>

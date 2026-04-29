@@ -42,15 +42,15 @@ export default function Navbar() {
 		<header
 			className={`fixed top-0 left-0 right-0 z-[100] border-b transition-all duration-300 ${
 				scrolled
-					? 'bg-white/90 dark:bg-slate-950/90 backdrop-blur-md py-3 shadow-sm'
-					: 'bg-white dark:bg-slate-950 py-5' // Added solid bg here to prevent overlap
-			} border-slate-200 dark:border-white/10`}
+					? 'bg-white dark:bg-slate-950 py-3 shadow-md border-slate-200 dark:border-white/10'
+					: 'bg-white dark:bg-slate-950 py-5 border-transparent'
+			}`}
 		>
 			<nav className="max-w-7xl mx-auto px-6 flex justify-between items-center">
 				{/* LOGO */}
 				<Link
 					href="/"
-					className="text-2xl md:text-3xl font-black tracking-tighter text-slate-900 dark:text-white group flex items-center gap-1"
+					className="text-2xl md:text-3xl font-black tracking-tighter text-foreground text-foreground group flex items-center gap-1"
 				>
 					BUILD
 					<span className="text-amber-500 transition-colors group-hover:text-amber-400">
@@ -64,7 +64,7 @@ export default function Navbar() {
 						<Link
 							key={item}
 							href={`#${item.toLowerCase()}`}
-							className="text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+							className="text-sm font-bold text-muted dark:text-muted hover:text-foreground dark:hover:text-white transition-colors"
 						>
 							{item}
 						</Link>
@@ -77,7 +77,7 @@ export default function Navbar() {
 						<ModeToggle />
 						<Link
 							href={getAppUrl('/login')}
-							className="text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+							className="text-sm font-bold text-muted dark:text-muted hover:text-foreground dark:hover:text-white transition-colors"
 						>
 							Log in
 						</Link>
@@ -85,7 +85,7 @@ export default function Navbar() {
 
 					<Link
 						href={getAppUrl('#pricing')}
-						className="hidden sm:block px-5 py-2.5 bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-900 text-sm font-black rounded-xl hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all active:scale-95"
+						className="hidden sm:block px-5 py-2.5 bg-slate-900 dark:bg-amber-500 text-white dark:text-foreground text-sm font-black rounded-xl hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all active:scale-95"
 					>
 						Start Free Trial
 					</Link>
@@ -93,9 +93,10 @@ export default function Navbar() {
 					{/* MOBILE TOGGLE (Includes ModeToggle for mobile users) */}
 					<div className="flex md:hidden items-center gap-2">
 						<ModeToggle />
+
 						<button
 							onClick={() => setIsOpen(!isOpen)}
-							className="p-2 text-slate-900 dark:text-white focus:outline-none"
+							className="p-2 text-foreground text-foreground focus:outline-none"
 							aria-label="Toggle Menu"
 						>
 							<div className="w-6 h-5 relative flex flex-col justify-between">
@@ -137,7 +138,7 @@ export default function Navbar() {
 								initial="closed"
 								animate="open"
 								exit="closed"
-								className="absolute top-full left-4 right-4 mt-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl p-8 md:hidden"
+								className="absolute top-full left-4 right-4 mt-3 bg-background text-foreground border border-border dark:border-white/10 rounded-3xl shadow-2xl p-8 md:hidden"
 							>
 								<div className="flex flex-col gap-8">
 									{['Features', 'Blueprint', 'Pricing'].map(item => (
@@ -145,25 +146,25 @@ export default function Navbar() {
 											<Link
 												href={`#${item.toLowerCase()}`}
 												onClick={() => setIsOpen(false)}
-												className="text-2xl font-black text-slate-900 dark:text-white flex items-center justify-between"
+												className="text-2xl font-black text-foreground text-foreground flex items-center justify-between"
 											>
 												{item}
 												<span className="text-amber-500 text-sm">→</span>
 											</Link>
 										</motion.div>
 									))}
-									<hr className="border-slate-100 dark:border-white/5" />
+									<hr className="border-border dark:border-white/5" />
 									<motion.div variants={itemVariants} className="space-y-4">
 										<Link
 											href={getAppUrl('/login')}
-											className="block text-center font-bold text-slate-500 py-2"
+											className="block text-center font-bold text-muted py-2"
 										>
 											Log in to Dashboard
 										</Link>
 										<Link
 											href={getAppUrl('/signup')}
 											onClick={() => setIsOpen(false)}
-											className="block w-full py-5 bg-amber-500 text-slate-900 font-black rounded-2xl text-center shadow-xl shadow-amber-500/20 text-lg"
+											className="block w-full py-5 bg-amber-500 text-foreground font-black rounded-2xl text-center shadow-xl shadow-amber-500/20 text-lg"
 										>
 											Start Free Trial
 										</Link>

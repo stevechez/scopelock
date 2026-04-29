@@ -29,7 +29,7 @@ export default function StickyCTA() {
 					</span>
 					<Link
 						href="#pricing"
-						className="w-full md:w-auto px-8 py-3 bg-amber-500 text-slate-900 font-black rounded-xl hover:bg-amber-400 transition-all text-center"
+						className="w-full md:w-auto px-8 py-3 bg-amber-500 text-foreground font-black rounded-xl hover:bg-amber-400 transition-all text-center"
 					>
 						Start Free Trial
 					</Link>

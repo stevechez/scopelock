@@ -110,25 +110,25 @@ export default function CommandPalette({
 						animate={{ opacity: 1, scale: 1, y: 0 }}
 						exit={{ opacity: 0, scale: 0.95, y: -20 }}
 						transition={{ duration: 0.15, ease: 'easeOut' }}
-						className="fixed z-[101] top-[15%] left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+						className="fixed z-[101] top-[15%] left-1/2 -translate-x-1/2 w-full max-w-2xl bg-background text-foreground rounded-2xl shadow-2xl overflow-hidden border border-border border-border"
 					>
-						<div className="flex items-center px-4 border-b border-slate-100 dark:border-slate-800">
-							<Search className="w-5 h-5 text-slate-400" />
+						<div className="flex items-center px-4 border-b border-border border-border">
+							<Search className="w-5 h-5 text-muted" />
 							<input
 								ref={inputRef}
 								value={search}
 								onChange={e => setSearch(e.target.value)}
 								placeholder="Search documentation..."
-								className="w-full bg-transparent border-none text-slate-900 dark:text-white px-4 py-5 focus:outline-none font-medium placeholder:text-slate-400"
+								className="w-full bg-transparent border-none text-foreground text-foreground px-4 py-5 focus:outline-none font-medium placeholder:text-muted"
 							/>
-							<kbd className="hidden sm:block px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-black text-slate-400 uppercase">
+							<kbd className="hidden sm:block px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-black text-muted uppercase">
 								ESC
 							</kbd>
 						</div>
 
 						<div className="max-h-[60vh] overflow-y-auto p-2">
 							{filtered.length === 0 ? (
-								<div className="p-8 text-center text-slate-500 font-medium">
+								<div className="p-8 text-center text-muted font-medium">
 									No results found for &ldquo;{search}&rdquo;
 								</div>
 							) : (
@@ -142,7 +142,7 @@ export default function CommandPalette({
 										className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 text-left transition-colors group"
 									>
 										<div className="flex items-center gap-3">
-											<FileText className="w-4 h-4 text-slate-400 group-hover:text-amber-500 transition-colors flex-shrink-0" />
+											<FileText className="w-4 h-4 text-muted group-hover:text-amber-500 transition-colors flex-shrink-0" />
 											<span className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-amber-500 transition-colors">
 												{/* Pass the title and the current search query here */}
 												<HighlightMatch title={article.title} query={search} />

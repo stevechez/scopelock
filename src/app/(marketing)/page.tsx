@@ -27,9 +27,7 @@ export default function MarketingPage() {
 					</Link>
 				</div>
 			</nav>
-			<Link href="/dashboard/settings" className="text-blue-500 underline">
-				Go to Settings
-			</Link>
+
 			<main className="max-w-7xl mx-auto px-6 pt-20 pb-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 				{/* The "Belief Shock" Copy */}
 				<div>
@@ -37,10 +35,10 @@ export default function MarketingPage() {
 						For Elite Contractors
 					</div>
 					<h1 className="text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-						Stop losing <span className="italic text-slate-500">premium</span>{' '}
-						jobs to better presentation.
+						Stop losing <span className="italic text-muted">premium</span> jobs
+						to better presentation.
 					</h1>
-					<p className="text-xl text-slate-400 mb-10 max-w-lg leading-relaxed">
+					<p className="text-xl text-muted mb-10 max-w-lg leading-relaxed">
 						Homeowners judge the quality of your craftsmanship by the quality of
 						your communication. Replace PDF proposals with custom-branded Client
 						Portals and close deals on the spot.
@@ -49,7 +47,7 @@ export default function MarketingPage() {
 					<div className="flex flex-col sm:flex-row gap-4">
 						<Link
 							href={getAppUrl('/signup')}
-							className="text-center bg-amber-500 text-slate-900 font-black px-8 py-4 rounded-xl hover:bg-amber-400 transition-all text-lg"
+							className="text-center bg-amber-500 text-foreground font-black px-8 py-4 rounded-xl hover:bg-amber-400 transition-all text-lg"
 						>
 							Claim Your Portal
 						</Link>
@@ -58,7 +56,7 @@ export default function MarketingPage() {
 						</button>
 					</div>
 
-					<div className="mt-12 flex items-center gap-4 text-sm font-bold text-slate-500">
+					<div className="mt-12 flex items-center gap-4 text-sm font-bold text-muted">
 						<span>✓ No credit card required</span>
 						<span>✓ Setup in 60 seconds</span>
 					</div>

@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function CTA() {
 	return (
-		<section className="py-24 px-6 bg-white dark:bg-slate-950">
+		<section className="py-24 px-6 bg-background text-foreground">
 			<div className="max-w-5xl mx-auto">
 				<div className="relative overflow-hidden bg-slate-900 dark:bg-slate-900 rounded-[2rem] border border-slate-800 shadow-2xl">
 					{/* Background Decorative Element */}
@@ -26,7 +26,7 @@ export default function CTA() {
 								The $497 Jumpstart
 							</h3>
 
-							<p className="text-slate-400 font-medium leading-relaxed mb-0">
+							<p className="text-muted font-medium leading-relaxed mb-0">
 								We take the office off your plate. Our team hand-builds your
 								site, optimizes your local SEO, and configures your Comm Vault.
 								<span className="text-white"> You just build.</span>
@@ -41,7 +41,7 @@ export default function CTA() {
 									<ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
 								</button>
 							</Link>
-							<p className="mt-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
+							<p className="mt-4 text-[10px] font-bold text-muted uppercase tracking-[0.3em]">
 								3 Slots Remaining for April
 							</p>
 						</div>

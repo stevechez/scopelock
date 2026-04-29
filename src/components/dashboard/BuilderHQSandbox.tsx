@@ -106,13 +106,13 @@ export default function BuilderHQSandbox() {
 			{/* HQ HEADER */}
 			<div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
 				<div>
-					<div className="flex items-center gap-2 text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">
+					<div className="flex items-center gap-2 text-sm font-bold text-muted mb-2 uppercase tracking-widest">
 						<span className="text-amber-500">Workspace</span>{' '}
 						<span className="text-slate-300 dark:text-slate-700">/</span>
 						<span>Overview</span>
 					</div>
-					<h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-						<Building2 className="w-8 h-8 text-slate-400" />
+					<h2 className="text-3xl md:text-4xl font-black text-foreground text-foreground tracking-tight flex items-center gap-3">
+						<Building2 className="w-8 h-8 text-muted" />
 						Steve Chez Construction
 					</h2>
 				</div>
@@ -128,7 +128,7 @@ export default function BuilderHQSandbox() {
 				{STATS.map((stat, i) => (
 					<div
 						key={i}
-						className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex items-center gap-4"
+						className="bg-background text-foreground border border-border border-border rounded-3xl p-6 shadow-sm flex items-center gap-4"
 					>
 						<div
 							className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${stat.bg} ${stat.color}`}
@@ -136,10 +136,10 @@ export default function BuilderHQSandbox() {
 							<stat.icon className="w-7 h-7" />
 						</div>
 						<div>
-							<div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">
+							<div className="text-[10px] font-black text-muted uppercase tracking-widest mb-1">
 								{stat.label}
 							</div>
-							<div className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+							<div className="text-2xl font-black text-foreground text-foreground tracking-tight">
 								{stat.value}
 							</div>
 						</div>
@@ -151,11 +151,11 @@ export default function BuilderHQSandbox() {
 				{/* LEFT COLUMN: ACTIVE PROJECTS */}
 				<div className="lg:col-span-2 space-y-6">
 					<div className="flex items-center justify-between mb-4 px-2">
-						<h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-2">
-							<Briefcase className="w-5 h-5 text-slate-400" />
+						<h3 className="text-lg font-black text-foreground text-foreground uppercase tracking-tight flex items-center gap-2">
+							<Briefcase className="w-5 h-5 text-muted" />
 							Active Projects
 						</h3>
-						<button className="text-xs font-bold text-slate-500 hover:text-amber-500 transition-colors uppercase tracking-widest">
+						<button className="text-xs font-bold text-muted hover:text-amber-500 transition-colors uppercase tracking-widest">
 							View All
 						</button>
 					</div>
@@ -165,12 +165,12 @@ export default function BuilderHQSandbox() {
 							<motion.div
 								key={project.id}
 								whileHover={{ scale: 1.01 }}
-								className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-6 shadow-sm cursor-pointer group transition-all hover:border-amber-500/50"
+								className="bg-background text-foreground border border-border border-border rounded-[2rem] p-6 shadow-sm cursor-pointer group transition-all hover:border-amber-500/50"
 							>
 								<div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
 									<div className="flex-1">
 										<div className="flex items-center gap-3 mb-1">
-											<h4 className="text-xl font-black text-slate-900 dark:text-white">
+											<h4 className="text-xl font-black text-foreground text-foreground">
 												{project.name}
 											</h4>
 											{project.status === 'action_needed' && (
@@ -179,17 +179,17 @@ export default function BuilderHQSandbox() {
 												</span>
 											)}
 										</div>
-										<div className="text-sm font-medium text-slate-500">
+										<div className="text-sm font-medium text-muted">
 											Client: {project.client}
 										</div>
 									</div>
 
 									<div className="w-full md:w-64">
 										<div className="flex justify-between text-xs font-bold mb-2">
-											<span className="text-slate-400 uppercase tracking-widest">
+											<span className="text-muted uppercase tracking-widest">
 												{project.phase}
 											</span>
-											<span className="text-slate-900 dark:text-white">
+											<span className="text-foreground text-foreground">
 												{project.progress}%
 											</span>
 										</div>
@@ -201,7 +201,7 @@ export default function BuilderHQSandbox() {
 										</div>
 									</div>
 
-									<div className="hidden md:flex w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 items-center justify-center text-slate-400 group-hover:text-amber-500 group-hover:bg-amber-500/10 transition-all shrink-0">
+									<div className="hidden md:flex w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 items-center justify-center text-muted group-hover:text-amber-500 group-hover:bg-amber-500/10 transition-all shrink-0">
 										<ChevronRight className="w-5 h-5" />
 									</div>
 								</div>
@@ -213,8 +213,8 @@ export default function BuilderHQSandbox() {
 				{/* RIGHT COLUMN: ACTION ITEMS (The Money Board) */}
 				<div className="lg:col-span-1 space-y-6">
 					<div className="flex items-center justify-between mb-4 px-2">
-						<h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-2">
-							<Wallet className="w-5 h-5 text-slate-400" />
+						<h3 className="text-lg font-black text-foreground text-foreground uppercase tracking-tight flex items-center gap-2">
+							<Wallet className="w-5 h-5 text-muted" />
 							Revenue Actions
 						</h3>
 					</div>
@@ -253,7 +253,7 @@ export default function BuilderHQSandbox() {
 													? 'bg-emerald-500/10 text-emerald-500'
 													: item.urgency === 'high'
 														? 'bg-amber-500/10 text-amber-500'
-														: 'bg-slate-800 text-slate-400'
+														: 'bg-slate-800 text-muted'
 											}`}
 										>
 											{item.type}
@@ -267,14 +267,14 @@ export default function BuilderHQSandbox() {
 									<h4 className="text-sm font-bold text-white mb-1 leading-tight group-hover:text-amber-400 transition-colors">
 										{item.title}
 									</h4>
-									<p className="text-xs text-slate-500 font-medium">
+									<p className="text-xs text-muted font-medium">
 										{item.project}
 									</p>
 								</div>
 							))}
 						</div>
 
-						<button className="w-full mt-6 py-3 border border-slate-700 text-slate-400 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2">
+						<button className="w-full mt-6 py-3 border border-slate-700 text-muted rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2">
 							View All Items <ArrowUpRight className="w-4 h-4" />
 						</button>
 					</div>

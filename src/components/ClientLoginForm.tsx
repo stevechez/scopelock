@@ -22,7 +22,7 @@ export default function ClientLoginForm({ subdomain }: { subdomain: string }) {
 					<span className="text-2xl">📬</span>
 				</div>
 				<h3 className="text-xl font-black text-white mb-2">Check your email</h3>
-				<p className="text-slate-400 font-medium">
+				<p className="text-muted font-medium">
 					We sent a secure magic link to your inbox. Click it to access your
 					vault.
 				</p>

@@ -9,22 +9,22 @@ export default function JumpstartSuccess() {
 			<motion.div
 				initial={{ opacity: 0, scale: 0.95 }}
 				animate={{ opacity: 1, scale: 1 }}
-				className="max-w-2xl w-full bg-white rounded-[3rem] shadow-2xl border border-slate-200 p-8 md:p-16 text-center"
+				className="max-w-2xl w-full bg-white rounded-[3rem] shadow-2xl border border-border p-8 md:p-16 text-center"
 			>
 				<div className="w-20 h-20 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-8 shadow-inner">
 					✓
 				</div>
 
-				<h1 className="text-4xl font-black text-slate-900 mb-4 italic">
+				<h1 className="text-4xl font-black text-foreground mb-4 italic">
 					You&apos;re on the Board, Steve.
 				</h1>
-				<p className="text-xl text-slate-500 font-medium mb-12">
+				<p className="text-xl text-muted font-medium mb-12">
 					I&apos;ve received your request. My goal is to have your first draft
 					ready for review within 24 hours.
 				</p>
 
-				<div className="space-y-6 text-left bg-slate-50 p-8 rounded-3xl border border-slate-100 mb-10">
-					<h3 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-4">
+				<div className="space-y-6 text-left bg-slate-50 p-8 rounded-3xl border border-border mb-10">
+					<h3 className="text-sm font-black uppercase tracking-widest text-muted mb-4">
 						What happens now?
 					</h3>
 
@@ -34,7 +34,7 @@ export default function JumpstartSuccess() {
 						</div>
 						<p className="text-slate-700 font-bold">
 							Check your texts.{' '}
-							<span className="font-medium text-slate-500 block text-sm">
+							<span className="font-medium text-muted block text-sm">
 								I&apos;ll send a quick intro to confirm your service area
 								details.
 							</span>
@@ -47,7 +47,7 @@ export default function JumpstartSuccess() {
 						</div>
 						<p className="text-slate-700 font-bold">
 							The BuildRail Build.{' '}
-							<span className="font-medium text-slate-500 block text-sm">
+							<span className="font-medium text-muted block text-sm">
 								I&apos;ll start the SEO copywriting and Site Engine deployment.
 							</span>
 						</p>
@@ -59,7 +59,7 @@ export default function JumpstartSuccess() {
 						</div>
 						<p className="text-slate-700 font-bold">
 							The Handover.{' '}
-							<span className="font-medium text-slate-500 block text-sm">
+							<span className="font-medium text-muted block text-sm">
 								We&apos;ll jump on a 15-minute call to walk through your new
 								Comm Vault.
 							</span>
@@ -76,7 +76,7 @@ export default function JumpstartSuccess() {
 					</Link>
 					<Link
 						href="/"
-						className="text-slate-400 font-bold hover:text-slate-600 transition-colors"
+						className="text-muted font-bold hover:text-slate-600 transition-colors"
 					>
 						Back to Home
 					</Link>

@@ -28,7 +28,7 @@ export function QuickAddTask({ projectId }: { projectId: string }) {
 
 	return (
 		<form onSubmit={handleSubmit} className="relative group mb-6">
-			<div className="absolute inset-y-0 left-5 flex items-center pointer-events-none text-slate-500 group-focus-within:text-amber-500 transition-colors">
+			<div className="absolute inset-y-0 left-5 flex items-center pointer-events-none text-muted group-focus-within:text-amber-500 transition-colors">
 				{isPending ? (
 					<Loader2 size={16} className="animate-spin" />
 				) : (

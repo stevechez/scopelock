@@ -17,7 +17,7 @@ export function BidMap({ data }: { data: CategoryDelta[] }) {
 					<h3 className="text-3xl font-black italic uppercase tracking-tighter text-white">
 						BidMap<span className="text-amber-500">™</span>
 					</h3>
-					<p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-1">
+					<p className="text-muted font-bold text-xs uppercase tracking-widest mt-1">
 						Margin Intelligence Engine
 					</p>
 				</div>
@@ -38,7 +38,7 @@ export function BidMap({ data }: { data: CategoryDelta[] }) {
 						<div key={item.category} className="group">
 							<div className="flex justify-between items-end mb-3">
 								<div>
-									<span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-slate-300 transition-colors">
+									<span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted group-hover:text-slate-300 transition-colors">
 										{item.category}
 									</span>
 									<div className="text-xl font-bold text-white mt-1">

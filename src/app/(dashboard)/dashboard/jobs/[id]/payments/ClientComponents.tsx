@@ -34,10 +34,10 @@ export function NewMilestoneForm({ jobId }: { jobId: string }) {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-200 flex gap-4 items-end"
+			className="bg-white p-6 rounded-[2rem] shadow-sm border border-border flex gap-4 items-end"
 		>
 			<div className="flex-1">
-				<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+				<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 					Milestone Name
 				</label>
 				<input
@@ -46,15 +46,15 @@ export function NewMilestoneForm({ jobId }: { jobId: string }) {
 					value={title}
 					onChange={e => setTitle(e.target.value)}
 					placeholder="e.g. Framing Completed"
-					className="w-full bg-slate-50 border border-slate-100 rounded-xl p-3 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none"
+					className="w-full bg-slate-50 border border-border rounded-xl p-3 text-sm mt-1 focus:ring-2 focus:ring-slate-900 outline-none"
 				/>
 			</div>
 			<div className="w-32">
-				<label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+				<label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">
 					Amount
 				</label>
 				<div className="relative mt-1">
-					<span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-slate-400">
+					<span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-muted">
 						$
 					</span>
 					<input
@@ -63,7 +63,7 @@ export function NewMilestoneForm({ jobId }: { jobId: string }) {
 						value={amount}
 						onChange={e => setAmount(e.target.value)}
 						placeholder="0"
-						className="w-full bg-slate-50 border border-slate-100 rounded-xl p-3 pl-7 text-sm focus:ring-2 focus:ring-slate-900 outline-none"
+						className="w-full bg-slate-50 border border-border rounded-xl p-3 pl-7 text-sm focus:ring-2 focus:ring-slate-900 outline-none"
 					/>
 				</div>
 			</div>

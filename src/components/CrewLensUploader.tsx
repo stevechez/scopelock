@@ -77,7 +77,7 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 				</div>
 				<div>
 					<h3 className="font-black text-white text-lg">CrewLens Log</h3>
-					<p className="text-slate-400 text-xs uppercase tracking-widest font-bold">
+					<p className="text-muted text-xs uppercase tracking-widest font-bold">
 						Field Update
 					</p>
 				</div>
@@ -97,11 +97,11 @@ export function CrewLensUploader({ tenantId, jobId }: CrewLensProps) {
 						/>
 					) : (
 						<div className="text-center p-6">
-							<ImageIcon className="w-8 h-8 text-slate-500 mx-auto mb-2" />
+							<ImageIcon className="w-8 h-8 text-muted mx-auto mb-2" />
 							<p className="text-sm font-bold text-slate-300">
 								Tap to Snap Photo
 							</p>
-							<p className="text-xs text-slate-500 mt-1">Back camera enabled</p>
+							<p className="text-xs text-muted mt-1">Back camera enabled</p>
 						</div>
 					)}
 				</div>

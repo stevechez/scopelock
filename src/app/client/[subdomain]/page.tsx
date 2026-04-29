@@ -86,16 +86,16 @@ export default function ClientPortalLogin() {
 					<div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-2xl mb-6 shadow-xl shadow-slate-900/20">
 						<ShieldCheck className="w-8 h-8 text-amber-500" />
 					</div>
-					<h1 className="text-3xl font-black text-slate-900 tracking-tight">
+					<h1 className="text-3xl font-black text-foreground tracking-tight">
 						Client Portal
 					</h1>
-					<p className="text-slate-500 font-medium mt-2">
+					<p className="text-muted font-medium mt-2">
 						Secure access to your project timeline and financial documents.
 					</p>
 				</div>
 
 				{/* Login Card */}
-				<div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-200/50">
+				<div className="bg-white border border-border rounded-3xl p-8 shadow-xl shadow-slate-200/50">
 					<AnimatePresence mode="wait">
 						{step === 'email' ? (
 							<motion.form
@@ -107,7 +107,7 @@ export default function ClientPortalLogin() {
 								className="space-y-6"
 							>
 								<div>
-									<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+									<label className="block text-xs font-black text-muted uppercase tracking-widest mb-2 ml-1">
 										Email Address
 									</label>
 									<input
@@ -115,7 +115,7 @@ export default function ClientPortalLogin() {
 										required
 										value={email}
 										onChange={e => setEmail(e.target.value)}
-										className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 font-medium focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+										className="w-full bg-slate-50 border border-border rounded-xl px-5 py-4 text-foreground font-medium focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
 										placeholder="Enter your email"
 									/>
 								</div>
@@ -151,12 +151,12 @@ export default function ClientPortalLogin() {
 									<Mailbox className="w-8 h-8 text-amber-500 mx-auto mb-2" />
 									<p className="text-sm text-slate-700 font-medium">
 										We sent a 6-digit code to <br />
-										<strong className="text-slate-900">{email}</strong>
+										<strong className="text-foreground">{email}</strong>
 									</p>
 								</div>
 
 								<div>
-									<label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+									<label className="block text-xs font-black text-muted uppercase tracking-widest mb-2 ml-1">
 										Enter 6-Digit Code
 									</label>
 									<input
@@ -165,7 +165,7 @@ export default function ClientPortalLogin() {
 										maxLength={6}
 										value={token}
 										onChange={e => setToken(e.target.value.replace(/\D/g, ''))} // Only allow numbers
-										className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 font-black text-center tracking-[0.5em] text-2xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+										className="w-full bg-slate-50 border border-border rounded-xl px-5 py-4 text-foreground font-black text-center tracking-[0.5em] text-2xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
 										placeholder="000000"
 									/>
 								</div>
@@ -179,7 +179,7 @@ export default function ClientPortalLogin() {
 								<button
 									type="submit"
 									disabled={isLoading || token.length !== 6}
-									className="w-full bg-amber-500 text-slate-900 font-black py-4 rounded-xl hover:bg-amber-400 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-amber-500/20"
+									className="w-full bg-amber-500 text-foreground font-black py-4 rounded-xl hover:bg-amber-400 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-amber-500/20"
 								>
 									{isLoading ? (
 										<Loader2 className="w-5 h-5 animate-spin" />
@@ -191,7 +191,7 @@ export default function ClientPortalLogin() {
 								<button
 									type="button"
 									onClick={() => setStep('email')}
-									className="w-full text-center text-sm font-bold text-slate-400 hover:text-slate-600 mt-4"
+									className="w-full text-center text-sm font-bold text-muted hover:text-slate-600 mt-4"
 								>
 									Use a different email
 								</button>
@@ -200,7 +200,7 @@ export default function ClientPortalLogin() {
 					</AnimatePresence>
 				</div>
 
-				<div className="text-center mt-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
+				<div className="text-center mt-8 text-xs font-bold text-muted uppercase tracking-widest">
 					Powered by BUILDRAIL
 				</div>
 			</div>

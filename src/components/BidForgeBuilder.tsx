@@ -66,7 +66,7 @@ export default function BidForgeBuilder({
 					</div>
 					<div>
 						<h3 className="font-black text-white text-lg">BidForge AI</h3>
-						<p className="text-slate-400 text-xs font-bold uppercase tracking-widest">
+						<p className="text-muted text-xs font-bold uppercase tracking-widest">
 							Proposal Generator
 						</p>
 					</div>
@@ -124,7 +124,7 @@ export default function BidForgeBuilder({
 								<div className="text-3xl font-black text-slate-300 mb-4">
 									${tier.price.toLocaleString()}
 								</div>
-								<p className="text-sm text-slate-400 mb-6 line-clamp-3">
+								<p className="text-sm text-muted mb-6 line-clamp-3">
 									{tier.description}
 								</p>
 

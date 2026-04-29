@@ -30,18 +30,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row font-sans">
 			{/* MOBILE HEADER */}
-			<div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 flex items-center justify-between sticky top-0 z-50">
+			<div className="md:hidden bg-background text-foreground border-b border-border border-border p-4 flex items-center justify-between sticky top-0 z-50">
 				<div className="flex items-center gap-2">
 					<div className="w-8 h-8 bg-amber-500/10 text-amber-600 rounded-lg flex items-center justify-center">
 						<Lock className="w-4 h-4" />
 					</div>
-					<span className="font-black text-lg text-slate-900 dark:text-white uppercase italic tracking-tight">
+					<span className="font-black text-lg text-foreground text-foreground uppercase italic tracking-tight">
 						Project <span className="text-amber-500">OS</span>
 					</span>
 				</div>
 				<button
 					onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-					className="text-slate-500 hover:text-slate-900 dark:hover:text-white"
+					className="text-muted hover:text-foreground dark:hover:text-white"
 				>
 					<Menu className="w-6 h-6" />
 				</button>
@@ -50,21 +50,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 			{/* SIDEBAR (Desktop + Mobile overlay) */}
 			<div
 				className={`
-                fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transform transition-transform duration-300 ease-in-out flex flex-col
+                fixed inset-y-0 left-0 z-40 w-64 bg-background text-foreground border-r border-border border-border transform transition-transform duration-300 ease-in-out flex flex-col
                 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
                 md:relative md:h-screen md:sticky md:top-0
             `}
 			>
 				{/* BRANDING */}
-				<div className="h-20 flex items-center gap-3 px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
-					<div className="w-10 h-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl flex items-center justify-center shadow-inner">
+				<div className="h-20 flex items-center gap-3 px-6 border-b border-border border-border shrink-0">
+					<div className="w-10 h-10 bg-slate-900 dark:bg-white text-white dark:text-foreground rounded-xl flex items-center justify-center shadow-inner">
 						<Lock className="w-5 h-5" />
 					</div>
 					<div className="flex flex-col">
-						<span className="font-black text-lg text-slate-900 dark:text-white leading-none tracking-tight uppercase italic">
+						<span className="font-black text-lg text-foreground text-foreground leading-none tracking-tight uppercase italic">
 							Blueprint <span className="text-amber-500">OS</span>
 						</span>
-						<span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+						<span className="text-[9px] font-bold text-muted uppercase tracking-widest">
 							Client Portal
 						</span>
 					</div>
@@ -84,7 +84,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                                     ${
 																			isActive
 																				? 'bg-amber-500/10 text-amber-600 dark:text-amber-500'
-																				: 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
+																				: 'text-muted hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-foreground dark:hover:text-white'
 																		}
                                 `}
 							>
@@ -98,10 +98,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 				</nav>
 
 				{/* USER / SETTINGS FOOTER */}
-				<div className="p-4 border-t border-slate-200 dark:border-slate-800 shrink-0 space-y-2">
+				<div className="p-4 border-t border-border border-border shrink-0 space-y-2">
 					<Link
 						href="/dashboard/settings"
-						className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white transition-all"
+						className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm text-muted hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-foreground dark:hover:text-white transition-all"
 					>
 						<Settings className="w-5 h-5" /> Settings
 					</Link>
@@ -114,16 +114,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 			{/* MAIN CONTENT CANVAS */}
 			<div className="flex-1 flex flex-col min-h-screen overflow-hidden">
 				{/* TOP HEADER */}
-				<header className="h-20 bg-white/50 dark:bg-slate-950/50 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-30 shrink-0 hidden md:flex">
-					<h1 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
+				<header className="h-20 bg-white/50 dark:bg-slate-950/50 backdrop-blur-md border-b border-border border-border flex items-center justify-between px-8 sticky top-0 z-30 shrink-0 hidden md:flex">
+					<h1 className="text-xl font-black text-foreground text-foreground tracking-tight">
 						{navigation.find(n => n.href === pathname)?.name || 'Dashboard'}
 					</h1>
 					<div className="flex items-center gap-4">
-						<button className="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors shadow-sm">
+						<button className="w-10 h-10 rounded-full bg-background text-foreground border border-border border-border flex items-center justify-center text-muted hover:text-foreground dark:hover:text-white transition-colors shadow-sm">
 							<Bell className="w-5 h-5" />
 						</button>
-						<div className="h-10 px-4 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-sm">
-							<span className="text-xs font-black uppercase tracking-widest text-slate-500">
+						<div className="h-10 px-4 rounded-full bg-background text-foreground border border-border border-border flex items-center justify-center shadow-sm">
+							<span className="text-xs font-black uppercase tracking-widest text-muted">
 								Client Vault
 							</span>
 						</div>

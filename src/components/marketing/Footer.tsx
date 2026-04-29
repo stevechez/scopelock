@@ -17,7 +17,7 @@ export default function Footer() {
 						>
 							BUILD<span className="text-amber-500">RAIL</span>
 						</Link>
-						<p className="text-slate-400 font-medium mb-8 leading-relaxed max-w-sm">
+						<p className="text-muted font-medium mb-8 leading-relaxed max-w-sm">
 							The high-performance operating system for modern trades. Built to
 							help contractors win better jobs and protect every dollar of
 							profit.
@@ -30,7 +30,7 @@ export default function Footer() {
 
 					{/* MODULES STACK */}
 					<div>
-						<h4 className="font-black uppercase tracking-widest text-[10px] mb-8 text-slate-500">
+						<h4 className="font-black uppercase tracking-widest text-[10px] mb-8 text-muted">
 							The Rails
 						</h4>
 						<ul className="space-y-4 font-bold text-sm text-slate-300">
@@ -86,7 +86,7 @@ export default function Footer() {
 
 					{/* SUPPORT & DOCS */}
 					<div>
-						<h4 className="font-black uppercase tracking-widest text-[10px] mb-8 text-slate-500">
+						<h4 className="font-black uppercase tracking-widest text-[10px] mb-8 text-muted">
 							Resources
 						</h4>
 						<ul className="space-y-4 font-bold text-sm text-slate-300">
@@ -135,20 +135,20 @@ export default function Footer() {
 
 					{/* CONTACT & LOCATION */}
 					<div>
-						<h4 className="font-black uppercase tracking-widest text-[10px] mb-8 text-slate-500">
+						<h4 className="font-black uppercase tracking-widest text-[10px] mb-8 text-muted">
 							Headquarters
 						</h4>
 						<p className="font-black text-white text-lg mb-2">
 							support@buildrail.com
 						</p>
-						<p className="text-slate-500 text-xs font-bold uppercase tracking-[0.2em] mb-8">
+						<p className="text-muted text-xs font-bold uppercase tracking-[0.2em] mb-8">
 							Cupertino, California
 						</p>
 						<div className="p-4 rounded-2xl bg-white/5 border border-white/10">
 							<p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">
 								Founders Note
 							</p>
-							<p className="text-xs text-slate-400 leading-relaxed">
+							<p className="text-xs text-muted leading-relaxed">
 								BuildRail is built for the men and women who keep America
 								running. We appreciate your business.
 							</p>
