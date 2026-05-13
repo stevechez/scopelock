@@ -954,3 +954,70 @@ export async function submitJumpstart(formData: FormData) {
 		return { success: false, error: 'Failed to send notification' };
 	}
 }
+
+export async function getValidQuickBooksToken(tenantId: string) {
+	const supabase = await createClient();
+
+	// 1. Fetch current tokens from the tenant record
+	const { data: tenant, error } = await supabase
+		.from('tenants')
+		.select('qbo_access_token, qbo_refresh_token, qbo_connected_at')
+		.eq('id', tenantId)
+		.single();
+
+	if (error || !tenant?.qbo_refresh_token) {
+		throw new Error('QuickBooks not connected or tenant not found.');
+	}
+
+	// 2. Check if the token is older than 50 minutes (3000 seconds)
+	// QuickBooks tokens last 60 mins, but we refresh early to be safe.
+	const connectedAt = new Date(tenant.qbo_connected_at).getTime();
+	const now = new Date().getTime();
+	const tokenAgeInMinutes = (now - connectedAt) / 1000 / 60;
+
+	if (tokenAgeInMinutes < 50) {
+		return tenant.qbo_access_token;
+	}
+
+	// 3. 🔄 TOKEN IS EXPIRED: Perform the refresh
+	console.log(`Refreshing QBO token for tenant: ${tenantId}`);
+
+	const authHeader = Buffer.from(
+		`${process.env.QUICKBOOKS_CLIENT_ID}:${process.env.QUICKBOOKS_CLIENT_SECRET}`,
+	).toString('base64');
+
+	const response = await fetch(
+		'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer',
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Authorization: `Basic ${authHeader}`,
+				Accept: 'application/json',
+			},
+			body: new URLSearchParams({
+				grant_type: 'refresh_token',
+				refresh_token: tenant.qbo_refresh_token,
+			}),
+		},
+	);
+
+	const newTokens = await response.json();
+
+	if (!response.ok) {
+		console.error('QBO Refresh Failed:', newTokens);
+		throw new Error('QuickBooks session expired. Please reconnect.');
+	}
+
+	// 4. Save the new tokens and update the timestamp
+	await supabase
+		.from('tenants')
+		.update({
+			qbo_access_token: newTokens.access_token,
+			qbo_refresh_token: newTokens.refresh_token, // Refresh tokens can also rotate!
+			qbo_connected_at: new Date().toISOString(),
+		})
+		.eq('id', tenantId);
+
+	return newTokens.access_token;
+}
