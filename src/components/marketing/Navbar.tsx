@@ -1,205 +1,366 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { ModeToggle } from '@/components/ModeToggle';
-import { getAppUrl } from '@/utils/urls';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { ModeToggle } from "@/components/ModeToggle";
+import { getAppUrl } from "@/utils/urls";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-	const [isOpen, setIsOpen] = useState(false);
-	const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-	// 1. THE MISSING SCROLL LOGIC
-	// This detects when the user scrolls down and triggers the solid background
-	useEffect(() => {
-		const handleScroll = () => {
-			setScrolled(window.scrollY > 20);
-		};
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 16);
+    };
 
-	// 2. UPDATED NAVIGATION ROUTING
-	// Matches the new section IDs we just built
-	const navLinks = [
-		{ name: 'Ecosystem', href: '#ecosystem' },
-		{ name: 'Reviews', href: '#reviews' },
-		{ name: 'Pricing', href: '#pricing' },
-	];
+    window.addEventListener("scroll", handleScroll);
 
-	// --- Animation Variants ---
-	const menuVariants: Variants = {
-		closed: {
-			opacity: 0,
-			scale: 0.95,
-			y: -10,
-			transition: { duration: 0.2, ease: 'easeInOut' },
-		},
-		open: {
-			opacity: 1,
-			scale: 1,
-			y: 0,
-			transition: {
-				type: 'spring',
-				stiffness: 300,
-				damping: 30,
-				staggerChildren: 0.07,
-				delayChildren: 0.1,
-			},
-		},
-	};
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
-	const itemVariants: Variants = {
-		closed: { opacity: 0, x: -10 },
-		open: { opacity: 1, x: 0 },
-	};
+  const navLinks = [
+    { name: "Product", href: "#product" },
+    { name: "Solutions", href: "#solutions" },
+    { name: "Pricing", href: "#pricing" },
+    { name: "Case Studies", href: "#case-studies" },
+  ];
 
-	return (
-		<header
-			className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-				scrolled
-					? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md py-4 shadow-sm border-b border-slate-200 dark:border-white/10'
-					: 'bg-transparent py-6 border-b border-transparent'
-			}`}
-		>
-			<nav className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-				{/* 3. LOGO FIX (Contrast Restored) */}
-				<Link
-					href="/"
-					className="text-2xl md:text-3xl font-black tracking-tighter light:text-slate-900 dark:text-white group flex items-center"
-				>
-					BUILD
-					<span className="text-amber-500 transition-colors group-hover:text-amber-400">
-						RAIL
-					</span>
-				</Link>
+  const menuVariants: Variants = {
+    closed: {
+      opacity: 0,
+      y: -8,
+      transition: {
+        duration: 0.18,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.24,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.04,
+        delayChildren: 0.02,
+      },
+    },
+  };
 
-				{/* DESKTOP LINKS */}
-				<div className="hidden md:flex items-center gap-10">
-					{navLinks.map(item => (
-						<Link
-							key={item.name}
-							href={item.href}
-							// Smooth scroll behavior can be handled natively by HTML anchor links
-							className="text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-						>
-							{item.name}
-						</Link>
-					))}
-				</div>
+  const itemVariants: Variants = {
+    closed: {
+      opacity: 0,
+      y: 6,
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
 
-				{/* RIGHT SECTION & CTAs */}
-				<div className="flex items-center gap-4">
-					<div className="hidden sm:flex items-center gap-6 mr-2">
-						<ModeToggle />
-						<Link
-							href={getAppUrl('/login')}
-							className="text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-						>
-							Log in
-						</Link>
-					</div>
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        scrolled
+          ? "border-b border-white/5 bg-black/70 backdrop-blur-xl"
+          : "bg-transparent",
+      )}
+    >
+      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
+        {/* LOGO */}
+        <Link
+          href="/"
+          className="
+            group
+            flex
+            items-center
+            text-2xl
+            font-bold
+            tracking-[-0.08em]
+            text-white
+            transition-opacity
+            duration-300
+            hover:opacity-90
+          "
+        >
+          BUILD
+          <span className="text-amber-400">RAIL</span>
+        </Link>
 
-					<Link
-						href={getAppUrl('#pricing')}
-						className="hidden sm:block px-6 py-2.5 bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-900 text-sm font-black rounded-xl hover:shadow-lg hover:shadow-amber-500/20 hover:-translate-y-0.5 transition-all active:scale-95"
-					>
-						Start Free Trial
-					</Link>
+        {/* DESKTOP NAV */}
+        <div className="hidden items-center gap-10 md:flex">
+          {navLinks.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="
+                text-sm
+                font-medium
+                tracking-[-0.01em]
+                text-white/55
+                transition-colors
+                duration-300
+                hover:text-white
+              "
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
 
-					{/* MOBILE TOGGLE */}
-					<div className="flex md:hidden items-center gap-4">
-						<ModeToggle />
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-4">
+          <div className="hidden items-center gap-5 sm:flex">
+            {/* <ModeToggle /> */}
 
-						<button
-							onClick={() => setIsOpen(!isOpen)}
-							className="p-2 text-slate-900 dark:text-white focus:outline-none"
-							aria-label="Toggle Menu"
-						>
-							<div className="w-6 h-5 relative flex flex-col justify-between">
-								<motion.span
-									animate={isOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
-									className="w-full h-0.5 bg-current rounded-full origin-center transition-all"
-								/>
-								<motion.span
-									animate={
-										isOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }
-									}
-									className="w-full h-0.5 bg-current rounded-full transition-all"
-								/>
-								<motion.span
-									animate={
-										isOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }
-									}
-									className="w-full h-0.5 bg-current rounded-full origin-center transition-all"
-								/>
-							</div>
-						</button>
-					</div>
-				</div>
+            <Link
+              href={getAppUrl("/login")}
+              className="
+                text-sm
+                font-medium
+                text-white/55
+                transition-colors
+                duration-300
+                hover:text-white
+              "
+            >
+              Log in
+            </Link>
+          </div>
 
-				{/* MOBILE DROPDOWN */}
-				<AnimatePresence>
-					{isOpen && (
-						<>
-							{/* Backdrop */}
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
-								onClick={() => setIsOpen(false)}
-								className="fixed inset-0 top-[72px] bg-slate-900/40 backdrop-blur-sm z-[-1]"
-							/>
+          {/* PRIMARY CTA */}
+          <Link
+            href={getAppUrl("#pricing")}
+            className="
+              hidden
+              sm:inline-flex
+              items-center
+              justify-center
+              rounded-xl
+              bg-white
+              px-5
+              py-2.5
+              text-sm
+              font-semibold
+              text-black
+              transition-all
+              duration-300
+              hover:bg-white/90
+              active:scale-[0.98]
+            "
+          >
+            Provision Your Vault
+          </Link>
 
-							{/* Menu Modal */}
-							<motion.div
-								variants={menuVariants}
-								initial="closed"
-								animate="open"
-								exit="closed"
-								className="absolute top-full left-4 right-4 mt-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[2rem] shadow-2xl p-8 md:hidden overflow-hidden"
-							>
-								<div className="flex flex-col gap-6">
-									{navLinks.map(item => (
-										<motion.div key={item.name} variants={itemVariants}>
-											<Link
-												href={item.href}
-												onClick={() => setIsOpen(false)}
-												className="text-2xl font-black text-slate-900 dark:text-white flex items-center justify-between group"
-											>
-												{item.name}
-												<span className="text-amber-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all">
-													→
-												</span>
-											</Link>
-										</motion.div>
-									))}
+          {/* MOBILE MENU BUTTON */}
+          <div className="flex items-center gap-3 md:hidden">
+            <ModeToggle />
 
-									<hr className="border-slate-100 dark:border-white/5 my-2" />
+            <button
+              aria-label="Toggle Menu"
+              onClick={() => setIsOpen(!isOpen)}
+              className="
+                relative
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                text-white
+              "
+            >
+              <div className="relative h-4 w-5">
+                <motion.span
+                  animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="
+                    absolute
+                    left-0
+                    top-0
+                    h-[1.5px]
+                    w-full
+                    rounded-full
+                    bg-current
+                  "
+                />
 
-									<motion.div variants={itemVariants} className="space-y-4">
-										<Link
-											href={getAppUrl('/login')}
-											onClick={() => setIsOpen(false)}
-											className="block text-center font-bold text-slate-500 dark:text-slate-400 py-2"
-										>
-											Log in to Dashboard
-										</Link>
-										<Link
-											href={getAppUrl('#pricing')}
-											onClick={() => setIsOpen(false)}
-											className="block w-full py-5 bg-amber-500 text-slate-900 font-black rounded-2xl text-center shadow-xl shadow-amber-500/20 text-lg active:scale-95 transition-transform"
-										>
-											Start Free Trial
-										</Link>
-									</motion.div>
-								</div>
-							</motion.div>
-						</>
-					)}
-				</AnimatePresence>
-			</nav>
-		</header>
-	);
+                <motion.span
+                  animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                  transition={{
+                    duration: 0.15,
+                  }}
+                  className="
+                    absolute
+                    left-0
+                    top-1/2
+                    h-[1.5px]
+                    w-full
+                    -translate-y-1/2
+                    rounded-full
+                    bg-current
+                  "
+                />
+
+                <motion.span
+                  animate={
+                    isOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }
+                  }
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="
+                    absolute
+                    bottom-0
+                    left-0
+                    h-[1.5px]
+                    w-full
+                    rounded-full
+                    bg-current
+                  "
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* MOBILE MENU */}
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              {/* BACKDROP */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setIsOpen(false)}
+                className="
+                  fixed
+                  inset-0
+                  top-20
+                  bg-black/40
+                  backdrop-blur-sm
+                  md:hidden
+                "
+              />
+
+              {/* MOBILE PANEL */}
+              <motion.div
+                variants={menuVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                className="
+                  absolute
+                  left-4
+                  right-4
+                  top-full
+                  mt-3
+                  overflow-hidden
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-[#0F0F10]/95
+                  p-6
+                  shadow-2xl
+                  backdrop-blur-xl
+                  md:hidden
+                "
+              >
+                <div className="flex flex-col">
+                  {/* NAV ITEMS */}
+                  <div className="space-y-1">
+                    {navLinks.map((item) => (
+                      <motion.div key={item.name} variants={itemVariants}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className="
+                            flex
+                            items-center
+                            justify-between
+                            rounded-xl
+                            px-3
+                            py-3
+                            text-base
+                            font-medium
+                            text-white/80
+                            transition-colors
+                            duration-200
+                            hover:bg-white/[0.04]
+                            hover:text-white
+                          "
+                        >
+                          {item.name}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* DIVIDER */}
+                  <div className="my-5 h-px bg-white/5" />
+
+                  {/* FOOTER ACTIONS */}
+                  <motion.div variants={itemVariants} className="space-y-3">
+                    <Link
+                      href={getAppUrl("/login")}
+                      onClick={() => setIsOpen(false)}
+                      className="
+                        block
+                        rounded-xl
+                        px-3
+                        py-3
+                        text-sm
+                        font-medium
+                        text-white/60
+                        transition-colors
+                        duration-200
+                        hover:bg-white/[0.04]
+                        hover:text-white
+                      "
+                    >
+                      Log in
+                    </Link>
+
+                    <Link
+                      href={getAppUrl("#pricing")}
+                      onClick={() => setIsOpen(false)}
+                      className="
+                        flex
+                        items-center
+                        justify-center
+                        rounded-xl
+                        bg-white
+                        px-5
+                        py-3.5
+                        text-sm
+                        font-semibold
+                        text-black
+                        transition-all
+                        duration-300
+                        hover:bg-white/90
+                        active:scale-[0.98]
+                      "
+                    >
+                      Book Demo
+                    </Link>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </nav>
+    </header>
+  );
 }

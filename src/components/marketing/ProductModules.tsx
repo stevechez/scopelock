@@ -1,169 +1,258 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
-	Globe,
-	Lock,
-	ShieldCheck,
-	Zap,
-	Smartphone,
-	TrendingUp,
-	MousePointer2,
-	ArrowRight,
-} from 'lucide-react';
-
-const fadeInUp = {
-	initial: { opacity: 0, y: 20 },
-	whileInView: { opacity: 1, y: 0 },
-	viewport: { once: true },
-	transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-} as const;
+  ArrowRight,
+  FileText,
+  CreditCard,
+  ShieldCheck,
+  MessageSquare,
+  Camera,
+} from "lucide-react";
 
 const modules = [
-	{
-		phase: 'Phase 01: Capture',
-		title: 'Site Engine™',
-		desc: 'A 24/7 sales machine that ranks your services locally and forces homeowners to take action.',
-		icon: <Globe className="w-6 h-6" />,
-		color: 'text-indigo-500',
-		bg: 'bg-indigo-500/10',
-		border: 'hover:border-indigo-500/30',
-		glow: 'group-hover:shadow-indigo-500/10',
-		tag: 'Inbound Dominance',
-	},
-	{
-		phase: 'Phase 02: Close',
-		title: 'BidForge™',
-		desc: 'Professional 3-tier proposals designed to anchor prices high and close deals without the "Thinking about it" delays.',
-		icon: <MousePointer2 className="w-6 h-6" />,
-		color: 'text-blue-500',
-		bg: 'bg-blue-500/10',
-		border: 'hover:border-blue-500/30',
-		glow: 'group-hover:shadow-blue-500/10',
-		tag: 'Higher Conversions',
-	},
-	{
-		phase: 'Phase 03: Centralize',
-		title: 'Comm Vault™',
-		desc: 'The central hub for all client docs and comms. Secure, professional, and accessed via one-click magic links.',
-		icon: <Lock className="w-6 h-6" />,
-		color: 'text-amber-500',
-		bg: 'bg-amber-500/10',
-		border: 'hover:border-amber-500/30',
-		glow: 'group-hover:shadow-amber-500/10',
-		tag: 'Zero Data Leak',
-	},
-	{
-		phase: 'Phase 04: Protect',
-		title: 'ScopeLock™',
-		desc: 'Captures "while you’re here" change orders instantly. Gets digital approval and locks in profit before the work starts.',
-		icon: <ShieldCheck className="w-6 h-6" />,
-		color: 'text-emerald-500',
-		bg: 'bg-emerald-500/10',
-		border: 'hover:border-emerald-500/30',
-		glow: 'group-hover:shadow-emerald-500/10',
-		tag: 'Margin Protection',
-	},
-	{
-		phase: 'Phase 05: Liquidate',
-		title: 'PayRail™',
-		desc: 'SMS milestone billing that gets you paid in 60 seconds. Stop chasing checks and start moving at the speed of Stripe.',
-		icon: <Smartphone className="w-6 h-6" />,
-		color: 'text-rose-500',
-		bg: 'bg-rose-500/10',
-		border: 'hover:border-rose-500/30',
-		glow: 'group-hover:shadow-rose-500/10',
-		tag: 'Instant Cash Flow',
-	},
+  {
+    title: "Proposals",
+    eyebrow: "BidForge™",
+    description:
+      "Create premium multi-tier proposals that reduce back-and-forth and help contractors close higher-value projects with confidence.",
+    icon: FileText,
+  },
+  {
+    title: "Client Portal",
+    eyebrow: "Comm Vault™",
+    description:
+      "Centralize approvals, conversations, documents, and updates into one professional experience homeowners can trust.",
+    icon: MessageSquare,
+  },
+  {
+    title: "Change Orders",
+    eyebrow: "ScopeLock™",
+    description:
+      "Capture field changes in real time and secure documented approval before additional work begins.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Payments",
+    eyebrow: "PayRail™",
+    description:
+      "Trigger milestone payments immediately after approvals using modern billing workflows powered by Stripe.",
+    icon: CreditCard,
+  },
+  {
+    title: "Field Documentation",
+    eyebrow: "CrewLens™",
+    description:
+      "Maintain a visual timeline of the build with organized site uploads, progress tracking, and accountability records.",
+    icon: Camera,
+  },
 ];
 
-export default function ProductEcosystem() {
-	return (
-		<section
-			id="ecosystem"
-			className="py-32 light:bg-white dark:bg-slate-950 px-6 transition-colors duration-500"
-		>
-			<div className="max-w-7xl mx-auto">
-				{/* HEADLINE SECTION */}
-				<motion.div
-					{...fadeInUp}
-					className="text-center max-w-4xl mx-auto mb-24"
-				>
-					<h2 className="text-4xl md:text-7xl font-black light:text-slate-900 dark:text-white mb-8 tracking-tighter uppercase italic leading-[0.9]">
-						Lead to Cash <br />
-						<span className="text-amber-500 dark:text-white underline decoration-amber-500/20 underline-offset-8">
-							Without the Friction.
-						</span>
-					</h2>
-					<p className="text-xl light:text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
-						Five proprietary engines built into one seamless OS. Eliminate the
-						admin bleed and maximize your take-home profit.
-					</p>
-				</motion.div>
+export default function ProductModules() {
+  return (
+    <section id="ecosystem" className="relative bg-[#0B0B0C] py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mx-auto mb-24 max-w-4xl text-center"
+        >
+          <p
+            className="
+              mb-6
+              text-xs
+              font-medium
+              uppercase
+              tracking-[0.24em]
+              text-white/40
+            "
+          >
+            Operational Infrastructure
+          </p>
 
-				{/* THE ECOSYSTEM GRID */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{modules.map((mod, idx) => (
-						<motion.div
-							key={mod.title}
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ delay: idx * 0.1 }}
-							className="group relative flex flex-col h-full"
-						>
-							<div
-								className={`relative flex-1 p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 ${mod.border} transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl ${mod.glow}`}
-							>
-								{/* Header: Phase & Icon */}
-								<div className="flex justify-between items-start mb-8">
-									<div
-										className={`w-14 h-14 ${mod.bg} ${mod.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}
-									>
-										{mod.icon}
-									</div>
-									<span className="text-[10px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-[0.2em]">
-										{mod.phase}
-									</span>
-								</div>
+          <h2
+            className="
+              text-5xl
+              font-semibold
+              leading-[1]
+              tracking-[-0.06em]
+              text-white
+              md:text-7xl
+            "
+          >
+            Operational clarity
+            <br />
+            for every stage
+            <br />
+            of the build.
+          </h2>
 
-								{/* Content */}
-								<h3 className="text-2xl font-black text-slate-900 dark:text-white mb-4 italic tracking-tight">
-									{mod.title}
-								</h3>
-								<p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-8">
-									{mod.desc}
-								</p>
+          <p
+            className="
+              mx-auto
+              mt-8
+              max-w-2xl
+              text-lg
+              leading-relaxed
+              text-white/50
+            "
+          >
+            BUILDRAIL centralizes proposals, approvals, communication, payments,
+            and field documentation into one streamlined workflow built for
+            premium residential construction firms.
+          </p>
+        </motion.div>
 
-								{/* Bottom Stat/Tag */}
-								<div
-									className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${mod.color}`}
-								>
-									<TrendingUp className="w-3 h-3" />
-									{mod.tag}
-								</div>
-							</div>
-						</motion.div>
-					))}
+        {/* GRID */}
+        <div className="grid gap-px overflow-hidden rounded-[32px] border border-white/5 bg-white/5 lg:grid-cols-3">
+          {modules.map((module, index) => {
+            const Icon = module.icon;
 
-					{/* CALL TO ACTION CARD */}
-					<motion.div
-						initial={{ opacity: 0, scale: 0.95 }}
-						whileInView={{ opacity: 1, scale: 1 }}
-						viewport={{ once: true }}
-						className="group relative flex flex-col h-full lg:col-span-1"
-					>
-						<div className="relative flex-1 p-8 rounded-[2.5rem] bg-slate-900 dark:bg-amber-500 flex flex-col justify-center items-center text-center transition-all duration-500 border border-transparent hover:scale-[1.02]">
-							<h3 className="text-3xl font-black text-white dark:text-slate-900 mb-6 italic leading-tight">
-								Ready to <br /> Command?
-							</h3>
-							<button className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-black uppercase text-xs tracking-widest shadow-xl flex items-center gap-2 hover:gap-4 transition-all">
-								Deploy BUILDRAIL <ArrowRight className="w-4 h-4" />
-							</button>
-						</div>
-					</motion.div>
-				</div>
-			</div>
-		</section>
-	);
+            return (
+              <motion.div
+                key={module.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.06,
+                }}
+                className="
+                  group
+                  bg-[#101113]
+                  p-10
+                  transition-all
+                  duration-300
+                  hover:bg-[#141518]
+                "
+              >
+                <div
+                  className="
+                    flex
+                    h-14
+                    w-14
+                    items-center
+                    justify-center
+                    rounded-2xl
+                    border
+                    border-white/10
+                    bg-white/[0.03]
+                    text-white/80
+                  "
+                >
+                  <Icon className="h-6 w-6" />
+                </div>
+
+                <div className="mt-10">
+                  <div
+                    className="
+                      text-xs
+                      font-medium
+                      uppercase
+                      tracking-[0.2em]
+                      text-white/35
+                    "
+                  >
+                    {module.eyebrow}
+                  </div>
+
+                  <h3
+                    className="
+                      mt-3
+                      text-2xl
+                      font-semibold
+                      tracking-[-0.04em]
+                      text-white
+                    "
+                  >
+                    {module.title}
+                  </h3>
+
+                  <p
+                    className="
+                      mt-5
+                      text-base
+                      leading-relaxed
+                      text-white/50
+                    "
+                  >
+                    {module.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+
+          {/* CTA CARD */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="
+              flex
+              flex-col
+              justify-between
+              bg-[#0F1012]
+              p-10
+            "
+          >
+            <div>
+              <p
+                className="
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-[0.2em]
+                  text-white/35
+                "
+              >
+                Built for premium contractors
+              </p>
+
+              <h3
+                className="
+                  mt-6
+                  text-4xl
+                  font-semibold
+                  leading-tight
+                  tracking-[-0.05em]
+                  text-white
+                "
+              >
+                Replace operational chaos with clarity.
+              </h3>
+            </div>
+
+            <button
+              className="
+                mt-12
+                inline-flex
+                items-center
+                gap-3
+                rounded-2xl
+                border
+                border-white/10
+                bg-white
+                px-6
+                py-4
+                text-sm
+                font-medium
+                text-black
+                transition-all
+                hover:gap-5
+              "
+            >
+              Provision Your Vault
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 }

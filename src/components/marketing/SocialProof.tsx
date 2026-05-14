@@ -1,46 +1,121 @@
 export default function SocialProof() {
-	return (
-		<section className="py-14 border-y border-border border-border/50 dark:bg-slate-950 dark:bg-slate-900/20">
-			<div className="max-w-6xl mx-auto px-6 text-center">
-				{/* QUALIFIER */}
-				<p className="text-sm font-bold text-amber-500 uppercase tracking-widest mb-10">
-					Built for Contractors Scaling from $250K → $2M+
-				</p>
+  const stats = [
+    {
+      value: "+18%",
+      label: "Average margin improvement",
+    },
+    {
+      value: "3× Faster",
+      label: "Payment collection cycles",
+    },
+    {
+      value: "90% Less",
+      label: "Client status check-ins",
+    },
+  ];
 
-				{/* PROOF STATS (NEW — HUGE IMPACT) */}
-				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-					<div className="bg-background text-foreground border border-border border-border rounded-xl p-6 shadow-sm">
-						<div className="text-2xl font-black text-foreground text-foreground mb-1">
-							+18%
-						</div>
-						<div className="text-sm text-muted">Average Margin Increase</div>
-					</div>
+  return (
+    <section
+      className="
+        relative
+        border-y
+        border-white/5
+        bg-[#0B0B0C]
+        py-24
+      "
+    >
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        {/* TOP LABEL */}
+        <div className="mb-16 text-center">
+          <p
+            className="
+              text-xs
+              font-medium
+              uppercase
+              tracking-[0.24em]
+              text-white/40
+            "
+          >
+            Trusted by premium residential construction firms
+          </p>
+        </div>
 
-					<div className="bg-background text-foreground border border-border border-border rounded-xl p-6 shadow-sm">
-						<div className="text-2xl font-black text-foreground text-foreground mb-1">
-							3x Faster
-						</div>
-						<div className="text-sm text-muted">Payments Collected</div>
-					</div>
+        {/* STATS */}
+        <div
+          className="
+            grid
+            gap-px
+            overflow-hidden
+            rounded-3xl
+            border
+            border-white/5
+            bg-white/5
+            sm:grid-cols-3
+          "
+        >
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="
+                bg-[#101113]
+                px-8
+                py-10
+              "
+            >
+              <div
+                className="
+                  text-4xl
+                  font-semibold
+                  tracking-[-0.06em]
+                  text-white
+                "
+              >
+                {stat.value}
+              </div>
 
-					<div className="bg-background text-foreground border border-border border-border rounded-xl p-6 shadow-sm">
-						<div className="text-2xl font-black text-foreground text-foreground mb-1">
-							-90%
-						</div>
-						<div className="text-sm text-muted">Client Check-ins</div>
-					</div>
-				</div>
+              <p
+                className="
+                  mt-3
+                  max-w-[14rem]
+                  text-sm
+                  leading-relaxed
+                  text-white/50
+                "
+              >
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
 
-				{/* TESTIMONIAL (UPGRADED) */}
-				<blockquote className="text-xl md:text-2xl font-medium light:text-slate-700 dark:text-white italic mb-6 max-w-3xl mx-auto">
-					“BuildRail saved me 10+ hours a week and helped me close an $18K HVAC
-					job at full price — without going back and forth with the client.”
-				</blockquote>
+        {/* TESTIMONIAL */}
+        <div className="mx-auto mt-20 max-w-4xl text-center">
+          <blockquote
+            className="
+              text-2xl
+              font-medium
+              leading-[1.5]
+              tracking-[-0.03em]
+              text-white/88
+              md:text-3xl
+            "
+          >
+            “BUILDRAIL gave our clients a far more professional experience while
+            eliminating constant follow-ups, approval confusion, and payment
+            delays across active projects.”
+          </blockquote>
 
-				<div className="font-bold text-foreground text-foreground">
-					— Mike R., HVAC Contractor
-				</div>
-			</div>
-		</section>
-	);
+          <div className="mt-8">
+            <div className="text-sm font-medium text-white">
+              Michael Reynolds
+            </div>
+
+            <div className="mt-1 text-sm text-white/45">
+              Owner · Reynolds Design Build
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
