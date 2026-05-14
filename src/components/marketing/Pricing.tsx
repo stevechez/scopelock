@@ -14,7 +14,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
   const [isYearly, setIsYearly] = useState(false);
   const [loadingTier, setLoadingTier] = useState<string | null>(null);
 
-  const handleCheckout = async (tierName: string, variantId: number | null) => {
+  const handleCheckout = async (tierName: string, variantId: number) => {
     if (!variantId) return;
 
     setLoadingTier(tierName);
@@ -223,7 +223,10 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
                   !tier.comingSoon &&
                   handleCheckout(
                     tier.id,
-                    isYearly ? tier.variantIds.yearly : tier.variantIds.monthly,
+                    // 📍 THE FIX: Add '?? 0' to guarantee a number is passed
+                    (isYearly
+                      ? tier.variantIds.yearly
+                      : tier.variantIds.monthly) ?? 0,
                   )
                 }
                 disabled={loadingTier !== null || tier.comingSoon}
