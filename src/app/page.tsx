@@ -16,15 +16,17 @@ import { Testimonials } from "@/components/marketing/Testimonials";
 import CTA from "@/components/marketing/CTA";
 import Footer from "@/components/marketing/Footer";
 import { getSubscriptionCheckoutURL } from "@/app/actions"; // 👈 Add this import
+import { useRouter } from "next/navigation";
 
 export default function BlueprintMarketingPage() {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false); // 👈 Add this state
-
+  const router = useRouter();
   // 👈 Add this function to handle the button click
   // 👈 Update this function to accept the ID
   // 📍 THE FIX: Change 'variantId: string' to 'variantId: number'
   const handleCheckout = async (variantId: number) => {
+    router.push(`/signup?variantId=${variantId}`);
     setIsCheckoutLoading(true);
     try {
       // Since variantId is already a number now, you don't need Number() anymore!

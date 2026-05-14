@@ -44,7 +44,7 @@ export function Pricing({ onCheckout, isLoading }: PricingProps) {
         "Secure Client Comms",
       ],
       notIncluded: ["Custom Website", "Change Order Management"],
-      buttonText: "Start Free Vault",
+      buttonText: "Get Full Suite",
       variantIds: {
         monthly: 1467148,
         yearly: 1467149,

@@ -1019,3 +1019,69 @@ export async function getValidQuickBooksToken(tenantId: string) {
 
   return newTokens.access_token;
 }
+export async function processSignupAndCheckout(formData: FormData) {
+  try {
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const companyName = formData.get("companyName") as string;
+    const variantId = Number(formData.get("variantId"));
+
+    if (!email || !password || !variantId) {
+      throw new Error("Missing required fields.");
+    }
+
+    const supabase = await createClient(); // Your Supabase server client
+
+    // 1. Create the secure Supabase Auth User
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (authError || !authData.user) {
+      throw new Error(authError?.message || "Failed to create account.");
+    }
+
+    const userId = authData.user.id;
+
+    // 2. Create their initial "Tenant/Company" record in your database
+    const { error: dbError } = await supabase
+      .from("tenants")
+      .insert([{ id: userId, company_name: companyName, email: email }]);
+
+    if (dbError) {
+      console.error("Database Error:", dbError);
+      throw new Error("Account created, but failed to initialize workspace.");
+    }
+
+    // 3. Generate the Lemon Squeezy Checkout
+    const { data, error: lsError } = await createCheckout(
+      process.env.LEMON_SQUEEZY_STORE_ID!,
+      variantId,
+      {
+        checkoutData: {
+          email: email, // 📍 This automatically pre-fills the LS credit card form!
+          custom: {
+            tenant_id: userId, // 📍 CRITICAL: This is how your webhook will know who paid!
+          },
+        },
+      },
+    );
+
+    if (lsError || !data?.data?.attributes?.url) {
+      throw new Error("Account created, but payment provider failed.");
+    }
+
+    // 4. Return the URL so the client can redirect them
+    return { success: true, url: data.data.attributes.url };
+  } catch (error) {
+    console.error("Signup/Checkout Exception:", error);
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred.",
+    };
+  }
+}
